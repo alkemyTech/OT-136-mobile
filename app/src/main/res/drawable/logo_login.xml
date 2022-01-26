@@ -3,8 +3,8 @@
     android:opacity="opaque">
 
     <item
-        android:width="400dp"
-        android:height="400dp"
+        android:width="410dp"
+        android:height="410dp"
         android:gravity="center">
         <bitmap android:src="@drawable/logo_somos_mas" />
     </item>
