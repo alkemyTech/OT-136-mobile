@@ -35,7 +35,10 @@ class SignUpFragment : Fragment() {
     ): View? {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-        viewModel.postUser()
+        _binding!!.getButton.setOnClickListener {
+            viewModel.postUser()
+        }
+
         Toast.makeText(requireContext(),"User was succesfully register",Toast.LENGTH_LONG).show()
         return binding.root
     }
