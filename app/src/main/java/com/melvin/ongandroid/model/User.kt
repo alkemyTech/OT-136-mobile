@@ -1,10 +1,10 @@
 package com.melvin.ongandroid.model
 
-import com.google.gson.annotations.SerializedName
+import retrofit2.http.Field
 
 
 data class User(
-    @SerializedName("name")val name: String,
-    @SerializedName("email")val email: String,
-    @SerializedName("password")val password: String
+    @Field("name")val name: String,
+    @Field("email")val email: String,
+    @Field("password")val password: String
 )

@@ -36,6 +36,29 @@ class SignUpFragment : Fragment() {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
         _binding!!.getButton.setOnClickListener {
+
+            val email= _binding!!.etEmail.text.toString().trim()
+            val password= _binding!!.etPassword.text.toString().trim()
+            val name= _binding!!.etName.text.toString().trim()
+
+            if (email.isEmpty()){
+                _binding!!.etEmail.error="Email required"
+                _binding!!.etEmail.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (password.isEmpty()){
+                _binding!!.etPassword.error="Email required"
+                _binding!!.etPassword.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (name.isEmpty()){
+                _binding!!.etName.error="Email required"
+                _binding!!.etName.requestFocus()
+                return@setOnClickListener
+            }
+
             viewModel.postUser()
         }
 
