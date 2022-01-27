@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ONGAndroid</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="create_account">CREAR CUENTA</string>
+    <string name="password">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="name">Nombre</string>
 </resources>
