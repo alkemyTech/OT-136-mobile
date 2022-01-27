@@ -9,8 +9,8 @@ import retrofit2.Callback
 
 class RestApiService {
 
-     suspend fun postUser(userData: User, onResult: (User?) -> Unit){
-        val retrofit = RetrofitClient.buildService(WebService::class.java)
+     /*suspend fun postUser(userData: User, onResult: (User?) -> Unit){
+        val retrofit = RetrofitClient.retrofitService(ApiService::class.java)
         retrofit.postUser(userData).enqueue(
             object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
@@ -22,5 +22,5 @@ class RestApiService {
                 }
             }
         )
-    }
+    }*/
 }
