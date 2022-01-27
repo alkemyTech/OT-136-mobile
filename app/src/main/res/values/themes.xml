@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.ONGAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/Celeste</item>
-        <item name="colorPrimaryVariant">@color/Rojo</item>
-        <item name="colorOnPrimary">@color/Amarilo</item>
+        <item name="colorPrimary">@color/LightBlue</item>
+        <item name="colorPrimaryVariant">@color/Red</item>
+        <item name="colorOnPrimary">@color/Yellow</item>
         <!-- Secondary brand color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/Celeste</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/LightBlue</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

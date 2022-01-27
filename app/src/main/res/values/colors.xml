@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="Celeste">#9AC9FB</color>
-    <color name="Amarilo">#FAFA88</color>
-    <color name="Rojo">#DB5752</color>
+    <color name="LightBlue">#9AC9FB</color>
+    <color name="Yellow">#FAFA88</color>
+    <color name="Red">#DB5752</color>
 </resources>
