@@ -1,4 +1,4 @@
-package com.melvin.ongandroid.model
+package com.melvin.ongandroid.model.service
 
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
