@@ -15,7 +15,8 @@
         android:hint="name"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        tools:layout_editor_absoluteX="100dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/et_email"
@@ -25,7 +26,8 @@
         android:hint="email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        tools:layout_editor_absoluteX="100dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/et_password"
@@ -35,15 +37,17 @@
         android:hint="password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        tools:layout_editor_absoluteX="100dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/get_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="get"
+        android:text="@string/register"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        tools:layout_editor_absoluteX="158dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
