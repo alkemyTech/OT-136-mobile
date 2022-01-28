@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @POST("api/login?")
+    @POST("api/login")
 
     suspend fun postLogin(
         @Query("email") user: String,
