@@ -7,9 +7,13 @@ import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.databinding.ActivityLoginBinding
 import com.melvin.ongandroid.viewmodel.UserViewModel
+import retrofit2.HttpException
+import java.io.IOException
+import java.net.UnknownHostException
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -23,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
         bind()
 
         binding.btnLogin.setOnClickListener {
-            //move to activity Home
             userViewModel.postToken(
                 binding.tvEmail.text.toString(),
                 binding.tvPassword.text.toString()
@@ -80,8 +83,9 @@ class LoginActivity : AppCompatActivity() {
             }
         binding.tvPassword.setFilters(arrayOf(filter))
 
-
+        setObservers()
     }
+
 
     private fun bind() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -94,7 +98,42 @@ class LoginActivity : AppCompatActivity() {
         } else {
             binding.btnLogin.setEnabled(false)
         }
+    }
+
+    private fun setObservers() {
+        userViewModel.liveDataUser.observe(this,{
+            if (it != null){
+                if (it.success){
+                    //move to activity Home
+                }else{
+                    //usuario o contraseña incorrectos
+                        //que desaparezcan los errores si se modifica uno
+                    binding.tvEmail.error = "Usuario y/o contraseña incorrectos"
+                    binding.tvPassword.error = "Usuario y/o contraseña incorrectos"
+                }
+            }
+        })
+        userViewModel.authException.observe(this, this::handleException)
+    }
+
+    private fun handleException(exception: Throwable?) {
+        if (exception is HttpException)
+            when (exception.code()) {
+                400 -> showDialog ("Solicitud incorrecta")
+                404 -> showDialog ("No se encontró el recurso")
+                in 500..599 -> showDialog ("Ocurrió un error en el servidor")
+                else -> showDialog ("Error desconocido")
+            }
+        if (exception is IOException)
+            showDialog("Verifique su conexión a internet y vuelva a intentarlo")
+        if (exception is UnknownHostException)
+            showDialog("Verifique su conexión a internet y vuelva a intentarlo")
 
     }
 
+    private fun showDialog(message: String) {
+        MaterialAlertDialogBuilder(this).setMessage(message).setPositiveButton("Ok"){
+                dialog, which -> {}
+        }.show()
+    }
 }
