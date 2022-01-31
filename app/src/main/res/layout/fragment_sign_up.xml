@@ -17,6 +17,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="100dp" />
 
     <EditText
         android:id="@+id/et_email"
@@ -28,6 +29,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="100dp" />
 
     <EditText
         android:id="@+id/et_password"
@@ -39,6 +41,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="100dp" />
 
     <Button
         android:id="@+id/get_button"
@@ -48,6 +51,9 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+        android:text="get"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        tools:layout_editor_absoluteX="158dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

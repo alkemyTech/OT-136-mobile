@@ -21,15 +21,18 @@ import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-
+import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.businesslogic.domain.RepoImpl
+import com.melvin.ongandroid.databinding.FragmentSignUpBinding
+import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.viewmodel.SignUpViewModel
+import com.melvin.ongandroid.viewmodel.VMFactory
 
 class SignUpFragment : Fragment() {
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var user: User
     private val viewModel by viewModels<SignUpViewModel>(){ VMFactory(RepoImpl(DataSource())) }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +44,6 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
-
-
 
         _binding!!.getButton.setOnClickListener {
 
@@ -70,17 +71,9 @@ class SignUpFragment : Fragment() {
 
             user=User(name, email, password)
             viewModel.postUser(user, context)
-
-
-
         }
 
         return binding.root
     }
-
-
-
-
-
 }
 

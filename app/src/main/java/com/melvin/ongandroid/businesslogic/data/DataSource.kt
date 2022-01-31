@@ -13,6 +13,11 @@ import com.melvin.ongandroid.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.melvin.ongandroid.businesslogic.domain.RestApiService
+import com.melvin.ongandroid.businesslogic.vo.Resource
+import com.melvin.ongandroid.view.SignUpFragment
+import java.security.AccessController.getContext
 
 class DataSource (){
 
@@ -42,18 +47,7 @@ class DataSource (){
 
                     builder.show()
                 }
-
-
             })
 
     }
-
-
-
-
 }
-
-
-
-
-
