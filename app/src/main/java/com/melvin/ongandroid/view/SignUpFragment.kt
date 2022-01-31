@@ -9,15 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
-
-import com.melvin.ongandroid.businesslogic.domain.RepoImpl
-import com.melvin.ongandroid.databinding.FragmentSignUpBinding
 import com.melvin.ongandroid.model.DefaultResponse
-import com.melvin.ongandroid.model.User
-import com.melvin.ongandroid.viewmodel.SignUpViewModel
-import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
