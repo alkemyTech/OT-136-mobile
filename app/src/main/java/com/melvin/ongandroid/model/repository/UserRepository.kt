@@ -1,7 +1,7 @@
 package com.melvin.ongandroid.model.repository
 
 import com.melvin.ongandroid.model.response.VerifyUser
-import com.melvin.ongandroid.model.service.RetrofitClient
+import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import retrofit2.Response
 
 class UserRepository {
