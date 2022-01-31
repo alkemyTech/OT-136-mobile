@@ -1,5 +1,7 @@
 package com.melvin.ongandroid.viewmodel
 
+import android.content.Context
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
@@ -11,8 +13,9 @@ import kotlinx.coroutines.launch
 
 class SignUpViewModel(private val repo: Repo): ViewModel() {
 
-     fun postUser (user: User){
-         viewModelScope.launch { repo.postUser(user) }
+     fun postUser (user: User, context: Context?){
+         viewModelScope.launch {
+             repo.postUser(user, context) }
     }
 
 }
