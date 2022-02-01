@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.domain.RepoImpl
 import com.melvin.ongandroid.databinding.FragmentSignUpBinding
@@ -38,19 +39,19 @@ class SignUpFragment : Fragment() {
             val name= _binding!!.tvName.text.toString().trim()
 
             if (email.isEmpty()){
-                _binding!!.tvEmail.error="Email required"
+                _binding!!.tvEmail.error=getString(R.string.email_required)
                 _binding!!.tvEmail.requestFocus()
                 return@setOnClickListener
             }
 
             if (password.isEmpty()){
-                _binding!!.tvPassword.error="Email required"
+                _binding!!.tvPassword.error=getString(R.string.password_required)
                 _binding!!.tvPassword.requestFocus()
                 return@setOnClickListener
             }
 
             if (name.isEmpty()){
-                _binding!!.tvName.error="Email required"
+                _binding!!.tvName.error=getString(R.string.name_required)
                 _binding!!.tvName.requestFocus()
                 return@setOnClickListener
             }
