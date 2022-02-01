@@ -9,11 +9,7 @@
         android:id="@+id/signUpFragment"
         android:name="com.melvin.ongandroid.view.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
-        <action
-            android:id="@+id/action_signUpFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.melvin.ongandroid.view.LoginFragment"
