@@ -9,11 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
@@ -46,7 +42,7 @@ class LoginFragment : Fragment() {
             userViewModel.postToken(
                 _binding!!.tvEmail.text.toString(),
                 _binding!!.tvPassword.text.toString(),
-
+                context
             )
         }
 
@@ -122,7 +118,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun setObservers() {
-        userViewModel.liveDataUser.observe(this,{
+        userViewModel.liveDataUser.observe(viewLifecycleOwner,{
             if (it != null){
                 if (it.success){
                     //move to activity Home
@@ -134,7 +130,7 @@ class LoginFragment : Fragment() {
                 }
             }
         })
-        userViewModel.authException.observe(this, this::handleException)
+        userViewModel.authException.observe(viewLifecycleOwner, this::handleException)
     }
 
     private fun handleException(exception: Throwable?) {
@@ -153,7 +149,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun showDialog(message: String) {
-        MaterialAlertDialogBuilder(this).setMessage(message).setPositiveButton("Ok"){
+        MaterialAlertDialogBuilder(requireContext()).setMessage(message).setPositiveButton("Ok"){
                 dialog, which -> {}
         }.show()
     }
