@@ -1,4 +1,4 @@
-package com.melvin.ongandroid.businesslogic.domain
+package com.melvin.ongandroid.model.repository
 
 import android.content.Context
 import com.melvin.ongandroid.model.User

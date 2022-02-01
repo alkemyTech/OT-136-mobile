@@ -1,4 +1,4 @@
-package com.melvin.ongandroid.businesslogic.domain
+package com.melvin.ongandroid.model.service
 
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User

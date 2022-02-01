@@ -2,22 +2,20 @@ package com.melvin.ongandroid.businesslogic.data
 
 import android.app.AlertDialog
 import android.content.Context
+import android.view.View
 import android.widget.Toast
+import androidx.navigation.NavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.businesslogic.vo.MainApplication
-import com.melvin.ongandroid.businesslogic.vo.MainApplication.Companion.applicationContext
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.melvin.ongandroid.businesslogic.domain.RestApiService
-import com.melvin.ongandroid.businesslogic.vo.Resource
-import com.melvin.ongandroid.view.SignUpFragment
-import java.security.AccessController.getContext
+import androidx.navigation.Navigation
+
 
 class DataSource {
 
@@ -41,8 +39,9 @@ class DataSource {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle(R.string.alert_title)
                     builder.setMessage(R.string.alert_message)
-                    builder.setPositiveButton(R.string.ok) { dialog, which ->
-                        //findNavController().navigate(R.id.signInFragment)
+                    builder.setPositiveButton(R.string.ok) {
+                            dialog, which ->
+                            //Navigation.createNavigateOnClickListener(R.id.loginFragment)
                     }
 
                     builder.show()
