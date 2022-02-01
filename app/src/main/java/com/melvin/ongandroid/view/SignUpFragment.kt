@@ -1,7 +1,6 @@
 package com.melvin.ongandroid.view
 
-import android.app.AlertDialog
-import android.content.Context
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,11 +9,6 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.domain.OnRequest
-import com.melvin.ongandroid.model.DefaultResponse
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.domain.RepoImpl
 import com.melvin.ongandroid.databinding.FragmentSignUpBinding
@@ -39,27 +33,27 @@ class SignUpFragment : Fragment() {
     ): View? {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-        _binding!!.getButton.setOnClickListener {
+        _binding!!.btnSignUp.setOnClickListener {
 
-            val email= _binding!!.etEmail.text.toString().trim()
-            val password= _binding!!.etPassword.text.toString().trim()
-            val name= _binding!!.etName.text.toString().trim()
+            val email= _binding!!.tvEmail.text.toString().trim()
+            val password= _binding!!.tvPassword.text.toString().trim()
+            val name= _binding!!.tvName.text.toString().trim()
 
             if (email.isEmpty()){
-                _binding!!.etEmail.error="Email required"
-                _binding!!.etEmail.requestFocus()
+                _binding!!.tvEmail.error=getString(R.string.email_required)
+                _binding!!.tvEmail.requestFocus()
                 return@setOnClickListener
             }
 
             if (password.isEmpty()){
-                _binding!!.etPassword.error="Email required"
-                _binding!!.etPassword.requestFocus()
+                _binding!!.tvPassword.error=getString(R.string.password_required)
+                _binding!!.tvPassword.requestFocus()
                 return@setOnClickListener
             }
 
             if (name.isEmpty()){
-                _binding!!.etName.error="Email required"
-                _binding!!.etName.requestFocus()
+                _binding!!.tvName.error=getString(R.string.name_required)
+                _binding!!.tvName.requestFocus()
                 return@setOnClickListener
             }
 

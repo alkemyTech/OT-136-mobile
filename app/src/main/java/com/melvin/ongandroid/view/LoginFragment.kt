@@ -5,41 +5,48 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
-import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.databinding.ActivityLoginBinding
+import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.viewmodel.UserViewModel
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+class LoginFragment : Fragment() {
+
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
+
     var emailValid = false
     var passwordValid = false
     val userViewModel by viewModels<UserViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        bind()
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        _binding!!.btnLogin.setOnClickListener {
 
-        binding.btnLogin.setOnClickListener {
             //move to activity Home
             userViewModel.postToken(
-                binding.tvEmail.text.toString(),
-                binding.tvPassword.text.toString()
+                _binding!!.tvEmail.text.toString(),
+                _binding!!.tvPassword.text.toString()
             )
         }
 
-        binding.btnSignUp.setOnClickListener{
-            startActivity(Intent(this,MainActivity::class.java))
-        }
+        _binding!!.btnLogin.setEnabled(false)
 
-        binding.btnLogin.setEnabled(false)
-
-        binding.tvEmail.addTextChangedListener(object : TextWatcher {
+        _binding!!.tvEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -47,19 +54,19 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (android.util.Patterns.EMAIL_ADDRESS.matcher(binding.tvEmail.text.toString())
+                if (android.util.Patterns.EMAIL_ADDRESS.matcher(_binding!!.tvEmail.text.toString())
                         .matches()
                 ) {
                     emailValid = true
                 } else {
                     emailValid = false
-                    binding.tvEmail.setError("Invalid Email")
+                    _binding!!.tvEmail.setError("Invalid Email")
                 }
                 validFields()
             }
         })
 
-        binding.tvPassword.addTextChangedListener(object : TextWatcher {
+        _binding!!.tvPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -67,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (binding.tvPassword.text.toString().length >= 4) {
+                if (_binding!!.tvPassword.text.toString().length >= 4) {
                     passwordValid = true
                 } else {
                     passwordValid = false
@@ -79,27 +86,27 @@ class LoginActivity : AppCompatActivity() {
             InputFilter { source, start, end, dest, dstart, dend ->
                 for (i in start until end) {
                     if (!Character.toString(source[i]).matches("[a-zA-Z0-9]+".toRegex())) {
-                        binding.tvPassword.setError("Only letters and digits")
+                        _binding!!.tvPassword.setError("Only letters and digits")
                         return@InputFilter ""
                     }
                 }
                 null
             }
-        binding.tvPassword.setFilters(arrayOf(filter))
+        _binding!!.tvPassword.setFilters(arrayOf(filter))
 
+        _binding!!.btnSignUp.setOnClickListener {
+            findNavController().navigate(R.id.signUpFragment)
+        }
 
+        return binding.root
     }
 
-    private fun bind() {
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
 
     fun validFields() {
         if (emailValid == true && passwordValid == true) {
-            binding.btnLogin.setEnabled(true)
+            _binding!!.btnLogin.setEnabled(true)
         } else {
-            binding.btnLogin.setEnabled(false)
+            _binding!!.btnLogin.setEnabled(false)
         }
 
     }

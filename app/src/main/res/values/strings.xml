@@ -6,9 +6,15 @@
     <string name="alert_message">User was succesfully register</string>
     <string name="ok">Ok</string>
     <string name="register">Register</string>
+    <string name="name_required">Name Required</string>
+    <string name="password_required">Password Required</string>
+    <string name="email_required">Email Required</string>
+
     <string name="confirm_password">Confirmar contraseña</string>
     <string name="create_account">CREAR CUENTA</string>
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
     <string name="name">Nombre</string>
+
+
 </resources>
