@@ -1,10 +1,7 @@
 package com.melvin.ongandroid.viewmodel
 
 import android.content.Context
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.melvin.ongandroid.businesslogic.domain.Repo
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.User
@@ -18,4 +15,15 @@ class SignUpViewModel(private val repo: Repo): ViewModel() {
              repo.postUser(user, context) }
     }
 
+    val liveState = MutableLiveData<Boolean>()
+
+    fun checkState(name:String,email:String,password:String,confirmPassword:String){
+
+        if(!name.isNullOrEmpty() && !email.isNullOrEmpty() && !password.isNullOrEmpty()
+            && !confirmPassword.isNullOrEmpty()){
+            liveState.postValue(true)
+        }else{
+            liveState.postValue(false)
+        }
+    }
 }

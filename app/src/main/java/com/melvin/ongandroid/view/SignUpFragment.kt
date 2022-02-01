@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
@@ -66,6 +67,17 @@ class SignUpFragment : Fragment() {
             viewModel.postUser(user, context)
         }
 
+        viewModel.liveState.observe(viewLifecycleOwner,{
+            binding.getButton.isEnabled = it
+        })
+
+        binding.etName.doAfterTextChanged {
+            //          viewModel.checkState(it.toString(),binding.etEmail.text.toString()
+            //             ,binding.etPassword.text.toString(),binding.)
+            //      }
+//llamar a doAfterTextChanged en cada campo , y dentro ejecutar el metodo checkState , pasando todos los campos Bindings
+
+        }
         return binding.root
     }
 }

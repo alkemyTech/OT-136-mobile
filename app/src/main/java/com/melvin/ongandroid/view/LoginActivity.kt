@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -22,12 +23,18 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         bind()
 
+
+
         binding.btnLogin.setOnClickListener {
             //move to activity Home
             userViewModel.postToken(
                 binding.tvEmail.text.toString(),
                 binding.tvPassword.text.toString()
             )
+        }
+
+        binding.btnSignUp.setOnClickListener{
+            startActivity(Intent(this,MainActivity::class.java))
         }
 
         binding.btnLogin.setEnabled(false)
