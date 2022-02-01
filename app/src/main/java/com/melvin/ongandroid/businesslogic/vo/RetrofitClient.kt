@@ -1,7 +1,7 @@
 package com.melvin.ongandroid.businesslogic.vo
 
 import com.google.gson.Gson
-import com.melvin.ongandroid.businesslogic.domain.ApiService
+import com.melvin.ongandroid.model.service.ApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
