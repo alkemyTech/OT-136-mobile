@@ -29,7 +29,8 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             userViewModel.postToken(
                 binding.tvEmail.text.toString(),
-                binding.tvPassword.text.toString()
+                binding.tvPassword.text.toString(),
+                applicationContext
             )
         }
 

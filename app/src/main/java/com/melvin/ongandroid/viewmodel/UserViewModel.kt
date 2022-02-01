@@ -1,8 +1,10 @@
 package com.melvin.ongandroid.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.melvin.ongandroid.businesslogic.domain.Repo
 import com.melvin.ongandroid.model.repository.UserRepository
 import com.melvin.ongandroid.model.response.VerifyUser
 import kotlinx.coroutines.CoroutineScope
@@ -14,23 +16,28 @@ import kotlinx.coroutines.launch
 * En caso de que el error se encuentre dentro de un código 200 indicar en los campos email y password que ha existido un error (ver diseño).
 * Al modificarse alguno de ellos, la indicación de error deberá desaparecer de todos los campos.
 * */
-class UserViewModel : ViewModel() {
+class UserViewModel(private val repo: Repo) : ViewModel() {
 
-    private val userRepository = UserRepository()
+    //private val userRepository = UserRepository()
 
     val liveDataUser = MutableLiveData<VerifyUser>()
     val authException = MutableLiveData<Throwable>()
 
-    fun postToken(user: String, pass: String) {
+    fun postToken(user: String, pass: String, context: Context?) {
         viewModelScope.launch {
-            try {
-                val call = userRepository.authUser(user, pass)
-                if (call.isSuccessful) {
-                    liveDataUser.postValue(call.body())
-                }
-            } catch(e:Exception) {
-                authException.value = e
-            }
+            repo.postToken(user, pass, context)
+
+
+
+
+//            try {
+//                val call = userRepository.authUser(user, pass)
+//                if (call.isSuccessful) {
+//                    liveDataUser.postValue(call.body())
+//                }
+//            } catch(e:Exception) {
+//                authException.value = e
+//            }
         }
     }
 }

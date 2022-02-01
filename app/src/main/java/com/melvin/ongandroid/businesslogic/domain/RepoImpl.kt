@@ -9,4 +9,8 @@ class RepoImpl(private val dataSource:DataSource):Repo {
      override suspend fun postUser(user: User, context: Context?){
                dataSource.postRegister(user, context)
     }
+
+    override suspend fun postToken(user: String, pass: String, context: Context?) {
+        dataSource.postToken(user,pass,context)
+    }
 }

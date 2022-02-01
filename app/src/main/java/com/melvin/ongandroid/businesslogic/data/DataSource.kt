@@ -19,7 +19,7 @@ import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.view.SignUpFragment
 import java.security.AccessController.getContext
 
-class DataSource (){
+class DataSource {
 
     suspend fun postRegister(user: User, context: Context?){
 
@@ -50,4 +50,10 @@ class DataSource (){
             })
 
     }
+    suspend fun postToken(user: String, pass: String, context: Context?){
+        RetrofitClient.retrofitService.postLogin(user, pass)
+
+    }
+
+
 }
