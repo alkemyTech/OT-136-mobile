@@ -20,7 +20,7 @@ class SignUpFragment : Fragment() {
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var user: User
-    private val viewModel by viewModels<SignUpViewModel>(){ VMFactory(RepoImpl(DataSource())) }
+    private val viewModel by viewModels<SignUpViewModel>() { VMFactory(RepoImpl(DataSource())) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,42 +35,70 @@ class SignUpFragment : Fragment() {
 
         _binding!!.btnSignUp.setOnClickListener {
 
-            val email= _binding!!.tvEmail.text.toString().trim()
-            val password= _binding!!.tvPassword.text.toString().trim()
-            val name= _binding!!.tvName.text.toString().trim()
+            val email = _binding!!.tvEmail.text.toString().trim()
+            val password = _binding!!.tvPassword.text.toString().trim()
+            val name = _binding!!.tvName.text.toString().trim()
 
-            if (email.isEmpty()){
-                _binding!!.tvEmail.error=getString(R.string.email_required)
+            if (email.isEmpty()) {
+                _binding!!.tvEmail.error = getString(R.string.email_required)
                 _binding!!.tvEmail.requestFocus()
                 return@setOnClickListener
             }
 
-            if (password.isEmpty()){
-                _binding!!.tvPassword.error=getString(R.string.password_required)
+            if (password.isEmpty()) {
+                _binding!!.tvPassword.error = getString(R.string.password_required)
                 _binding!!.tvPassword.requestFocus()
                 return@setOnClickListener
             }
 
-            if (name.isEmpty()){
-                _binding!!.tvName.error=getString(R.string.name_required)
+            if (name.isEmpty()) {
+                _binding!!.tvName.error = getString(R.string.name_required)
                 _binding!!.tvName.requestFocus()
                 return@setOnClickListener
             }
 
-            user=User(name, email, password)
+            user = User(name, email, password)
             viewModel.postUser(user, context)
         }
 
-        viewModel.liveState.observe(viewLifecycleOwner,{
-            binding.getButton.isEnabled = it
+        viewModel.liveState.observe(viewLifecycleOwner, {
+            _binding!!.btnSignUp.isEnabled = it
         })
 
-        binding.etName.doAfterTextChanged {
-            //          viewModel.checkState(it.toString(),binding.etEmail.text.toString()
-            //             ,binding.etPassword.text.toString(),binding.)
-            //      }
-//llamar a doAfterTextChanged en cada campo , y dentro ejecutar el metodo checkState , pasando todos los campos Bindings
+        _binding!!.tvName.doAfterTextChanged {
+            viewModel.checkState(
+                it.toString(),
+                binding.tvEmail.text.toString(),
+                binding.tvPassword.text.toString(),
+                binding.tvConfirmPassword.text.toString()
+            )
+        }
 
+        _binding!!.tvEmail.doAfterTextChanged {
+            viewModel.checkState(
+                binding.tvName.text.toString(),
+                it.toString(),
+                binding.tvPassword.text.toString(),
+                binding.tvConfirmPassword.text.toString()
+            )
+        }
+
+        _binding!!.tvPassword.doAfterTextChanged {
+            viewModel.checkState(
+                binding.tvName.text.toString(),
+                binding.tvEmail.text.toString(),
+                it.toString(),
+                binding.tvConfirmPassword.text.toString()
+            )
+        }
+
+        _binding!!.tvConfirmPassword.doAfterTextChanged {
+            viewModel.checkState(
+                binding.tvName.text.toString(),
+                binding.tvEmail.text.toString(),
+                binding.tvPassword.text.toString(),
+                it.toString()
+            )
         }
         return binding.root
     }
