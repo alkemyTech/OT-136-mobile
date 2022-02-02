@@ -3,6 +3,8 @@ package com.melvin.ongandroid.model.repository
 import android.content.Context
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.VerifyUser
+import retrofit2.Response
 
 
 class RepoImpl(private val dataSource:DataSource): Repo {
@@ -10,7 +12,7 @@ class RepoImpl(private val dataSource:DataSource): Repo {
                dataSource.postRegister(user, context)
     }
 
-    override suspend fun postToken(user: String, pass: String, context: Context?) {
-        dataSource.postToken(user,pass,context)
+    override suspend fun postToken(user: String, pass: String): Response<VerifyUser> {
+        return dataSource.authUser(user,pass)
     }
 }

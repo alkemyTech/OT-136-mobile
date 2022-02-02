@@ -15,6 +15,7 @@
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
     <string name="name">Nombre</string>
+    <string name="login_et_error_user_and_password">Usuario y/o contraseña incorrectos</string>
 
 
 </resources>

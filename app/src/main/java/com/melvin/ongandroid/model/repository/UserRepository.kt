@@ -5,7 +5,7 @@ import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import retrofit2.Response
 
 class UserRepository {
-    suspend fun authUser(user: String, pass: String): Response<VerifyUser> {
-        return RetrofitClient.retrofitService.postLogin(user, pass)
-    }
+//    suspend fun authUser(user: String, pass: String): Response<VerifyUser> {
+//        return RetrofitClient.retrofitService.postLogin(user, pass)
+//    }
 }

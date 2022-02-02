@@ -7,13 +7,18 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
+import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
+import com.melvin.ongandroid.model.repository.RepoImpl
+import com.melvin.ongandroid.viewmodel.SignUpViewModel
 import com.melvin.ongandroid.viewmodel.UserViewModel
+import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
@@ -25,7 +30,7 @@ class LoginFragment : Fragment() {
 
     var emailValid = false
     var passwordValid = false
-    val userViewModel by viewModels<UserViewModel>()
+    private val userViewModel by viewModels<UserViewModel>(){ VMFactory(RepoImpl(DataSource())) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +43,9 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         _binding!!.btnLogin.setOnClickListener {
-            //move to activity Home
             userViewModel.postToken(
                 _binding!!.tvEmail.text.toString(),
-                _binding!!.tvPassword.text.toString(),
-                context
+                _binding!!.tvPassword.text.toString()
             )
         }
 
@@ -56,6 +59,7 @@ class LoginFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                hideMessageUserNotExist()
                 if (android.util.Patterns.EMAIL_ADDRESS.matcher(_binding!!.tvEmail.text.toString())
                         .matches()
                 ) {
@@ -76,6 +80,7 @@ class LoginFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                hideMessageUserNotExist()
                 if (_binding!!.tvPassword.text.toString().length >= 4) {
                     passwordValid = true
                 } else {
@@ -103,9 +108,12 @@ class LoginFragment : Fragment() {
 
         setObservers()
 
-
-
         return binding.root
+    }
+
+    private fun hideMessageUserNotExist() {
+        _binding!!.tvEmail.error = null
+        _binding!!.tvPassword.error = null
     }
 
 
@@ -121,13 +129,12 @@ class LoginFragment : Fragment() {
         userViewModel.liveDataUser.observe(viewLifecycleOwner,{
             if (it != null){
                 if (it.success){
-                    //move to activity Home
-                }else{
-                    //usuario o contraseña incorrectos
-                        //que desaparezcan los errores si se modifica uno
-                    binding.tvEmail.error = "Usuario y/o contraseña incorrectos"
-                    binding.tvPassword.error = "Usuario y/o contraseña incorrectos"
+                    Toast.makeText(context, "El usuario existe. Vamos al HOME", Toast.LENGTH_SHORT).show()
+                } else{
+                    _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
+                    _binding!!.tvPassword.error = getString(R.string.login_et_error_user_and_password)
                 }
+
             }
         })
         userViewModel.authException.observe(viewLifecycleOwner, this::handleException)
