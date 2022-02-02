@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
             )
         }
 
-        _binding!!.btnLogin.setEnabled(false)
+        _binding!!.btnLogin.isEnabled = false
 
         _binding!!.tvEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
                     emailValid = true
                 } else {
                     emailValid = false
-                    _binding!!.tvEmail.setError("Invalid Email")
+                    _binding!!.tvEmail.error = getString(R.string.login_tv_error_invalid_mail)
                 }
                 validFields()
             }
@@ -84,18 +84,18 @@ class LoginFragment : Fragment() {
             InputFilter { source, start, end, dest, dstart, dend ->
                 for (i in start until end) {
                     if (!Character.toString(source[i]).matches("[a-zA-Z0-9]+".toRegex())) {
-                        _binding!!.tvPassword.setError("Only letters and digits")
+                        _binding!!.tvPassword.error = getString(R.string.login_tv_error_only_letters_and_digits)
                         return@InputFilter ""
                     }
                 }
                 null
             }
-        _binding!!.tvPassword.setFilters(arrayOf(filter))
+        _binding!!.tvPassword.filters = arrayOf(filter)
 
         _binding!!.btnSignUp.setOnClickListener {
             findNavController().navigate(R.id.signUpFragment)
         }
-        binding.tvPassword.setFilters(arrayOf(filter))
+        _binding!!.tvPassword.filters = arrayOf(filter)
 
         setObservers()
 
@@ -109,11 +109,7 @@ class LoginFragment : Fragment() {
 
 
     fun validFields() {
-        if (emailValid && passwordValid) {
-            _binding!!.btnLogin.setEnabled(true)
-        } else {
-            _binding!!.btnLogin.setEnabled(false)
-        }
+        _binding!!.btnLogin.isEnabled = emailValid && passwordValid
     }
 
     private fun setObservers() {
