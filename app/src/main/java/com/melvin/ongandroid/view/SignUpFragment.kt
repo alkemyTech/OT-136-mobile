@@ -10,7 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
-import com.melvin.ongandroid.businesslogic.domain.RepoImpl
+import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.databinding.FragmentSignUpBinding
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.viewmodel.SignUpViewModel

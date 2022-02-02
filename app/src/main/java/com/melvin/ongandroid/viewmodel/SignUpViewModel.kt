@@ -2,13 +2,11 @@ package com.melvin.ongandroid.viewmodel
 
 import android.content.Context
 import android.util.Patterns
-import android.widget.Toast
-import androidx.core.content.MimeTypeFilter.matches
 import androidx.lifecycle.*
-import com.melvin.ongandroid.businesslogic.domain.Repo
-import com.melvin.ongandroid.businesslogic.vo.Resource
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.ViewModel
+import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.User
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okio.utf8Size
 import java.util.regex.Matcher

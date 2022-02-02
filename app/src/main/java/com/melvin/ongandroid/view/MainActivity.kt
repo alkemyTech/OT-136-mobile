@@ -1,6 +1,7 @@
 package com.melvin.ongandroid.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -15,6 +16,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Thread.sleep(5000)
+        setTheme(R.style.Theme_ONGAndroid)
+        Toast.makeText(this,"Timer has finished", Toast.LENGTH_SHORT).show()
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
