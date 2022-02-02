@@ -2,22 +2,20 @@ package com.melvin.ongandroid.businesslogic.data
 
 import android.app.AlertDialog
 import android.content.Context
-import android.view.View
 import android.widget.Toast
-import androidx.navigation.NavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.VerifyUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.navigation.Navigation
 
 
-class DataSource (){
+class DataSource {
 
     suspend fun postRegister(user: User, context: Context?){
 
@@ -49,4 +47,9 @@ class DataSource (){
             })
 
     }
+    suspend fun authUser(user: String, pass: String): Response<VerifyUser> {
+        return RetrofitClient.retrofitService.postLogin(user, pass)
+    }
+
+
 }
