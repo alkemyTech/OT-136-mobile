@@ -1,20 +1,27 @@
 <resources>
-    <string name="app_name">ONGAndroid</string>
+    <string name="app_name">Somos Más</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="alert_title">Register Success</string>
-    <string name="alert_message">User was succesfully register</string>
+    <string name="alert_title">Registro completado</string>
+    <string name="alert_message">El usuario fue registrado</string>
     <string name="ok">Ok</string>
-    <string name="register">Register</string>
-    <string name="name_required">Name Required</string>
-    <string name="password_required">Password Required</string>
-    <string name="email_required">Email Required</string>
-
+    <string name="register">Registrarse</string>
+    <string name="name_required">El nombre es necesario</string>
+    <string name="password_required">La contraseña es necesaria</string>
+    <string name="email_required">El email es necesario</string>
     <string name="confirm_password">Confirmar contraseña</string>
     <string name="create_account">CREAR CUENTA</string>
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
     <string name="name">Nombre</string>
+    <string name="title_intro">Inicio</string>
+    <string name="title_sign_up">Registrarse</string>
+    <string name="title_nosotros">Nosotros</string>
+    <string name="title_actividades">Actividades</string>
+    <string name="title_contacto">Contacto</string>
+    <string name="title_novedades">Novedades</string>
+
+
 
 
 </resources>

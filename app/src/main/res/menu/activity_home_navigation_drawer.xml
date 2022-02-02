@@ -8,16 +8,47 @@
 
         <item
             android:id="@+id/nav_login"
-            android:icon="@drawable/logo_login"
-            android:title="@string/common_signin_button_text" />
+            android:icon="@drawable/icon_home"
+            android:title="@string/title_intro" />
 
         <item
             android:id="@+id/nav_signin"
-            android:icon="@drawable/logo_login"
-            android:title="@string/ok" />
+            android:icon="@drawable/icon_login"
+            android:title="@string/title_sign_up" />
 
+    </group>
+
+    <group
+        android:id="@+id/group1"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_act"
+            android:icon="@drawable/icon_acts"
+            android:title="@string/title_actividades" />
+
+        <item
+            android:id="@+id/nav_nov"
+            android:icon="@drawable/icon_news"
+            android:title="@string/title_novedades" />
+    </group>
+
+    <item android:title="@string/app_name">
+        <menu>
+            <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_nosotros"
+            android:icon="@drawable/icon_nos"
+            android:title="@string/title_nosotros" />
+
+        <item
+            android:id="@+id/nav_contacts"
+            android:icon="@drawable/icon_contact"
+            android:title="@string/title_contacto" />
 
 
     </group>
+    </menu>
+    </item>
 
 </menu>

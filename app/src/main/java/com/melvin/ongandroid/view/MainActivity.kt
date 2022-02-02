@@ -1,14 +1,16 @@
 package com.melvin.ongandroid.view
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.view.View
+
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
+
 import androidx.navigation.ui.setupWithNavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.databinding.ActivityMainBinding
@@ -40,16 +42,37 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_login -> {
-                    Toast.makeText(this, "login", Toast.LENGTH_SHORT).show()
-                    //mwNavigation.createNavigateOnClickListener(R.id.loginFragment, null)
+                    Toast.makeText(this, getString(R.string.title_intro), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.loginFragment)
+
                     true
                 }
                 R.id.nav_signin -> {
-                    Toast.makeText(this, "sign Up!", Toast.LENGTH_SHORT).show()
-                   // menuItem.itemId.findNavController().navigate(R.id.signUpFragment)
+                    Toast.makeText(this, getString(R.string.title_sign_up), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.signUpFragment)
+
+                    true
+                }
+                R.id.nav_act -> {
+                    Toast.makeText(this, getString(R.string.title_actividades), Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_contacts -> {
+                    Toast.makeText(this, getString(R.string.title_contacto), Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_nosotros -> {
+                    Toast.makeText(this, getString(R.string.title_nosotros), Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_nov -> {
+                    Toast.makeText(this, getString(R.string.title_novedades), Toast.LENGTH_SHORT).show()
                     true
                 }
                 else -> {
+
                     false
                 }
             }

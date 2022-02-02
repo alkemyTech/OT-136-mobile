@@ -1,21 +1,24 @@
 package com.melvin.ongandroid.view
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.databinding.FragmentSignUpBinding
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.viewmodel.SignUpViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 
-class SignUpFragment : Fragment() {
+class SignUpFragment() : Fragment(){
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var user: User
@@ -58,9 +61,17 @@ class SignUpFragment : Fragment() {
 
             user=User(name, email, password)
             viewModel.postUser(user, context)
+
+
+
         }
 
         return binding.root
     }
+
+
+
+
+
 }
 
