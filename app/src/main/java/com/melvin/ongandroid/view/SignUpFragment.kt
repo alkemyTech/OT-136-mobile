@@ -1,17 +1,15 @@
 package com.melvin.ongandroid.view
 
 
-import android.content.Context
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
-import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.databinding.FragmentSignUpBinding
 import com.melvin.ongandroid.model.User

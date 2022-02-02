@@ -1,16 +1,11 @@
 package com.melvin.ongandroid.view
 
-import android.opengl.Visibility
 import android.os.Bundle
-import android.view.View
-
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-
 import androidx.navigation.ui.setupWithNavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.databinding.ActivityMainBinding
