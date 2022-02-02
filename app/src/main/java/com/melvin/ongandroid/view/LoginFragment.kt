@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +15,6 @@ import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.model.repository.RepoImpl
-import com.melvin.ongandroid.viewmodel.SignUpViewModel
 import com.melvin.ongandroid.viewmodel.UserViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.HttpException
@@ -30,16 +28,13 @@ class LoginFragment : Fragment() {
 
     var emailValid = false
     var passwordValid = false
-    private val userViewModel by viewModels<UserViewModel>(){ VMFactory(RepoImpl(DataSource())) }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource()))}
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         _binding!!.btnLogin.setOnClickListener {
@@ -81,11 +76,7 @@ class LoginFragment : Fragment() {
 
             override fun afterTextChanged(p0: Editable?) {
                 hideMessageUserNotExist()
-                if (_binding!!.tvPassword.text.toString().length >= 4) {
-                    passwordValid = true
-                } else {
-                    passwordValid = false
-                }
+                passwordValid = _binding!!.tvPassword.text.toString().length >= 4
                 validFields()
             }
         })
@@ -118,7 +109,7 @@ class LoginFragment : Fragment() {
 
 
     fun validFields() {
-        if (emailValid == true && passwordValid == true) {
+        if (emailValid && passwordValid) {
             _binding!!.btnLogin.setEnabled(true)
         } else {
             _binding!!.btnLogin.setEnabled(false)
@@ -129,7 +120,7 @@ class LoginFragment : Fragment() {
         userViewModel.liveDataUser.observe(viewLifecycleOwner,{
             if (it != null){
                 if (it.success){
-                    Toast.makeText(context, "El usuario existe. Vamos al HOME", Toast.LENGTH_SHORT).show()
+                    // ir al HOME
                 } else{
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
                     _binding!!.tvPassword.error = getString(R.string.login_et_error_user_and_password)
@@ -143,20 +134,19 @@ class LoginFragment : Fragment() {
     private fun handleException(exception: Throwable?) {
         if (exception is HttpException)
             when (exception.code()) {
-                400 -> showDialog ("Solicitud incorrecta")
-                404 -> showDialog ("No se encontró el recurso")
-                in 500..599 -> showDialog ("Ocurrió un error en el servidor")
-                else -> showDialog ("Error desconocido")
+                400 -> showDialog (getString(R.string.login_dg_bad_request))
+                404 -> showDialog (getString(R.string.login_dg_resource_not_found))
+                in 500..599 -> showDialog (getString(R.string.login_dg_server_error))
+                else -> showDialog (getString(R.string.login_dg_unknown_error))
             }
         if (exception is IOException)
-            showDialog("Verifique su conexión a internet y vuelva a intentarlo")
+            showDialog(getString(R.string.login_dg_without_internet))
         if (exception is UnknownHostException)
-            showDialog("Verifique su conexión a internet y vuelva a intentarlo")
-
+            showDialog(getString(R.string.login_dg_without_internet))
     }
 
     private fun showDialog(message: String) {
-        MaterialAlertDialogBuilder(requireContext()).setMessage(message).setPositiveButton("Ok"){
+        MaterialAlertDialogBuilder(requireContext()).setMessage(message).setPositiveButton(getString(R.string.ok)){
                 dialog, which -> {}
         }.show()
     }

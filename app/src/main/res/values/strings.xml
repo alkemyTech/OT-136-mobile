@@ -3,19 +3,21 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="alert_title">Register Success</string>
-    <string name="alert_message">User was succesfully register</string>
-    <string name="ok">Ok</string>
+    <string name="alert_message">User was successfully register</string>
+    <string name="ok">OK</string>
     <string name="register">Register</string>
     <string name="name_required">Name Required</string>
     <string name="password_required">Password Required</string>
     <string name="email_required">Email Required</string>
-
     <string name="confirm_password">Confirmar contraseña</string>
     <string name="create_account">CREAR CUENTA</string>
     <string name="password">Contraseña</string>
     <string name="email">Email</string>
     <string name="name">Nombre</string>
     <string name="login_et_error_user_and_password">Usuario y/o contraseña incorrectos</string>
-
-
+    <string name="login_dg_bad_request">Solicitud incorrecta</string>
+    <string name="login_dg_resource_not_found">No se encontró el recurso</string>
+    <string name="login_dg_server_error">Ocurrió un error en el servidor</string>
+    <string name="login_dg_unknown_error">Error desconocido</string>
+    <string name="login_dg_without_internet">Verifique su conexión a internet y vuelva a intentarlo</string>
 </resources>
