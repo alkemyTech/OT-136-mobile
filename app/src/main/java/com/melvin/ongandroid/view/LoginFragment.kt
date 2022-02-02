@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -35,6 +36,7 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         _binding!!.btnLogin.setOnClickListener {
+
             //move to activity Home
             userViewModel.postToken(
                 _binding!!.tvEmail.text.toString(),
