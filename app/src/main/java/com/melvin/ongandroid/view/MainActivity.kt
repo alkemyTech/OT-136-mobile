@@ -18,6 +18,9 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Thread.sleep(5000)
+        setTheme(R.style.Theme_ONGAndroid)
+        Toast.makeText(this,"Timer has finished", Toast.LENGTH_SHORT).show()
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
