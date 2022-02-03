@@ -15,7 +15,7 @@ interface ApiService {
        @Body user: User
     ): Call<DefaultResponse>
 
-    @POST("api/login")
+    @POST("login")
     suspend fun postLogin(
         @Query("email") user: String,
         @Query("password") pass: String
