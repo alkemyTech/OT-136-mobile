@@ -1,6 +1,7 @@
 package com.melvin.ongandroid.view
 
 
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,7 +17,7 @@ import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.viewmodel.SignUpViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 
-class SignUpFragment : Fragment() {
+class SignUpFragment() : Fragment(){
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var user: User
@@ -59,6 +60,9 @@ class SignUpFragment : Fragment() {
 
             user = User(name, email, password)
             viewModel.postUser(user, context)
+
+
+
         }
 
         viewModel.liveState.observe(viewLifecycleOwner, {
@@ -102,5 +106,10 @@ class SignUpFragment : Fragment() {
         }
         return binding.root
     }
+
+
+
+
+
 }
 

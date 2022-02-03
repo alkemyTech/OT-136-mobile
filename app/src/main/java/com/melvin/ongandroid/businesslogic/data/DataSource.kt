@@ -3,19 +3,22 @@ package com.melvin.ongandroid.businesslogic.data
 import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
+import androidx.navigation.NavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
-import com.melvin.ongandroid.model.response.VerifyUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class DataSource {
+
+
+class DataSource (){
+    var navController: NavController? = null
 
     suspend fun postRegister(user: User, context: Context?){
 
@@ -33,17 +36,23 @@ class DataSource {
                     Toast.makeText(MainApplication.applicationContext(),"The user cannot be registered", Toast.LENGTH_LONG).show()
                 }
 
-                override fun dialogBuilder(context: Context?) {
+                override fun dialogBuilder(context: Context?)  {
+
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle(R.string.alert_title)
                     builder.setMessage(R.string.alert_message)
                     builder.setPositiveButton(R.string.ok) {
                             dialog, which ->
-                            //Navigation.createNavigateOnClickListener(R.id.loginFragment)
+
                     }
 
                     builder.show()
+
                 }
+
+
+
+
             })
 
     }
