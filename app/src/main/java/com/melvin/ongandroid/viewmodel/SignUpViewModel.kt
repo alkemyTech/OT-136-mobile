@@ -15,6 +15,7 @@ import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.response.VerifyUser
+import com.melvin.ongandroid.model.service.OnAPIResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okio.utf8Size
@@ -25,17 +26,30 @@ import java.util.regex.Matcher
 
 class SignUpViewModel(private val repo: Repo) : ViewModel() {
 
-    suspend fun postUser(user: User, context: Context?): Resource<Call<DefaultResponse>>{
-        return repo.postUser(user, context)
+    suspend fun postUser(user: User, context: Context?, onAPIResponse: OnAPIResponse) {
+        repo.postUser(user, context, onAPIResponse)
     }
 
     val fetchUsers= liveData(Dispatchers.IO) {
-        emit(Resource.Loading())
-        try {
-            emit(repo.postUser(User("Juan","juan@gmail.com", "mjss56"), applicationContext()))
-        }catch (e:Exception){
-            emit(Resource.Failure(e))
-        }
+        repo.postUser(
+            User("Juan","juan@gmail.com", "mjss56"),
+            applicationContext(),
+            object : OnAPIResponse {
+                override fun onSuccess() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onFailure(msg: String) {
+                    TODO("Not yet implemented")
+                }
+            }
+            )
+//        emit(Resource.Loading())
+//        try {
+//            emit(repo.postUser(User("Juan","juan@gmail.com", "mjss56"), applicationContext()))
+//        }catch (e:Exception){
+//            emit(Resource.Failure(e))
+//        }
     }
 
 

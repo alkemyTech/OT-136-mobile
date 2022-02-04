@@ -7,6 +7,7 @@ import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.response.VerifyUser
+import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,9 +15,8 @@ import java.lang.Exception
 
 class DataSource {
 
-    suspend fun postRegister(user: User, context: Context?): Resource<Call<DefaultResponse>>{
+    suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
 
-        var ResourceId: Resource<Call<DefaultResponse>> = Resource.Loading()
         RetrofitClient.retrofitService.createUser(user)
             .enqueue(object: Callback<DefaultResponse>{
                 override fun onResponse(
@@ -26,21 +26,20 @@ class DataSource {
                     Toast.makeText(context,"User was succesfully register",
                         Toast.LENGTH_LONG).show()
                     if(response.isSuccessful){
-                        ResourceId=Resource.Success(RetrofitClient.retrofitService.createUser(user))
+                        onResponse.onSuccess()
+//                        ResourceId=Resource.Success(RetrofitClient.retrofitService.createUser(user))
+                    } else {
+                        onResponse.onFailure("User cannot be created")
                     }
 
                 }
 
                 override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                    onResponse.onFailure("The user cannot be registered")
                     Toast.makeText(context,"The user cannot be registered", Toast.LENGTH_LONG).show()
-                    ResourceId= Resource.Failure(Exception())
-
+//                    ResourceId= Resource.Failure(Exception())
                 }
             })
-
-
-        return ResourceId
-
     }
 
     suspend fun authUser(user: String, pass: String): Response<VerifyUser> {
