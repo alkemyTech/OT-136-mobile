@@ -3,29 +3,27 @@ package com.melvin.ongandroid.view
 
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
-import com.melvin.ongandroid.businesslogic.vo.MainApplication
-import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.databinding.FragmentSignUpBinding
+import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.service.OnAPIResponse
 import com.melvin.ongandroid.viewmodel.SignUpViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class SignUpFragment() : Fragment(){
     private var _binding: FragmentSignUpBinding? = null
@@ -69,8 +67,9 @@ class SignUpFragment() : Fragment(){
             }
 
             user = User(name, email, password)
+            binding!!.prBar.visibility = View.VISIBLE
             responseRegistrer()
-            responseObserve()
+
 
 
         }
@@ -119,7 +118,22 @@ class SignUpFragment() : Fragment(){
         return binding.root
     }
     suspend fun callRetro() {
-        viewModel.postUser(user, context)
+        viewModel.postUser(user, context, object : OnAPIResponse {
+            override fun onSuccess(response: Response<DefaultResponse>) {
+                _binding!!.prBar.visibility=View.GONE
+                dialogBuilder()
+            }
+
+            override fun onFailure(msg: String) {
+                _binding!!.prBar.visibility=View.GONE
+            }
+
+            override fun onLoading(response: Response<DefaultResponse>) {
+            binding!!.prBar.visibility = View.VISIBLE
+            }
+
+
+        })
     }
 
     private fun responseRegistrer(){
@@ -128,24 +142,6 @@ class SignUpFragment() : Fragment(){
             }
         }
 
-    fun responseObserve(){
-        viewModel.fetchUsers.observe(viewLifecycleOwner, Observer { result ->
-            when(result){
-                is Resource.Loading->{
-                    binding.prBar.visibility=View.VISIBLE
-                }
-                is Resource.Success->{
-                    binding.prBar.visibility=View.GONE
-                    dialogBuilder()
-                }
-                is Resource.Failure->{
-                    binding.prBar.visibility=View.GONE
-
-                }
-
-            }
-        })
-    }
 
      fun dialogBuilder()  {
 
@@ -162,7 +158,8 @@ class SignUpFragment() : Fragment(){
     }
 
 
-    }
+
+}
 
 
 

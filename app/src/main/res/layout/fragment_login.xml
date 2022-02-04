@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".view.LoginFragment">
 
+    <RelativeLayout
+        android:id="@+id/prBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+
+    </RelativeLayout>
+
     <ImageView
         android:id="@+id/iv_logo"
         android:layout_width="0dp"

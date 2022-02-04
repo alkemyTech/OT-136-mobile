@@ -38,6 +38,7 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         _binding!!.btnLogin.setOnClickListener {
+            _binding!!.prBar.visibility = View.VISIBLE
             userViewModel.postToken(
                 _binding!!.tvEmail.text.toString(),
                 _binding!!.tvPassword.text.toString()
@@ -113,17 +114,20 @@ class LoginFragment : Fragment() {
     }
 
     private fun setObservers() {
-        userViewModel.liveDataUser.observe(viewLifecycleOwner,{
-            if (it != null){
-                if (it.success){
+        userViewModel.liveDataUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.success) {
+                    _binding!!.prBar.visibility=View.GONE
                     // ir al HOME
-                } else{
+                } else {
+                    _binding!!.prBar.visibility=View.GONE
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
-                    _binding!!.tvPassword.error = getString(R.string.login_et_error_user_and_password)
+                    _binding!!.tvPassword.error =
+                        getString(R.string.login_et_error_user_and_password)
                 }
 
             }
-        })
+        }
         userViewModel.authException.observe(viewLifecycleOwner, this::handleException)
     }
 
