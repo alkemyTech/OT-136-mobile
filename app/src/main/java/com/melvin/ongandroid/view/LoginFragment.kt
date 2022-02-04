@@ -94,7 +94,7 @@ class LoginFragment : Fragment() {
         _binding!!.tvPassword.filters = arrayOf(filter)
 
         _binding!!.btnSignUp.setOnClickListener {
-            findNavController().navigate(R.id.signUpFragment)
+             findNavController().navigate(R.id.signUpFragment)
         }
         _binding!!.tvPassword.filters = arrayOf(filter)
 
@@ -114,6 +114,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun setObservers() {
+
         userViewModel.liveDataUser.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.success) {
