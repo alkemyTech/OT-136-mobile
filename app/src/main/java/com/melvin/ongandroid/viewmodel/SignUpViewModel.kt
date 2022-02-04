@@ -2,22 +2,42 @@ package com.melvin.ongandroid.viewmodel
 
 import android.content.Context
 import android.util.Patterns
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
+import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.businesslogic.vo.MainApplication
+import com.melvin.ongandroid.businesslogic.vo.MainApplication.Companion.applicationContext
+import com.melvin.ongandroid.businesslogic.vo.Resource
+import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.VerifyUser
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okio.utf8Size
+import retrofit2.Call
+import retrofit2.Response
+import java.security.AccessController.getContext
 import java.util.regex.Matcher
 
 class SignUpViewModel(private val repo: Repo) : ViewModel() {
 
-    fun postUser(user: User, context: Context?) {
-        viewModelScope.launch {
-            repo.postUser(user, context)
+    suspend fun postUser(user: User, context: Context?): Resource<Call<DefaultResponse>>{
+        return repo.postUser(user, context)
+    }
+
+    val fetchUsers= liveData(Dispatchers.IO) {
+        emit(Resource.Loading())
+        try {
+            emit(repo.postUser(User("Juan","juan@gmail.com", "mjss56"), applicationContext()))
+        }catch (e:Exception){
+            emit(Resource.Failure(e))
         }
     }
+
 
     val liveState = MutableLiveData<Boolean>()
 
