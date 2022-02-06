@@ -64,8 +64,6 @@ class SignUpFragment() : Fragment(){
             user = User(name, email, password)
             viewModel.postUser(user, context)
 
-
-
         }
 
         viewModel.liveState.observe(viewLifecycleOwner, {
