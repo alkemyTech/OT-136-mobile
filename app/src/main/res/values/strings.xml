@@ -32,5 +32,6 @@
     <string name="fragment_login_tvlEmail_hint_password">Contraseña</string>
     <string name="fragment_login_bt_login">Iniciar sesión</string>
     <string name="fragment_login_bt_sign_up">Registrarse</string>
+    <string name="dataSource_dialogBuilder_title_error">Error</string>
 
 </resources>
