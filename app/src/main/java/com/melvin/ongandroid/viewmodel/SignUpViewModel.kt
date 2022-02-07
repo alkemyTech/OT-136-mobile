@@ -3,22 +3,17 @@ package com.melvin.ongandroid.viewmodel
 import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.*
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
-import com.melvin.ongandroid.model.DefaultResponse
-import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.repository.Repo
-import kotlinx.coroutines.launch
+import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.service.OnAPIResponse
 
-class SignUpViewModel(val repo: Repo) : ViewModel() {
+class SignUpViewModel(private val repo: Repo) : ViewModel() {
 
-    fun postUser(user: User, context: Context?) {
-        viewModelScope.launch {
-            repo.postUser(user, context)
-        }
+    suspend fun postUser(user: User, context: Context?, onAPIResponse: OnAPIResponse) {
+        repo.postUser(user, context, onAPIResponse)
     }
 
-    val livedata1 = MutableLiveData<DefaultResponse>()
     val liveState = MutableLiveData<Boolean>()
 
     fun checkState(name: String, email: String, password: String, confirmPassword: String) {

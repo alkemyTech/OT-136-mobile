@@ -6,25 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".view.LoginFragment">
 
-    <View
-        android:id="@+id/logo"
+    <RelativeLayout
+        android:id="@+id/prBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="0dp"
         android:layout_height="280dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="451dp"
-        android:background="@drawable/logo_login"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:srcCompat="@drawable/logo_login" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tvlEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="@string/fragment_login_tvlEmail_hint_email"
         android:textColorHint="@color/LightBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="16dp"
@@ -51,7 +62,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Password"
+        android:hint="@string/fragment_login_tvlEmail_hint_password"
         android:textColorHint="@color/LightBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +86,7 @@
         android:layout_height="65dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="LOGIN"
+        android:text="@string/fragment_login_bt_login"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +101,7 @@
         android:layout_height="65dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:text="SIGN UP"
+        android:text="@string/fragment_login_bt_sign_up"
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
