@@ -108,7 +108,5 @@ class LoginFragment : Fragment() {
         } else {
             _binding!!.btnLogin.setEnabled(false)
         }
-
     }
-
 }

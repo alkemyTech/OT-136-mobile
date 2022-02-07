@@ -5,13 +5,12 @@ import android.util.Patterns
 import androidx.lifecycle.*
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
-import com.melvin.ongandroid.model.repository.Repo
+import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.repository.Repo
 import kotlinx.coroutines.launch
-import okio.utf8Size
-import java.util.regex.Matcher
 
-class SignUpViewModel(private val repo: Repo) : ViewModel() {
+class SignUpViewModel(val repo: Repo) : ViewModel() {
 
     fun postUser(user: User, context: Context?) {
         viewModelScope.launch {
@@ -19,6 +18,7 @@ class SignUpViewModel(private val repo: Repo) : ViewModel() {
         }
     }
 
+    val livedata1 = MutableLiveData<DefaultResponse>()
     val liveState = MutableLiveData<Boolean>()
 
     fun checkState(name: String, email: String, password: String, confirmPassword: String) {
@@ -39,7 +39,7 @@ class SignUpViewModel(private val repo: Repo) : ViewModel() {
     }
 
     fun verifyEmail(email: String): Boolean {
-       return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     fun verifyPassword(password: String): Boolean {

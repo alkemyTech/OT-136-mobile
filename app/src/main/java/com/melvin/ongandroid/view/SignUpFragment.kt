@@ -1,6 +1,8 @@
 package com.melvin.ongandroid.view
 
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +14,7 @@ import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.databinding.FragmentSignUpBinding
+import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.viewmodel.SignUpViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
