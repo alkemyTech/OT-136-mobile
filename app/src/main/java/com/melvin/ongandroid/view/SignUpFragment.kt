@@ -1,6 +1,9 @@
 package com.melvin.ongandroid.view
 
 
+
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,15 +11,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.databinding.FragmentSignUpBinding
+import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.service.OnAPIResponse
 import com.melvin.ongandroid.viewmodel.SignUpViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
-class SignUpFragment : Fragment() {
+class SignUpFragment() : Fragment(){
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var user: User
@@ -58,7 +69,9 @@ class SignUpFragment : Fragment() {
             }
 
             user = User(name, email, password)
-            viewModel.postUser(user, context)
+            binding!!.prBar.visibility = View.VISIBLE
+            responseRegistrer()
+
         }
 
         viewModel.liveState.observe(viewLifecycleOwner, {
@@ -100,7 +113,49 @@ class SignUpFragment : Fragment() {
                 it.toString()
             )
         }
+
         return binding.root
     }
+    suspend fun callRetro() {
+        viewModel.postUser(user, context, object : OnAPIResponse {
+            override fun onSuccess(response: Response<DefaultResponse>) {
+                _binding!!.prBar.visibility=View.GONE
+                dialogBuilder()
+            }
+
+            override fun onFailure(msg: String) {
+                _binding!!.prBar.visibility=View.GONE
+            }
+
+            override fun onLoading(response: Response<DefaultResponse>) {
+            binding!!.prBar.visibility = View.VISIBLE
+            }
+
+        })
+    }
+
+    private fun responseRegistrer(){
+        CoroutineScope(Dispatchers.IO).launch {
+            callRetro()
+            }
+        }
+
+
+     fun dialogBuilder()  {
+
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(R.string.alert_title)
+        builder.setMessage(R.string.alert_message)
+        builder.setPositiveButton(R.string.ok) {
+                dialog, which ->
+            findNavController().navigate(R.id.loginFragment)
+        }
+
+        builder.show()
+
+    }
+
 }
+
+
 

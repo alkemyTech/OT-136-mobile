@@ -8,15 +8,20 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.melvin.ongandroid.view.SignUpFragment"
-        android:label="fragment_sign_up"
+        android:label="@string/register"
         tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.melvin.ongandroid.view.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="@string/title_intro"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.melvin.ongandroid.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
 </navigation>
