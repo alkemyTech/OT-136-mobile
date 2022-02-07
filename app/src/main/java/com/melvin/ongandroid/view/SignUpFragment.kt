@@ -3,6 +3,7 @@ package com.melvin.ongandroid.view
 
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
@@ -70,8 +72,6 @@ class SignUpFragment() : Fragment(){
             binding!!.prBar.visibility = View.VISIBLE
             responseRegistrer()
 
-
-
         }
 
         viewModel.liveState.observe(viewLifecycleOwner, {
@@ -114,7 +114,6 @@ class SignUpFragment() : Fragment(){
             )
         }
 
-
         return binding.root
     }
     suspend fun callRetro() {
@@ -131,7 +130,6 @@ class SignUpFragment() : Fragment(){
             override fun onLoading(response: Response<DefaultResponse>) {
             binding!!.prBar.visibility = View.VISIBLE
             }
-
 
         })
     }
@@ -156,8 +154,6 @@ class SignUpFragment() : Fragment(){
         builder.show()
 
     }
-
-
 
 }
 
