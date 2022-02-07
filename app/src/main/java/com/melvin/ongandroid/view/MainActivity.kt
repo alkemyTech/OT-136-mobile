@@ -22,9 +22,7 @@ class MainActivity : AppCompatActivity() {
     val PREF_IS_LOGIN = "PREF_IS_LOGIN"
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(5000)
-        setTheme(R.style.Theme_ONGAndroid)
-        Toast.makeText(this,"Timer has finished", Toast.LENGTH_SHORT).show()
+        StartSplash()
         super.onCreate(savedInstanceState)
         prefHelper = PrefHelper(this)
         CheckToken()
@@ -95,21 +93,24 @@ class MainActivity : AppCompatActivity() {
         prefHelper.put(Constant.PREF_IS_LOGIN, true)
     }
 
+    fun StartSplash(){
+        Thread.sleep(5000)
+        setTheme(R.style.Theme_ONGAndroid)
+        Toast.makeText(this,"Timer has finished", Toast.LENGTH_SHORT).show()
+    }
+
      fun CheckToken() {
         if (prefHelper.getBoolean( Constant.PREF_IS_LOGIN )) {
-        /*    val Hfragment = HomeFragment()
+          /*  val Hfragment = HomeFragment()
             val fragment : Fragment?= supportFragmentManager.findFragmentByTag(HomeFragment::class.java.name)
-           if (fragment !is HomeFragment){
+            if (fragment !is HomeFragment){
                supportFragmentManager.beginTransaction()
-                   .add(R.id.nav_host_fragment,Hfragment,HomeFragment::class.java.name)
+                .add(R.id.nav_view,Hfragment,HomeFragment::class.java.name)
                    .commit()
            }*/
-// create a FragmentManager
-            Log.i("mensajee","tiene un token")
-
+            Log.i("mensajee","existe token")
         }else {
-            Log.i("mensajee","no tiene un token")
-
+            Log.i("mensajee","no existe token")
         }
         }
 
