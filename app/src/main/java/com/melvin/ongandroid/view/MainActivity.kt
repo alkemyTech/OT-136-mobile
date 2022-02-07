@@ -18,14 +18,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
-    lateinit var prefHelper: PrefHelper
-    val PREF_IS_LOGIN = "PREF_IS_LOGIN"
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        StartSplash()
         super.onCreate(savedInstanceState)
-        prefHelper = PrefHelper(this)
-        CheckToken()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -87,32 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun saveSession(email: String, password: String){
-        prefHelper.put( Constant.PREFS_EMAIL, email )
-        prefHelper.put( Constant.PREF_PASSWORD, password )
-        prefHelper.put(Constant.PREF_IS_LOGIN, true)
-    }
 
-    fun StartSplash(){
-        Thread.sleep(5000)
-        setTheme(R.style.Theme_ONGAndroid)
-        Toast.makeText(this,"Timer has finished", Toast.LENGTH_SHORT).show()
-    }
-
-     fun CheckToken() {
-        if (prefHelper.getBoolean( Constant.PREF_IS_LOGIN )) {
-          /*  val Hfragment = HomeFragment()
-            val fragment : Fragment?= supportFragmentManager.findFragmentByTag(HomeFragment::class.java.name)
-            if (fragment !is HomeFragment){
-               supportFragmentManager.beginTransaction()
-                .add(R.id.nav_view,Hfragment,HomeFragment::class.java.name)
-                   .commit()
-           }*/
-            Log.i("mensajee","existe token")
-        }else {
-            Log.i("mensajee","no existe token")
-        }
-        }
 
     }
 

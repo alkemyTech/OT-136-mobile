@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.view
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -12,7 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
+import com.melvin.ongandroid.businesslogic.data.Constant
+import com.melvin.ongandroid.businesslogic.data.Constant.Companion.PREFS_EMAIL
 import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.businesslogic.data.PrefHelper
+import com.melvin.ongandroid.businesslogic.vo.SplashActivity
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
@@ -20,14 +25,24 @@ import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
+import android.content.Context.MODE_PRIVATE
+
+import android.content.SharedPreferences
+import android.provider.Settings.Global.putString
+import androidx.core.content.edit
+import com.melvin.ongandroid.businesslogic.data.Constant.Companion.PREF_IS_LOGIN
+import com.melvin.ongandroid.businesslogic.data.Constant.Companion.PREF_PASSWORD
+
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-
     var emailValid = false
     var passwordValid = false
+
+
+
     private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource()))}
 
     override fun onCreateView(
@@ -116,8 +131,11 @@ class LoginFragment : Fragment() {
         userViewModel.liveDataUser.observe(viewLifecycleOwner,{
             if (it != null){
                 if (it.success){
-                    (activity as MainActivity).saveSession(binding.tvEmail.text.toString(), binding.tvPassword.text.toString())
+
+                    //ver
+                    (activity as SplashActivity).saveSession(binding.tvEmail.text.toString(), binding.tvPassword.text.toString())
                     findNavController().navigate(R.id.homeFragment)
+
                 } else{
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
                     _binding!!.tvPassword.error = getString(R.string.login_et_error_user_and_password)
@@ -147,4 +165,7 @@ class LoginFragment : Fragment() {
                 dialog, which -> {}
         }.show()
     }
+
 }
+
+
