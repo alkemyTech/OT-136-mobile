@@ -1,12 +1,15 @@
 package com.melvin.ongandroid.viewmodel
 
+import android.app.AlertDialog
 import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.*
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
+import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.VerifyUser
 import kotlinx.coroutines.launch
 import okio.utf8Size
 import java.util.regex.Matcher
@@ -49,4 +52,6 @@ class SignUpViewModel(private val repo: Repo) : ViewModel() {
     fun verifyConfirmPassword(confirmPassword: String): Boolean {
         return confirmPassword.matches("[a-zA-Z0-9]+".toRegex())
     }
+
+
 }
