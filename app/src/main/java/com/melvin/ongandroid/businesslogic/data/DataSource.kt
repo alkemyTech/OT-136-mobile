@@ -10,6 +10,7 @@ import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.VerifyUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

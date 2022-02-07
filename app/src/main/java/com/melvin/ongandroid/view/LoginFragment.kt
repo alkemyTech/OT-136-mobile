@@ -116,6 +116,7 @@ class LoginFragment : Fragment() {
         userViewModel.liveDataUser.observe(viewLifecycleOwner,{
             if (it != null){
                 if (it.success){
+                    (activity as MainActivity).saveSession(binding.tvEmail.text.toString(), binding.tvPassword.text.toString())
                     findNavController().navigate(R.id.homeFragment)
                 } else{
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
