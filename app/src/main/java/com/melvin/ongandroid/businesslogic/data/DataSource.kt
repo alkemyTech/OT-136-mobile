@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.businesslogic.data
 
+import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
 import com.melvin.ongandroid.R
@@ -23,7 +24,7 @@ class DataSource {
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
 
         RetrofitClient.retrofitService.createUser(user)
-            .enqueue(object: Callback<DefaultResponse>{
+            .enqueue(object: Callback<DefaultResponse>, OnRequest{
                 override fun onResponse(
                     call: Call<DefaultResponse>,
                     response: Response<DefaultResponse>

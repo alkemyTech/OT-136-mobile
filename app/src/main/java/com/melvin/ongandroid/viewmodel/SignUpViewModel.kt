@@ -1,25 +1,13 @@
 package com.melvin.ongandroid.viewmodel
 
-import android.app.AlertDialog
 import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.*
 import androidx.lifecycle.ViewModel
-import com.melvin.ongandroid.businesslogic.vo.MainApplication.Companion.applicationContext
-import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.service.OnAPIResponse
-import kotlinx.coroutines.Dispatchers
-import retrofit2.Call
-import retrofit2.Response
-import com.melvin.ongandroid.model.DefaultResponse
-import com.melvin.ongandroid.model.repository.Repo
-import com.melvin.ongandroid.model.User
-import com.melvin.ongandroid.model.response.VerifyUser
-import kotlinx.coroutines.launch
-import okio.utf8Size
-import java.util.regex.Matcher
+
 
 
 class SignUpViewModel(private val repo: Repo) : ViewModel() {
