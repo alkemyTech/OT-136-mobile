@@ -1,5 +1,4 @@
 package com.melvin.ongandroid.businesslogic.data
-
 import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
@@ -17,19 +16,14 @@ import retrofit2.Response
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
-
 class DataSource {
-
-
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
-
         RetrofitClient.retrofitService.createUser(user)
             .enqueue(object: Callback<DefaultResponse>, OnRequest{
                 override fun onResponse(
                     call: Call<DefaultResponse>,
                     response: Response<DefaultResponse>
                 ) {
-
                     Toast.makeText(context,"User was succesfully register",
                         Toast.LENGTH_LONG).show()
                     if(response.isSuccessful){
@@ -37,12 +31,10 @@ class DataSource {
                     } else {
                         onResponse.onLoading(response)
                     }
-
                 }
                 override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                     onResponse.onFailure("The user cannot be registered")
                     Toast.makeText(context,"The user cannot be registered", Toast.LENGTH_LONG).show()
-
                     if (t is HttpException){
                         when (t.code()) {
                             400 -> dialogBuilder(context,R.string.dataSource_dialogBuilder_title_error,R.string.login_dg_bad_request)
@@ -64,13 +56,10 @@ class DataSource {
                     builder.setPositiveButton(R.string.ok) {
                             dialog, which ->
                     }
-
                     builder.show()
                 }
-
             })
     }
-
     suspend fun authUser(user: String, pass: String): Response<VerifyUser> {
         return RetrofitClient.retrofitService.postLogin(user, pass)
     }

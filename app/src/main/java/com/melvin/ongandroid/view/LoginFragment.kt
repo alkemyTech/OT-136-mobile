@@ -119,7 +119,7 @@ class LoginFragment : Fragment() {
 
         userViewModel.liveDataUser.observe(viewLifecycleOwner) {
             if (it != null) {
-                if (it.success) {
+                if (it.success == true) {
                     _binding!!.prBar.visibility=View.GONE
                     Toast.makeText(MainApplication.applicationContext(),"Proximamente sección intro", Toast.LENGTH_LONG).show()
                 } else {

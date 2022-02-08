@@ -1,12 +1,10 @@
 package com.melvin.ongandroid.viewmodel
-
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.response.VerifyUser
 import kotlinx.coroutines.launch
-
 class UserViewModel(private val repo: Repo) : ViewModel() {
 
     val liveDataUser = MutableLiveData<VerifyUser>()
@@ -19,7 +17,7 @@ class UserViewModel(private val repo: Repo) : ViewModel() {
                 if (call.isSuccessful) {
                     liveDataUser.postValue(call.body())
                 }
-            } catch(e:Exception) {
+            } catch (e: Exception) {
                 authException.value = e
             }
         }
