@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.melvin.ongandroid.R
+import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -17,15 +18,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
+
     var sharedPrefences:Boolean=false //variable temporal para test
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        Thread.sleep(5000)
-        setTheme(R.style.Theme_ONGAndroid)
-        Toast.makeText(this,"Timer has finished", Toast.LENGTH_SHORT).show()
-        super.onCreate(savedInstanceState)
+    lateinit var prefHelper: PrefHelper
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        prefHelper = PrefHelper(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -94,4 +96,9 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
     }
-}
+
+
+
+
+    }
+
