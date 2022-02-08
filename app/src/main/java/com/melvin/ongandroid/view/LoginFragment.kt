@@ -122,6 +122,7 @@ class LoginFragment : Fragment() {
                 if (it.success) {
                     _binding!!.prBar.visibility=View.GONE
                     Toast.makeText(MainApplication.applicationContext(),"Proximamente sección intro", Toast.LENGTH_LONG).show()
+                    findNavController().navigate(R.id.homeFragment)
                 } else {
                     _binding!!.prBar.visibility=View.GONE
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)

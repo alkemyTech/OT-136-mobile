@@ -7,14 +7,10 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_login"
+            android:id="@+id/nav_home"
             android:icon="@drawable/icon_home"
             android:title="@string/title_intro" />
 
-        <item
-            android:id="@+id/nav_signin"
-            android:icon="@drawable/icon_login"
-            android:title="@string/title_sign_up" />
 
     </group>
 
@@ -50,5 +46,14 @@
     </group>
     </menu>
     </item>
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/icon_login"
+            android:title="@string/title_sign_out" />
+
+    </group>
 
 </menu>

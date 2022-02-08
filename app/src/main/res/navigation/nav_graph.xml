@@ -3,25 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/homeFragment">
 
-    <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.melvin.ongandroid.view.SignUpFragment"
-        android:label="@string/register"
-        tools:layout="@layout/fragment_sign_up" />
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.melvin.ongandroid.view.LoginFragment"
-        android:label="@string/title_intro"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.melvin.ongandroid.view.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <navigation android:id="@+id/flowLogSign"
+        app:startDestination="@id/loginFragment">
+        <fragment
+            android:id="@+id/loginFragment"
+            android:name="com.melvin.ongandroid.view.LoginFragment"
+            android:label="@string/title_intro"
+            tools:layout="@layout/fragment_login">
+            <action
+                android:id="@+id/action_loginFragment_to_signUpFragment"
+                app:destination="@id/signUpFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/signUpFragment"
+            android:name="com.melvin.ongandroid.view.SignUpFragment"
+            android:label="@string/register"
+            tools:layout="@layout/fragment_sign_up" />
+        <action
+            android:id="@+id/action_global_homeFragment"
+            app:destination="@id/homeFragment" />
+    </navigation>
 </navigation>
