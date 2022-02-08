@@ -1,11 +1,10 @@
 package com.melvin.ongandroid.businesslogic.data
 
+import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
-import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
@@ -24,7 +23,7 @@ class DataSource {
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
 
         RetrofitClient.retrofitService.createUser(user)
-            .enqueue(object: Callback<DefaultResponse>{
+            .enqueue(object: Callback<DefaultResponse>, OnRequest{
                 override fun onResponse(
                     call: Call<DefaultResponse>,
                     response: Response<DefaultResponse>
@@ -57,7 +56,7 @@ class DataSource {
                     }
                 }
 
-                fun dialogBuilder(context: Context?,title:Int,message:Int) {
+                override fun dialogBuilder(context: Context?, title:Int, message:Int) {
 
                     val builder = AlertDialog.Builder(context!!)
                     builder.setTitle(title)

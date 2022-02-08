@@ -9,6 +9,7 @@ import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.service.OnAPIResponse
 
 
+
 class SignUpViewModel(private val repo: Repo) : ViewModel() {
 
     suspend fun postUser(user: User, context: Context?, onAPIResponse: OnAPIResponse) {

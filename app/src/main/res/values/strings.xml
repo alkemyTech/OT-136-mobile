@@ -33,7 +33,6 @@
     <string name="fragment_login_bt_login">Iniciar sesión</string>
     <string name="fragment_login_bt_sign_up">Registrarse</string>
     <string name="dataSource_dialogBuilder_title_error">Error</string>
-    <string name="login_et_error_email_invalid">Formato invalido</string>
-    <string name="login_et_error_password_invalid">Mínimo requerido: 4 carácteres</string>
+    <string name="login_coming_soon">Proximamente sección intro</string>
 
 </resources>
