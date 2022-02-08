@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.viewmodel
 
+import android.text.Editable
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -26,10 +27,15 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mockito.`when`
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.times
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
+import org.mockito.Mockito.any
+import org.mockito.Mockito.doNothing
+
+import android.R.string.no
+
+import android.R.attr.password
+import org.mockito.Mockito
+import org.mockito.kotlin.*
+
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
@@ -58,12 +64,11 @@ class UserViewModelTest{
 
     private val dataSourceMock : DataSource = mock()
     private val repoMock = RepoImpl(dataSourceMock)
-    private lateinit var vm : UserViewModel
-
+    private lateinit var vmMock : UserViewModel
 
     @Before
     fun setUp() {
-        vm = UserViewModel(repoMock)
+        vmMock = UserViewModel(repoMock)
     }
 
     @Test
@@ -73,11 +78,41 @@ class UserViewModelTest{
         val data = Data()
 
         runBlocking{
-            whenever(repoMock.postToken(email,pass)).thenReturn(retrofit2.Response.success(VerifyUser(true,data,"user login okey","Error")))
-            vm.postToken(email,pass)
-            assertEquals(VerifyUser(true,data,"user login okey", "Error"), vm.liveDataUser.getOrAwaitValue())
+            whenever(repoMock.postToken(email,pass))
+                .thenReturn(retrofit2.Response.success(VerifyUser(true,data,"user login okey",null)))
+            vmMock.postToken(email,pass)
+            assertEquals(VerifyUser(true,data,"user login okey", null), vmMock.liveDataUser.getOrAwaitValue())
         }
     }
+
+    @Test
+    fun `when email no registred then no login`() {
+        val email = "mail@fake.com"
+        val pass = "password"
+
+        runBlocking{
+            whenever(repoMock.postToken(email,pass))
+                .thenReturn(retrofit2.Response.success(VerifyUser(null,null,null,"no token")))
+            vmMock.postToken(email,pass)
+            assertEquals(VerifyUser(null,null,null,"no token"), vmMock.liveDataUser.getOrAwaitValue())
+        }
+    }
+
+    @Test
+    fun `when email is empty then no login`() {
+        //preparacion
+        val email = ""
+        val pass = "password"
+        //doNothing().´when´(vmMock.validateEmail(email),vmMock.validEmail.value=false)
+        //doNothing().`when`(vmMock).validateEmail(email)
+        doCallRealMethod().whenever(vmMock.validateEmail(email))
+            //whenever(vmMock.validateEmail(email))
+            //when
+            vmMock.validateEmail(email)
+            //then
+            assertFalse(vmMock.validEmail.getOrAwaitValue())
+    }
+
 
 /*
     @Test

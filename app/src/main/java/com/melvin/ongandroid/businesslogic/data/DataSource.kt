@@ -2,6 +2,7 @@ package com.melvin.ongandroid.businesslogic.data
 
 import android.content.Context
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.businesslogic.vo.MainApplication
@@ -56,8 +57,9 @@ class DataSource {
                     }
                 }
 
-                override fun dialogBuilder(context: Context?,title:Int,message:Int) {
-                    val builder = AlertDialog.Builder(context)
+                fun dialogBuilder(context: Context?,title:Int,message:Int) {
+
+                    val builder = AlertDialog.Builder(context!!)
                     builder.setTitle(title)
                     builder.setMessage(message)
                     builder.setPositiveButton(R.string.ok) {
