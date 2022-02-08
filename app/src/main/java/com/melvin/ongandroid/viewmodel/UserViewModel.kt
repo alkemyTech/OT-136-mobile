@@ -1,10 +1,8 @@
 package com.melvin.ongandroid.viewmodel
 
-import android.text.Editable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.melvin.ongandroid.R
 import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.response.VerifyUser
 import kotlinx.coroutines.launch
