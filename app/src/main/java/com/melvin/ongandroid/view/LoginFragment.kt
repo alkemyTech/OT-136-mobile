@@ -1,6 +1,6 @@
 package com.melvin.ongandroid.view
 
-import android.content.Context
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -13,11 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.Constant
-import com.melvin.ongandroid.businesslogic.data.Constant.Companion.PREFS_EMAIL
+import com.melvin.ongandroid.businesslogic.data.Constant.Companion.log
+import com.melvin.ongandroid.businesslogic.data.Constant.Companion.pass
+import com.melvin.ongandroid.businesslogic.data.Constant.Companion.user
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
-import com.melvin.ongandroid.businesslogic.vo.SplashActivity
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
@@ -25,13 +25,7 @@ import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
-import android.content.Context.MODE_PRIVATE
 
-import android.content.SharedPreferences
-import android.provider.Settings.Global.putString
-import androidx.core.content.edit
-import com.melvin.ongandroid.businesslogic.data.Constant.Companion.PREF_IS_LOGIN
-import com.melvin.ongandroid.businesslogic.data.Constant.Companion.PREF_PASSWORD
 
 
 class LoginFragment : Fragment() {
@@ -40,6 +34,7 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     var emailValid = false
     var passwordValid = false
+    lateinit var prefHelper: PrefHelper
 
 
 
@@ -53,12 +48,12 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         _binding!!.btnLogin.setOnClickListener {
+
             userViewModel.postToken(
                 _binding!!.tvEmail.text.toString(),
                 _binding!!.tvPassword.text.toString()
             )
         }
-
         _binding!!.btnLogin.isEnabled = false
 
         _binding!!.tvEmail.addTextChangedListener(object : TextWatcher {
@@ -113,8 +108,11 @@ class LoginFragment : Fragment() {
         _binding!!.tvPassword.filters = arrayOf(filter)
 
         setObservers()
-
         return binding.root
+
+
+
+
     }
 
     private fun hideMessageUserNotExist() {
@@ -132,9 +130,10 @@ class LoginFragment : Fragment() {
             if (it != null){
                 if (it.success){
 
-                    //ver
-                    (activity as SplashActivity).saveSession(binding.tvEmail.text.toString(), binding.tvPassword.text.toString())
-                    findNavController().navigate(R.id.homeFragment)
+                    log=true.toString()
+                    pass=binding.tvPassword.text.toString()
+                    user=binding.tvEmail.text.toString()
+                     findNavController().navigate(R.id.homeFragment)
 
                 } else{
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
@@ -165,6 +164,7 @@ class LoginFragment : Fragment() {
                 dialog, which -> {}
         }.show()
     }
+
 
 }
 

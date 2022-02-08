@@ -2,15 +2,16 @@ package com.melvin.ongandroid.businesslogic.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.melvin.ongandroid.view.LoginFragment
 
-class PrefHelper (context: Context) {
+class PrefHelper(context: Context) {
 
-    private val PREFS_EMAIL = ""
+    private val PREFS_NAME = "sharedpref12345"
     private var sharedPref: SharedPreferences
     val editor: SharedPreferences.Editor
 
     init {
-        sharedPref = context.getSharedPreferences(PREFS_EMAIL, Context.MODE_PRIVATE)
+        sharedPref = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         editor = sharedPref.edit()
     }
 
@@ -30,6 +31,11 @@ class PrefHelper (context: Context) {
 
     fun getString(key: String): String? {
         return sharedPref.getString(key, null)
+    }
+
+    fun clear() {
+        editor.clear()
+            .apply()
     }
 
 }
