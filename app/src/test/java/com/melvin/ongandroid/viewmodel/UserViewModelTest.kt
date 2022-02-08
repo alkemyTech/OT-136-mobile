@@ -38,7 +38,10 @@ class UserViewModelTest{
 
         runBlocking{
             vm.postToken(email,pass)
-            assertEquals(VerifyUser(true,"user login okey", null), vm.liveDataUser.getOrAwaitValue())
+            assertTrue(vm.liveDataUser.getOrAwaitValue().success!!)
+            assertNotNull(vm.liveDataUser.getOrAwaitValue().data)
+            assertEquals("user login okey",vm.liveDataUser.getOrAwaitValue().message)
+            assertNull(vm.liveDataUser.getOrAwaitValue().messageError)
         }
     }
 
@@ -49,7 +52,7 @@ class UserViewModelTest{
 
         runBlocking {
             vm.postToken(email,pass)
-            assertEquals(VerifyUser(null,null,"No token"), vm.liveDataUser.getOrAwaitValue())
+            assertEquals(VerifyUser(null,null,null,"No token"), vm.liveDataUser.getOrAwaitValue())
         }
     }
 }
