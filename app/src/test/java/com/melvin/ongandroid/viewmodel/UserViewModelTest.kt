@@ -25,7 +25,6 @@ class UserViewModelTest{
 
     private lateinit var vm : UserViewModel
 
-
     @Before
     fun setUp() {
         vm = UserViewModel(RepoImpl(DataSource()))
@@ -38,6 +37,7 @@ class UserViewModelTest{
 
         runBlocking{
             vm.postToken(email,pass)
+
             assertTrue(vm.liveDataUser.getOrAwaitValue().success!!)
             assertNotNull(vm.liveDataUser.getOrAwaitValue().data)
             assertEquals("user login okey",vm.liveDataUser.getOrAwaitValue().message)
@@ -52,6 +52,7 @@ class UserViewModelTest{
 
         runBlocking {
             vm.postToken(email,pass)
+
             assertEquals(VerifyUser(null,null,null,"No token"), vm.liveDataUser.getOrAwaitValue())
         }
     }
