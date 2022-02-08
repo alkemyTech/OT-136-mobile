@@ -1,25 +1,19 @@
 package com.melvin.ongandroid.viewmodel
 
-import android.app.AlertDialog
 import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.*
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
-import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.User
-import com.melvin.ongandroid.model.response.VerifyUser
-import kotlinx.coroutines.launch
-import okio.utf8Size
-import java.util.regex.Matcher
+import com.melvin.ongandroid.model.service.OnAPIResponse
+
+
 
 class SignUpViewModel(private val repo: Repo) : ViewModel() {
 
-    fun postUser(user: User, context: Context?) {
-        viewModelScope.launch {
-            repo.postUser(user, context)
-        }
+    suspend fun postUser(user: User, context: Context?, onAPIResponse: OnAPIResponse) {
+        repo.postUser(user, context, onAPIResponse)
     }
 
     val liveState = MutableLiveData<Boolean>()

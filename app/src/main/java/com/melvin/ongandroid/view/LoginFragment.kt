@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import com.melvin.ongandroid.businesslogic.data.Constant.Companion.log
 import com.melvin.ongandroid.businesslogic.data.Constant.Companion.pass
 import com.melvin.ongandroid.businesslogic.data.Constant.Companion.user
 import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.model.repository.RepoImpl
@@ -48,6 +50,7 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         _binding!!.btnLogin.setOnClickListener {
+            _binding!!.prBar.visibility = View.VISIBLE
 
             userViewModel.postToken(
                 _binding!!.tvEmail.text.toString(),
@@ -126,6 +129,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun setObservers() {
+
         userViewModel.liveDataUser.observe(viewLifecycleOwner,{
             if (it != null){
                 if (it.success){
@@ -136,12 +140,15 @@ class LoginFragment : Fragment() {
                      findNavController().navigate(R.id.homeFragment)
 
                 } else{
-                    _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
-                    _binding!!.tvPassword.error = getString(R.string.login_et_error_user_and_password)
+
+                  _binding!!.prBar.visibility=View.GONE  
+                  _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
+                    _binding!!.tvPassword.error =
+                        getString(R.string.login_et_error_user_and_password)
                 }
 
             }
-        })
+        }
         userViewModel.authException.observe(viewLifecycleOwner, this::handleException)
     }
 
