@@ -8,20 +8,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.Constant.Companion.log
-import com.melvin.ongandroid.businesslogic.data.Constant.Companion.pass
-import com.melvin.ongandroid.businesslogic.data.Constant.Companion.user
 import com.melvin.ongandroid.businesslogic.data.DataSource
-import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
-import com.melvin.ongandroid.businesslogic.vo.SplashActivity
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
@@ -115,13 +109,6 @@ class LoginFragment : Fragment() {
         setObservers()
         return binding.root
 
-
-
-        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                activity!!.finish()
-            }
-        })
     }
 
     private fun hideMessageUserNotExist() {
@@ -136,18 +123,11 @@ class LoginFragment : Fragment() {
 
     private fun setObservers() {
 
-        userViewModel.liveDataUser.observe(viewLifecycleOwner,){
+        userViewModel.liveDataUser.observe(viewLifecycleOwner){
             if (it != null){
                 if (it.success){
-
-                    log=true.toString()
-                    pass=binding.tvPassword.text.toString()
-                    user=binding.tvEmail.text.toString()
-
-
                     (activity as MainActivity).saveSession(binding.tvPassword.text.toString(),binding.tvEmail.text.toString())
-                        findNavController().navigate(R.id.homeFragment)
-
+                    findNavController().navigate(R.id.homeFragment)
                 } else{
 
                   _binding!!.prBar.visibility=View.GONE  

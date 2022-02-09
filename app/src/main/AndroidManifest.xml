@@ -15,7 +15,7 @@
         android:theme="@style/Theme.ONGAndroid"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".businesslogic.vo.SplashActivity"
+            android:name=".view.SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
         <intent-filter>

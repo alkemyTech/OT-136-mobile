@@ -2,8 +2,6 @@ package com.melvin.ongandroid.businesslogic.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.melvin.ongandroid.view.LoginFragment
-
 class PrefHelper(context: Context) {
 
     private val PREFS_NAME = "sharedpref12345"
@@ -31,11 +29,6 @@ class PrefHelper(context: Context) {
 
     fun getString(key: String): String? {
         return sharedPref.getString(key, null)
-    }
-
-    fun clear() {
-        editor.clear()
-            .apply()
     }
 
 }

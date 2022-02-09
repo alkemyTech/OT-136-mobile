@@ -10,7 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.Constant
+import com.melvin.ongandroid.model.repository.Constant
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.databinding.ActivityMainBinding
 
@@ -20,12 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
 
-
-    //var sharedPrefences:Boolean=prefHelper.getBoolean(Constant.PREF_IS_LOGIN) //variable temporal para test
-
-
     lateinit var prefHelper: PrefHelper
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,21 +44,15 @@ class MainActivity : AppCompatActivity() {
 
         when(sharedPrefences){
             "true" -> {
-                binding.toolbar.visibility= View.GONE
-                binding.navView.visibility=View.GONE
+                binding.toolbar.visibility= View.VISIBLE
+                binding.navView.visibility=View.VISIBLE
                 navController.navigateUp()
                 navController.navigate(R.id.homeFragment)
-
-                Log.i("mensajee","pasa por true"+ sharedPrefences)
             }else ->{
-
-
-          //  binding.toolbar.visibility= View.VISIBLE
-          //  binding.navView.visibility=View.VISIBLE
-              navController.navigate(R.id.flowLogSign)
-          //  navController.navigate(R.id.homeFragment)
-
-            Log.i("mensajee", "pasa por else"+sharedPrefences)
+            binding.toolbar.visibility= View.GONE
+            binding.navView.visibility=View.GONE
+            navController.navigateUp()
+            navController.navigate(R.id.flowLogSign)
             }
         }
 
@@ -104,8 +93,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-
     }
 
     public fun saveSession(username: String, password: String){
@@ -118,7 +105,9 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp()
     }
 
-
+    public override fun onBackPressed() {
+        finish()
+    }
 
 
     }
