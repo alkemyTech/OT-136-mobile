@@ -82,4 +82,8 @@ class DataSource {
     fun getNewsList(): Resource<List<New>> {
             return Resource.Success(generateNewsList)
     }
+
+    suspend fun getNewsByName (newName:String):Resource<List<New>>{
+        return Resource.Success(RetrofitClient.retrofitService.GetNewsByName(newName).newsList)
+    }
 }
