@@ -12,9 +12,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.model.repository.Constant
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
+import com.melvin.ongandroid.businesslogic.domain.OnRegister
 import com.melvin.ongandroid.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), OnRegister {
+
 
     private lateinit var binding: ActivityMainBinding
 
@@ -48,11 +51,17 @@ class MainActivity : AppCompatActivity() {
                 binding.navView.visibility=View.VISIBLE
                 navController.navigateUp()
                 navController.navigate(R.id.homeFragment)
+
+                Log.i("mensajee","pasa por true"+ sharedPrefences)
             }else ->{
-            binding.toolbar.visibility= View.GONE
-            binding.navView.visibility=View.GONE
-            navController.navigateUp()
-            navController.navigate(R.id.flowLogSign)
+
+                binding.toolbar.visibility= View.GONE
+                binding.navView.visibility=View.GONE
+                navController.navigateUp()
+                navController.navigate(R.id.flowLogSign)
+
+
+            Log.i("mensajee", "pasa por else"+sharedPrefences)
             }
         }
 
@@ -109,6 +118,11 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-
+    override fun onClickRegister() {
+        binding.toolbar.visibility= View.VISIBLE
+        binding.navView.visibility=View.VISIBLE
     }
+
+
+}
 
