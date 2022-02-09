@@ -8,7 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
+import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
@@ -132,6 +133,14 @@ class LoginFragment : Fragment() {
 
                   _binding!!.prBar.visibility=View.GONE  
                   _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
+        userViewModel.liveDataUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.success == true) {
+                    _binding!!.prBar.visibility=View.GONE
+                    Toast.makeText(MainApplication.applicationContext(),"Proximamente sección intro", Toast.LENGTH_LONG).show()
+                } else {
+                    _binding!!.prBar.visibility=View.GONE
+                    _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
                     _binding!!.tvPassword.error =
                         getString(R.string.login_et_error_user_and_password)
                 }

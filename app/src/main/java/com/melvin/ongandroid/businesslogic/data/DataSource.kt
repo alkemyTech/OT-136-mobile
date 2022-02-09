@@ -1,5 +1,4 @@
 package com.melvin.ongandroid.businesslogic.data
-
 import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
@@ -17,10 +16,7 @@ import retrofit2.Response
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
-
 class DataSource {
-
-
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
 
         RetrofitClient.retrofitService.createUser(user)
@@ -64,7 +60,6 @@ class DataSource {
                     builder.setPositiveButton(R.string.ok) {
                             dialog, which ->
                     }
-
                     builder.show()
                 }
 
