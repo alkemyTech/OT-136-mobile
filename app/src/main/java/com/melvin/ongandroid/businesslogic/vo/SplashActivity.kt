@@ -29,12 +29,19 @@ class SplashActivity  : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN)) {
-            Log.i("mensajee", "SI existe token")
             //TO HOMEFRAGMENT
+            val intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("token",true.toString())
+            Log.i("mensajee", "SI existe token")
+            startActivity(intent)
+       //     save()
         } else {
             Log.i("mensajee", "no existe token")
-            save()
-            startActivity(Intent(this, MainActivity::class.java))
+        //    save()
+            val intent = Intent(this,MainActivity::class.java)
+            intent.putExtra("token",false.toString())
+            startActivity(intent)
+           // startActivity(Intent(this, MainActivity::class.java))
         }
     }
 

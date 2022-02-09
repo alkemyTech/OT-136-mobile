@@ -1,6 +1,7 @@
 package com.melvin.ongandroid.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.melvin.ongandroid.R
+import com.melvin.ongandroid.businesslogic.data.Constant
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.databinding.ActivityMainBinding
 
@@ -19,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
 
-    var sharedPrefences:Boolean=false //variable temporal para test
+    //var sharedPrefences:Boolean=prefHelper.getBoolean(Constant.PREF_IS_LOGIN) //variable temporal para test
 
 
     lateinit var prefHelper: PrefHelper
@@ -27,6 +29,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        val bundle = intent.extras
+        val token = bundle?.getString("token")
+        var sharedPrefences=token
         prefHelper = PrefHelper(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -41,15 +48,22 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setupWithNavController(navController)
 
         when(sharedPrefences){
-            true -> {
+            "true" -> {
                 binding.toolbar.visibility= View.GONE
                 binding.navView.visibility=View.GONE
                 navController.navigateUp()
-                navController.navigate(R.id.flowLogSign)
-            }
-            false->{
-                binding.toolbar.visibility= View.VISIBLE
-                binding.navView.visibility=View.VISIBLE
+                navController.navigate(R.id.homeFragment)
+
+                Log.i("mensajee","pasa por true"+ sharedPrefences)
+            }else ->{
+
+
+          //  binding.toolbar.visibility= View.VISIBLE
+          //  binding.navView.visibility=View.VISIBLE
+              navController.navigate(R.id.flowLogSign)
+          //  navController.navigate(R.id.homeFragment)
+
+            Log.i("mensajee", "pasa por else"+sharedPrefences)
             }
         }
 
@@ -93,6 +107,13 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+    public fun saveSession(username: String, password: String){
+        prefHelper.put( Constant.PREF_USERNAME, username )
+        prefHelper.put( Constant.PREF_PASSWORD, password )
+        prefHelper.put( Constant.PREF_IS_LOGIN, true)
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
     }
