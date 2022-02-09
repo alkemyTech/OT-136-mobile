@@ -94,6 +94,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 }
                 R.id.nav_nov -> {
                     Toast.makeText(this, getString(R.string.title_novedades), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.newsFragment)
                     true
                 }
                 else -> {

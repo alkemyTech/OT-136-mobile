@@ -21,6 +21,7 @@
     <string name="title_contacto">Contacto</string>
     <string name="title_novedades">Novedades</string>
     <string name="title_sign_out">Salir</string>
+    <string name="title_ult_novedades">Ultimas Novedades</string>
 
     <string name="login_et_error_user_and_password">Usuario y/o contraseña incorrectos</string>
     <string name="login_dg_bad_request">Solicitud incorrecta</string>
@@ -36,5 +37,8 @@
     <string name="fragment_login_bt_sign_up">Registrarse</string>
     <string name="dataSource_dialogBuilder_title_error">Error</string>
     <string name="login_coming_soon">Proximamente sección intro</string>
+
+    <string name="news_coming">Próximamente sección detalles</string>
+    <string name="user_not_register">El usuario no pudo ser registrado</string>
 
 </resources>

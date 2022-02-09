@@ -155,11 +155,7 @@ class LoginFragment : Fragment() {
                         if (it != null) {
                             if (it.success == true) {
                                 _binding!!.prBar.visibility = View.GONE
-                                Toast.makeText(
-                                    MainApplication.applicationContext(),
-                                    "Proximamente sección intro",
-                                    Toast.LENGTH_LONG
-                                ).show()
+
                             } else {
                                 _binding!!.prBar.visibility = View.GONE
                                 _binding!!.tvEmail.error =
