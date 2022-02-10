@@ -36,5 +36,6 @@
     <string name="fragment_login_bt_sign_up">Registrarse</string>
     <string name="dataSource_dialogBuilder_title_error">Error</string>
     <string name="login_coming_soon">Proximamente sección intro</string>
+    <string name="nav_drawer_item_testimonios">Testimonios</string>
 
 </resources>
