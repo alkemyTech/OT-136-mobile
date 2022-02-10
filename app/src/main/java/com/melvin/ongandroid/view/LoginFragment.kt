@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.view
 
+
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -7,12 +8,15 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.businesslogic.data.PrefHelper
+import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
@@ -21,13 +25,18 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
 
+
+
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-
     var emailValid = false
     var passwordValid = false
+    lateinit var prefHelper: PrefHelper
+
+
+
     private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource()))}
 
     override fun onCreateView(
@@ -39,12 +48,12 @@ class LoginFragment : Fragment() {
 
         _binding!!.btnLogin.setOnClickListener {
             _binding!!.prBar.visibility = View.VISIBLE
+
             userViewModel.postToken(
                 _binding!!.tvEmail.text.toString(),
                 _binding!!.tvPassword.text.toString()
             )
         }
-
         _binding!!.btnLogin.isEnabled = false
 
         _binding!!.tvEmail.addTextChangedListener(object : TextWatcher {
@@ -99,8 +108,8 @@ class LoginFragment : Fragment() {
         _binding!!.tvPassword.filters = arrayOf(filter)
 
         setObservers()
-
         return binding.root
+
     }
 
     private fun hideMessageUserNotExist() {
@@ -115,11 +124,20 @@ class LoginFragment : Fragment() {
 
     private fun setObservers() {
 
+        userViewModel.liveDataUser.observe(viewLifecycleOwner){
+            if (it != null){
+                if (it.success){
+                    (activity as MainActivity).saveSession(binding.tvPassword.text.toString(),binding.tvEmail.text.toString())
+                    findNavController().navigate(R.id.homeFragment)
+                } else{
+
+                  _binding!!.prBar.visibility=View.GONE  
+                  _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
         userViewModel.liveDataUser.observe(viewLifecycleOwner) {
             if (it != null) {
-                if (it.success) {
+                if (it.success == true) {
                     _binding!!.prBar.visibility=View.GONE
-                    // ir al HOME
+                    Toast.makeText(MainApplication.applicationContext(),"Proximamente sección intro", Toast.LENGTH_LONG).show()
                 } else {
                     _binding!!.prBar.visibility=View.GONE
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
@@ -151,4 +169,8 @@ class LoginFragment : Fragment() {
                 dialog, which -> {}
         }.show()
     }
+
+
 }
+
+

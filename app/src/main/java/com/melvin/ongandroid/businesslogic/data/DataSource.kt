@@ -17,14 +17,11 @@ import retrofit2.Response
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
-
 class DataSource {
-
-
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
 
         RetrofitClient.retrofitService.createUser(user)
-            .enqueue(object: Callback<DefaultResponse>{
+            .enqueue(object: Callback<DefaultResponse>, OnRequest{
                 override fun onResponse(
                     call: Call<DefaultResponse>,
                     response: Response<DefaultResponse>
@@ -57,14 +54,13 @@ class DataSource {
                     }
                 }
 
-                fun dialogBuilder(context: Context?,title:Int,message:Int) {
+               override fun dialogBuilder(context: Context?,title:Int,message:Int) {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle(title)
                     builder.setMessage(message)
                     builder.setPositiveButton(R.string.ok) {
                             dialog, which ->
                     }
-
                     builder.show()
                 }
 
