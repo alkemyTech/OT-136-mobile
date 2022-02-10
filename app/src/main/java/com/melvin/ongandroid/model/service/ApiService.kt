@@ -1,6 +1,7 @@
 package com.melvin.ongandroid.model.service
 
 import com.melvin.ongandroid.model.DefaultResponse
+import com.melvin.ongandroid.model.NewsList
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.response.VerifyUser
 import retrofit2.Call
@@ -20,4 +21,7 @@ interface ApiService {
         @Query("email") user: String,
         @Query("password") pass: String
     ): Response<VerifyUser>
+
+    @GET("news?limit=4")
+    suspend fun GetNewsByName(@Query("name")newName:String):NewsList
 }

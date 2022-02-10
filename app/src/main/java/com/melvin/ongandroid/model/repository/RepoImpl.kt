@@ -21,6 +21,6 @@ class RepoImpl(private val dataSource:DataSource): Repo {
     }
 
     override suspend fun getNewsList(newName: String): Resource<List<New>> {
-        return dataSource.getNewsList()
+        return dataSource.getNewsByName(newName)
     }
 }

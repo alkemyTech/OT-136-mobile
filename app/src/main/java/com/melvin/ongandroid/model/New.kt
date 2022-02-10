@@ -15,6 +15,7 @@ data class New(
     ): Parcelable
 
 data class NewsList(
-    @SerializedName("results")
+
+    @SerializedName("data")
     val newsList: List<New>
 )
