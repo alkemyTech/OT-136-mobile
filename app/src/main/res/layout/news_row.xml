@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        card_view:cardElevation="4dp"
+        card_view:cardCornerRadius="20dp"
+        card_view:cardBackgroundColor="@color/LightBlue"
+        card_view:cardUseCompatPadding="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:id="@+id/ivPortada"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:src="@mipmap/ic_launcher"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+                <TextView
+                    android:id="@+id/tvtitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="8sp"
+                    android:fontFamily="@font/at_surt_regular"
+                    android:maxLines="1"
+                    android:textAlignment="textStart"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:lineHeight="31sp"
+                    android:textFontWeight="600"
+                    android:textColor="@color/white"
+                    tools:text="New" />
+
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="8sp"
+                    android:paddingEnd="10sp"
+                    android:textSize="10dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/at_surt_regular"
+                    android:letterSpacing="0.013"
+                    android:lineHeight="22sp"
+                    android:maxLines="2"
+                    android:textAlignment="textStart"
+                    tools:text="Llegamos y nos vamos"/>
+
+                <ImageButton
+                    android:id="@+id/button_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:backgroundTint="@null"
+
+                    card_view:srcCompat="@drawable/ic_arrow" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
