@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.businesslogic.data
 
+import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
 import com.melvin.ongandroid.R
@@ -56,7 +57,7 @@ class DataSource {
                     }
                 }
 
-                override fun dialogBuilder(context: Context?,title:Int,message:Int) {
+                fun dialogBuilder(context: Context?,title:Int,message:Int) {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle(title)
                     builder.setMessage(message)

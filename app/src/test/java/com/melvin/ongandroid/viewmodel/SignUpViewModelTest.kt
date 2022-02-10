@@ -1,54 +1,51 @@
 package com.melvin.ongandroid.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.melvin.ongandroid.LiveDataTestUtil
 import com.melvin.ongandroid.MainCoroutineRule
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
-import org.junit.Assert
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.Mock
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 
-
-@ExperimentalMultiplatform
 @RunWith(JUnit4::class)
 
-    class SignUpViewModelTest {
+class SignUpViewModelTest {
     @get:Rule
-     val instant= InstantTaskExecutorRule()
+    val instant = InstantTaskExecutorRule()
 
     @get:Rule
-    val dataSourceMock :DataSource = mock()
     val coroutineRule = MainCoroutineRule()
-    val repoImplMock= RepoImpl(dataSourceMock)
-    private lateinit var vm : SignUpViewModel
+
+
+    val dataSourceMock: DataSource = mock()
+    val repoImplMock = RepoImpl(dataSourceMock)
+    private lateinit var vmMock: SignUpViewModel
+    private lateinit var vm: SignUpViewModel
+
 
     @Before
-    fun vmForce(){
-        vm = SignUpViewModel(repoImplMock)
-    }
+    fun vmForce() {
+        vm = SignUpViewModel(RepoImpl(DataSource()))
+        vmMock = SignUpViewModel(repoImplMock)
 
+    }
 
     @Test
-    fun validacionPrueba() {
+    fun CuandoElNombreEstaCorrecto() {
+        val email = "12345678"
 
-        val email = "erik@123hotmail.com"
-        val pass = 123456
-
-
+        assertTrue(vm.verifyPassword(email))
     }
 
-
+    @Test
+    fun CuandoElEamilEstaCorrecto() {
+        val email = "erik@hotmail.com"
+        val result = vm.verifyEmail(email)
+        assertTrue(result)
+    }
 }
-
-
-
-
-
-

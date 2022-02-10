@@ -1,7 +1,5 @@
 package com.melvin.ongandroid.view
 
-
-
 import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +9,6 @@ import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.lifecycle.lifecycleScope
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
@@ -26,21 +23,16 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class SignUpFragment() : Fragment(){
+class SignUpFragment : Fragment() {
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var user: User
     private val viewModel by viewModels<SignUpViewModel>() { VMFactory(RepoImpl(DataSource())) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
         _binding!!.btnSignUp.setOnClickListener {
@@ -68,14 +60,13 @@ class SignUpFragment() : Fragment(){
             }
 
             user = User(name, email, password)
-            binding!!.prBar.visibility = View.VISIBLE
+            binding.prBar.visibility = View.VISIBLE
             responseRegistrer()
-
         }
 
-        viewModel.liveState.observe(viewLifecycleOwner, {
+        viewModel.liveState.observe(viewLifecycleOwner) {
             _binding!!.btnSignUp.isEnabled = it
-        })
+        }
 
         _binding!!.tvName.doAfterTextChanged {
             viewModel.checkState(
@@ -86,7 +77,7 @@ class SignUpFragment() : Fragment(){
             )
         }
 
-        _binding!!.tvEmail.doAfterTextChanged {
+        binding.tvEmail.doAfterTextChanged {
             viewModel.checkState(
                 binding.tvName.text.toString(),
                 it.toString(),
@@ -95,7 +86,7 @@ class SignUpFragment() : Fragment(){
             )
         }
 
-        _binding!!.tvPassword.doAfterTextChanged {
+        binding.tvPassword.doAfterTextChanged {
             viewModel.checkState(
                 binding.tvName.text.toString(),
                 binding.tvEmail.text.toString(),
@@ -115,46 +106,39 @@ class SignUpFragment() : Fragment(){
 
         return binding.root
     }
+
     suspend fun callRetro() {
         viewModel.postUser(user, context, object : OnAPIResponse {
             override fun onSuccess(response: Response<DefaultResponse>) {
-                _binding!!.prBar.visibility=View.GONE
+                _binding!!.prBar.visibility = View.GONE
                 dialogBuilder()
             }
 
             override fun onFailure(msg: String) {
-                _binding!!.prBar.visibility=View.GONE
+                _binding!!.prBar.visibility = View.GONE
             }
 
             override fun onLoading(response: Response<DefaultResponse>) {
-            binding!!.prBar.visibility = View.VISIBLE
+                binding.prBar.visibility = View.VISIBLE
             }
 
         })
     }
 
-    private fun responseRegistrer(){
+    private fun responseRegistrer() {
         CoroutineScope(Dispatchers.IO).launch {
             callRetro()
-            }
         }
+    }
 
-
-     fun dialogBuilder()  {
+    fun dialogBuilder() {
 
         val builder = AlertDialog.Builder(context)
         builder.setTitle(R.string.alert_title)
         builder.setMessage(R.string.alert_message)
-        builder.setPositiveButton(R.string.ok) {
-                dialog, which ->
+        builder.setPositiveButton(R.string.ok) { dialog, which ->
             findNavController().navigate(R.id.loginFragment)
         }
-
         builder.show()
-
     }
-
 }
-
-
-
