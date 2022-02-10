@@ -35,8 +35,6 @@ class LoginFragment : Fragment() {
     var passwordValid = false
     lateinit var prefHelper: PrefHelper
 
-
-
     private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource()))}
 
     override fun onCreateView(
@@ -103,7 +101,7 @@ class LoginFragment : Fragment() {
         _binding!!.tvPassword.filters = arrayOf(filter)
 
         _binding!!.btnSignUp.setOnClickListener {
-             findNavController().navigate(R.id.signUpFragment)
+            findNavController().navigate(R.id.signUpFragment)
         }
         _binding!!.tvPassword.filters = arrayOf(filter)
 
@@ -123,33 +121,40 @@ class LoginFragment : Fragment() {
     }
 
     private fun setObservers() {
-
-        userViewModel.liveDataUser.observe(viewLifecycleOwner){
-            if (it != null){
-                if (it.success){
-                    (activity as MainActivity).saveSession(binding.tvPassword.text.toString(),binding.tvEmail.text.toString())
-                    findNavController().navigate(R.id.homeFragment)
-                } else{
-
-                  _binding!!.prBar.visibility=View.GONE  
-                  _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
         userViewModel.liveDataUser.observe(viewLifecycleOwner) {
             if (it != null) {
-                if (it.success == true) {
-                    _binding!!.prBar.visibility=View.GONE
-                    Toast.makeText(MainApplication.applicationContext(),"Proximamente sección intro", Toast.LENGTH_LONG).show()
+                if (it.success!!) {
+                    (activity as MainActivity).saveSession(
+                        binding.tvPassword.text.toString(),
+                        binding.tvEmail.text.toString()
+                    )
+                    findNavController().navigate(R.id.homeFragment)
                 } else {
-                    _binding!!.prBar.visibility=View.GONE
+                    _binding!!.prBar.visibility = View.GONE
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
-                    _binding!!.tvPassword.error =
-                        getString(R.string.login_et_error_user_and_password)
                 }
-
             }
+            userViewModel.liveDataUser.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    if (it.success == true) {
+                        _binding!!.prBar.visibility = View.GONE
+                        Toast.makeText(
+                            MainApplication.applicationContext(),
+                            "Proximamente sección intro",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        _binding!!.prBar.visibility = View.GONE
+                        _binding!!.tvEmail.error =
+                            getString(R.string.login_et_error_user_and_password)
+                        _binding!!.tvPassword.error =
+                            getString(R.string.login_et_error_user_and_password)
+                    }
+                }
+            }
+            userViewModel.authException.observe(viewLifecycleOwner, this::handleException)
         }
-        userViewModel.authException.observe(viewLifecycleOwner, this::handleException)
     }
-
     private fun handleException(exception: Throwable?) {
         if (exception is HttpException)
             when (exception.code()) {
@@ -169,8 +174,4 @@ class LoginFragment : Fragment() {
                 dialog, which -> {}
         }.show()
     }
-
-
 }
-
-
