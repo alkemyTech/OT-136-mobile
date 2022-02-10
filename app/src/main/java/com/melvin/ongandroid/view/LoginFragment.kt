@@ -131,7 +131,7 @@ class LoginFragment : Fragment() {
                     findNavController().navigate(R.id.homeFragment)
                 } else{
 
-                  _binding!!.prBar.visibility=View.GONE  
+                  _binding!!.prBar.visibility=View.GONE
                   _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
         userViewModel.liveDataUser.observe(viewLifecycleOwner) {
             if (it != null) {

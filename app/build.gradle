@@ -76,12 +76,7 @@ dependencies {
     testImplementation "junit:junit:4.13.2"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1"
-<<<<<<< HEAD
     testImplementation "org.mockito:mockito-core:2.21.0"
-//androidTestImplementation "org.mockito:mockito-core:2.21.0"
     testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
     testImplementation "org.mockito:mockito-inline:2.8.47"
-=======
-    //testImplementation "org.mockito:mockito-core:2.21.0"
->>>>>>> 106115ac46be675fe1719922c3854d9cc37e3c93
 }

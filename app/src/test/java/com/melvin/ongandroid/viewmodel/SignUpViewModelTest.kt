@@ -34,6 +34,17 @@ class SignUpViewModelTest {
         vmMock = SignUpViewModel(repoImplMock)
 
     }
+    //test campo email
+    @Test
+    fun CuandoElEamilEstaCorrecto() {
+        val email = "erik@hotmail.com"
+        val result = vm.verifyEmail(email)
+        assertTrue(result)
+    }
+
+    @Test
+    fun
+
 
     @Test
     fun CuandoElNombreEstaCorrecto() {
@@ -42,10 +53,5 @@ class SignUpViewModelTest {
         assertTrue(vm.verifyPassword(email))
     }
 
-    @Test
-    fun CuandoElEamilEstaCorrecto() {
-        val email = "erik@hotmail.com"
-        val result = vm.verifyEmail(email)
-        assertTrue(result)
-    }
+
 }
