@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
+import com.melvin.ongandroid.databinding.FragmentHomeBinding
 import com.melvin.ongandroid.databinding.FragmentNewsBinding
 import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.repository.RepoImpl
@@ -33,7 +34,7 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        _binding = FragmentNewsBinding.inflate(inflater, container, false)
 
         return binding.root
     }
