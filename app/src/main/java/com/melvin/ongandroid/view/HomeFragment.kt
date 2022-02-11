@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
@@ -32,19 +33,27 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        hideSectionTestimonials(true)
         vm.getTestimonials()
         setObservers()
 
         return binding.root
     }
 
+    private fun hideSectionTestimonials(hide: Boolean) {
+        binding.rvTestimonials.isVisible = !hide
+        binding.tvTitleTestimonials.isVisible = !hide
+    }
+
     private fun setObservers() {
         vm.testimonials.observe(viewLifecycleOwner,{
             if (it != null){
-                setupTestimonialsRecyclerView(vm.testimonials.value!!)
-            }
+                if (it.data.isEmpty()){
+                    hideSectionTestimonials(true)
+                }else setupTestimonialsRecyclerView(vm.testimonials.value!!)
+            }else hideSectionTestimonials(true)
         })
     }
 
@@ -52,5 +61,6 @@ class HomeFragment : Fragment() {
         testimonialsAdapter = TestimonialsAdapter(value)
         binding.rvTestimonials.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvTestimonials.adapter = testimonialsAdapter
+        hideSectionTestimonials(false)
     }
 }
