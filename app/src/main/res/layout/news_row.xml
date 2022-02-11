@@ -58,6 +58,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Buscamos incrementar la capacidad intelectual y moral de las personas de acuerdo con la cultura y las normas de convivencia de la sociedad" />
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

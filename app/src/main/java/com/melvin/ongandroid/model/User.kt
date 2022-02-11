@@ -1,6 +1,5 @@
 package com.melvin.ongandroid.model
 
-import com.google.gson.annotations.SerializedName
 import retrofit2.http.Field
 
 
