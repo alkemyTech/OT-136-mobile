@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
-import com.melvin.ongandroid.model.response.Testimonials
+import com.melvin.ongandroid.model.Testimonials
 import kotlinx.coroutines.launch
 
 class HomeViewModel: ViewModel() {

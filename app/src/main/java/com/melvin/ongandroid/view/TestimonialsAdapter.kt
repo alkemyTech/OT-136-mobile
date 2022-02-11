@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.databinding.ItemTestimonialHomeBinding
-import com.melvin.ongandroid.model.response.TestimonialData
-import com.melvin.ongandroid.model.response.Testimonials
+import com.melvin.ongandroid.model.TestimonialData
+import com.melvin.ongandroid.model.Testimonials
 import com.squareup.picasso.Picasso
 
 class TestimonialsAdapter(private var testimonials: Testimonials)  : RecyclerView.Adapter<TestimonialsAdapter.ViewHolder>(){

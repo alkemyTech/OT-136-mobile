@@ -2,7 +2,6 @@ package com.melvin.ongandroid.businesslogic.data
 
 import android.app.AlertDialog
 import android.content.Context
-import android.provider.Settings.Global.getString
 import android.widget.Toast
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
@@ -11,7 +10,7 @@ import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.User
-import com.melvin.ongandroid.model.response.Testimonials
+import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Call

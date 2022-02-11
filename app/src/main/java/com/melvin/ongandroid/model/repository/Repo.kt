@@ -4,7 +4,7 @@ import android.content.Context
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.User
-import com.melvin.ongandroid.model.response.Testimonials
+import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Response

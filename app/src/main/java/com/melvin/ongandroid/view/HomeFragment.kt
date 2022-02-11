@@ -10,7 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
-import com.melvin.ongandroid.model.response.Testimonials
+import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -46,6 +46,7 @@ class HomeFragment : Fragment() {
         binding.rvTestimonials.isVisible = !hide
         binding.tvTitleTestimonials.isVisible = !hide
     }
+
 
     private fun setObservers() {
         vm.testimonials.observe(viewLifecycleOwner,{
