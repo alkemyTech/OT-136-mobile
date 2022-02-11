@@ -10,6 +10,7 @@ import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.Testimonials
 import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Call
@@ -87,4 +88,7 @@ class DataSource {
         return Resource.Success(RetrofitClient.retrofitService.GetNewsByName(newName).newsList)
     }
 
+    suspend fun getFourTestimonials(): Response<Testimonials> {
+        return RetrofitClient.retrofitService.getFourTestimonials()
+    }
 }

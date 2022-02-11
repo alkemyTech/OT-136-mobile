@@ -3,6 +3,7 @@ package com.melvin.ongandroid.model.service
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.NewsList
 import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.Testimonials
 import com.melvin.ongandroid.model.response.VerifyUser
 import retrofit2.Call
 import retrofit2.Response
@@ -24,4 +25,7 @@ interface ApiService {
 
     @GET("news?limit=4")
     suspend fun GetNewsByName(@Query("name")newName:String):NewsList
+
+    @GET("testimonials?limit=4")
+    suspend fun getFourTestimonials(): Response<Testimonials>
 }

@@ -18,9 +18,6 @@ class TestimonialsFragment : Fragment() {
     private val vm: TestimonialsViewModel by viewModels()
     private lateinit var adapter: TestimonialsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

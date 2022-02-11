@@ -5,11 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
-import com.melvin.ongandroid.model.response.TestimonialData
 import com.melvin.ongandroid.model.response.Testimonials
 import kotlinx.coroutines.launch
 
-class TestimonialsViewModel: ViewModel() {
+class HomeViewModel: ViewModel() {
     var repo = RepoImpl(DataSource())
     var testimonials = MutableLiveData<Testimonials>()
     var testimonialsException = MutableLiveData<Throwable>()
