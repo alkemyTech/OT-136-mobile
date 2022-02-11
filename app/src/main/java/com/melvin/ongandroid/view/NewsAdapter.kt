@@ -42,9 +42,9 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
         BaseViewHolder<New>(itemBinding.root) {
         override fun bind(item: New) {
             Glide.with(context).load(item.photo).centerCrop().into(itemBinding.ivPortada)
-            itemBinding.tvtitulo.text=item.title
+            itemBinding.tvTitulo.text=item.title
             itemBinding.tvDesc.text=item.descript
-            itemBinding.buttonArrow.setOnClickListener {itemClickListener.onNewClick(item)}
+           //itemBinding.buttonArrow.setOnClickListener {itemClickListener.onNewClick(item)}
         }
     }
 }

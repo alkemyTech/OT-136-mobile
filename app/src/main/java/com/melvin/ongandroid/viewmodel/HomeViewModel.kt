@@ -6,7 +6,7 @@ import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.repository.Repo
 import kotlinx.coroutines.Dispatchers
 
-class NewsViewModel(private val repo: Repo) : ViewModel() {
+class HomeViewModel(private val repo: Repo) : ViewModel() {
 
     val fetchNewsList= liveData(Dispatchers.IO) {
         emit(Resource.Loading())
