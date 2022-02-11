@@ -10,23 +10,7 @@
     android:orientation="vertical"
     tools:context=".view.HomeFragment">
 
-
-    <ImageView
-        android:layout_width="145dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="65dp"
-        android:src="@drawable/logo_login" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <RelativeLayout
+    <RelativeLayout
         android:id="@+id/prBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,7 +24,14 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+
+    <ImageView
+        android:layout_width="145dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="65dp"
+        android:src="@drawable/logo_login" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/prError"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -50,12 +41,62 @@
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:lottie_rawRes="@raw/error"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/error" />
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/style_button"
+            android:gravity="center|bottom"
+            android:lineHeight="31sp"
+            android:text="@string/retry"
+
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:backgroundTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.70141345" />
 
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
 
     <TextView
         android:layout_width="match_parent"

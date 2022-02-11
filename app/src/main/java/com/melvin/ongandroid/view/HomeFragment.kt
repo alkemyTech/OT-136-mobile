@@ -44,6 +44,13 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setUpRecyclerView()
+        observeNews()
+
+        return binding.root
+
+    }
+
+    private fun observeNews(){
 
         viewModel.fetchNewsList.observe(viewLifecycleOwner, Observer { result ->
             when(result){
@@ -65,7 +72,7 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
             }
         })
 
-        return binding.root
+
 
     }
 
