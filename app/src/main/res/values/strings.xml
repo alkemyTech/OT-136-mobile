@@ -41,5 +41,6 @@
 
     <string name="news_coming">Próximamente sección detalles</string>
     <string name="user_not_register">El usuario no pudo ser registrado</string>
+    <string name="nav_graph_label_testimonios">Testimonios</string>
 
 </resources>

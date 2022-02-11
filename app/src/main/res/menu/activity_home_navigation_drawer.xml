@@ -17,49 +17,40 @@
     <group
         android:id="@+id/group1"
         android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_act"
             android:icon="@drawable/icon_acts"
             android:title="@string/title_actividades" />
         <item
-            android:id="@+id/nav_testimonios"
-            android:icon="@drawable/icon_testimonials"
-            android:title="@string/nav_drawer_item_testimonios" />
-
-        <item
             android:id="@+id/nav_nov"
             android:icon="@drawable/icon_news"
             android:title="@string/title_novedades" />
-
+        <item
+            android:id="@+id/nav_testimonios"
+            android:icon="@drawable/icon_testimonials"
+            android:title="@string/nav_drawer_item_testimonios" />
     </group>
 
     <item android:title="@string/app_name">
         <menu>
             <group android:checkableBehavior="single">
-
                 <item
                     android:id="@+id/nav_nosotros"
                     android:icon="@drawable/icon_nos"
                     android:title="@string/title_nosotros" />
-
                 <item
                     android:id="@+id/nav_contacts"
                     android:icon="@drawable/icon_contact"
                     android:title="@string/title_contacto" />
-
-
             </group>
         </menu>
     </item>
 
     <group android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_signout"
             android:icon="@drawable/icon_login"
             android:title="@string/title_sign_out" />
-
     </group>
 
 </menu>

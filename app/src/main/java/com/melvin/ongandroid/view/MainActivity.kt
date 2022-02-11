@@ -82,8 +82,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 }
                 R.id.nav_testimonios -> {
                     Toast.makeText(this, getString(R.string.nav_drawer_item_testimonios), Toast.LENGTH_SHORT).show()
-                    //navController.navigateUp()
-                    //navController.navigate(R.id.testimonialsFragment)
+                    navController.navigateUp()
+                    navController.navigate(R.id.testimonialsFragment)
                     true
                 }
                 R.id.nav_act -> {
