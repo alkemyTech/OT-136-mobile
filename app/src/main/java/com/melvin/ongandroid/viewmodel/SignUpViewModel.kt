@@ -1,13 +1,11 @@
 package com.melvin.ongandroid.viewmodel
 
 import android.content.Context
-import android.util.Patterns
 import androidx.lifecycle.*
 import androidx.lifecycle.ViewModel
 import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.service.OnAPIResponse
-
 
 
 class SignUpViewModel(private val repo: Repo) : ViewModel() {
@@ -20,10 +18,10 @@ class SignUpViewModel(private val repo: Repo) : ViewModel() {
 
     fun checkState(name: String, email: String, password: String, confirmPassword: String) {
 
-        if (!name.isNullOrEmpty()
-            && !email.isNullOrEmpty()
-            && !password.isNullOrEmpty()
-            && !confirmPassword.isNullOrEmpty()
+        if (name.isNotEmpty()
+            && email.isNotEmpty()
+            && password.isNotEmpty()
+            && confirmPassword.isNotEmpty()
             && verifyEmail(email)
             && verifyPassword(password)
             && verifyConfirmPassword(confirmPassword)
@@ -36,7 +34,10 @@ class SignUpViewModel(private val repo: Repo) : ViewModel() {
     }
 
     fun verifyEmail(email: String): Boolean {
-       return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        return email.matches(
+            "[a-zA-Z0-9.!#\$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*\$+"
+                .toRegex()
+        )
     }
 
     fun verifyPassword(password: String): Boolean {
@@ -46,6 +47,4 @@ class SignUpViewModel(private val repo: Repo) : ViewModel() {
     fun verifyConfirmPassword(confirmPassword: String): Boolean {
         return confirmPassword.matches("[a-zA-Z0-9]+".toRegex())
     }
-
-
 }
