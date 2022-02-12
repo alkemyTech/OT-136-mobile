@@ -1,13 +1,12 @@
 package com.melvin.ongandroid.view
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,12 +21,15 @@ import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.UserViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
+import com.melvin.ongandroid.model.Testimonials
 
 
 class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>(){ VMFactory(RepoImpl(DataSource())) }
+    private lateinit var testimonialsAdapter: TestimonialsAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,18 +39,25 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
             }
         })
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
 
         setUpRecyclerView()
         observeNews()
+        hideSectionTestimonials(true)
+        viewModel.getTestimonials()
+        setObservers()
+
 
         return binding.root
-
     }
+
 
     private fun observeNews(){
 
@@ -71,10 +80,22 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
 
             }
         })
-
-
-
     }
+
+    private fun hideSectionTestimonials(hide: Boolean) {
+        binding.rvTestimonials.isVisible = !hide
+        binding.tvTitleTestimonials.isVisible = !hide
+    }
+
+    private fun setObservers() {
+        viewModel.testimonials.observe(viewLifecycleOwner,{
+            if (it != null){
+                if (it.data.isEmpty()){
+                    hideSectionTestimonials(true)
+                }else setupTestimonialsRecyclerView(viewModel.testimonials.value!!)
+            }else hideSectionTestimonials(true)
+        })
+    }    
 
     private fun setUpRecyclerView() {
         val appContext = requireContext().applicationContext
@@ -85,4 +106,12 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
     override fun onNewClick(new: New) {
         Toast.makeText(requireContext(),R.string.news_coming,Toast.LENGTH_LONG).show()
     }
+
+    private fun setupTestimonialsRecyclerView(value: Testimonials) {
+        testimonialsAdapter = TestimonialsAdapter(value)
+        binding.rvTestimonials.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvTestimonials.adapter = testimonialsAdapter
+        hideSectionTestimonials(false)
+    }
 }
+
