@@ -23,7 +23,7 @@ interface ApiService {
         @Query("password") pass: String
     ): Response<VerifyUser>
 
-    @GET("news?limit=4")
+    @GET("news")
     suspend fun GetNewsByName(@Query("name")newName:String):NewsList
 
     @GET("testimonials?limit=4")
