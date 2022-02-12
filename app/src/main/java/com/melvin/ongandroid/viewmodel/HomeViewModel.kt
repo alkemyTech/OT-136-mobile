@@ -12,16 +12,18 @@ import com.melvin.ongandroid.model.Testimonials
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repo: Repo) : ViewModel() {
+    var testimonials = MutableLiveData<Testimonials>()
+    var testimonialsException = MutableLiveData<Throwable>()
+
 
     val fetchNewsList= liveData(Dispatchers.IO) {
         emit(Resource.Loading())
         try {
             emit(repo.getNewsList("hola"))
-        }catch (e:Exception){
+        }catch (e:Exception) {
             emit(Resource.Failure(e))
-    
-    var testimonials = MutableLiveData<Testimonials>()
-    var testimonialsException = MutableLiveData<Throwable>()
+        }
+    }
 
     fun getTestimonials(){
         viewModelScope.launch {
