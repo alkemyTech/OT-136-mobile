@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="Actividades"
+                android:text="Bienvenidos"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
