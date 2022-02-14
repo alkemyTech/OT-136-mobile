@@ -15,12 +15,16 @@ class TestimonialsAdapter(private var testimonials: Testimonials)  : RecyclerVie
     class ViewHolder (private val binding: ItemTestimonialHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(testimonial: TestimonialData){
             binding.tvDesc.text = testimonial.description
+            binding.tvTitulo.text= testimonial.name
             Picasso.get().load(testimonial.image).into(binding.ivTestimonial)
         }
         fun showArrow(){
             binding.cvItem.setContentPadding(40,40,40,40)
             binding.tvDesc.isVisible = false
-            binding.ivTestimonial.setImageResource(R.drawable.ic_baseline_arrow_right_24)
+            binding.tvTitulo.isVisible=false
+            binding.cvItem.setCardBackgroundColor(null)
+            binding.cvItem.cardElevation=0f
+            binding.ivTestimonial.setImageResource(R.drawable.ic_arrow_next)
         }
     }
 

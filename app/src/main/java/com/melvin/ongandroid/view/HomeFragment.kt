@@ -31,7 +31,6 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
 
     private lateinit var slidesAdapter:SlidesAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -129,12 +128,13 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
         binding.rvSlides.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvSlides.adapter = slidesAdapter
         hideSectionSlides(false)
-        //binding.rvSlides.smoothScrollToPosition(slidesAdapter.itemCount)
+
     }
 
     private fun hideSectionSlides(hide: Boolean) {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
     }
+
 }
 
