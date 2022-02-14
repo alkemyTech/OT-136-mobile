@@ -1,6 +1,7 @@
 package com.melvin.ongandroid.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
@@ -37,7 +39,6 @@ class NewsFragment : Fragment(), NewsAdapter.OnNewClickListener {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
 
         setUpRecyclerView()
-
         viewModel.fetchNewsList.observe(viewLifecycleOwner, Observer { result ->
             when(result){
                 is Resource.Loading->{
@@ -52,7 +53,13 @@ class NewsFragment : Fragment(), NewsAdapter.OnNewClickListener {
                 is Resource.Failure->{
                     binding.prBar.visibility=View.GONE
                     binding.prError.visibility=View.VISIBLE
-                    Toast.makeText(requireContext(),R.string.login_dg_without_internet,Toast.LENGTH_LONG).show()
+
+                    val snack = Snackbar.make(requireView(), "Ha ocurrido un error obteniendo la información"
+                        ,Snackbar.LENGTH_INDEFINITE)
+                    snack.setAction("Reitentar", View.OnClickListener {
+
+                    })
+                    snack.show()
                 }
 
             }

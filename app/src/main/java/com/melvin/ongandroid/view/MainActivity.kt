@@ -51,17 +51,12 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 binding.navView.visibility=View.VISIBLE
                 navController.navigateUp()
                 navController.navigate(R.id.homeFragment)
-
-                Log.i("mensajee","pasa por true"+ sharedPrefences)
             }else ->{
 
                 binding.toolbar.visibility= View.GONE
                 binding.navView.visibility=View.GONE
                 navController.navigateUp()
                 navController.navigate(R.id.flowLogSign)
-
-
-            Log.i("mensajee", "pasa por else"+sharedPrefences)
             }
         }
 
