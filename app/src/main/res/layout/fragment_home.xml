@@ -32,6 +32,8 @@
         android:src="@drawable/logo_login" />
 
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/prError"
         android:layout_width="match_parent"
@@ -100,9 +102,27 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:text="Bienvenidos"
+                android:textAlignment="textStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_Slides"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                tools:listitem="@layout/news_row"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="@string/title_ult_novedades"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvNews"
