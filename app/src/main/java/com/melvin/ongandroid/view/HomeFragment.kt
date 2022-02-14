@@ -31,7 +31,6 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
 
     private lateinit var slidesAdapter:SlidesAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -136,5 +135,6 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
     }
+
 }
 

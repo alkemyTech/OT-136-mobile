@@ -8,8 +8,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_item_slide"
-        android:layout_width="389dp"
-        android:layout_height="234dp"
+        android:layout_width="397dp"
+        android:layout_height="288dp"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/LightBlue"
         app:cardCornerRadius="25dp"
@@ -32,35 +32,33 @@
             tools:srcCompat="@tools:sample/avatars" />
 
 
+        <TextView
+            android:id="@+id/tv_desc_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:background="#80FFFFFF"
+            android:maxLines="1"
+            android:paddingHorizontal="8dp"
+            android:text="Titulo"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_desc_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|center_horizontal"
-                android:background="#80FFFFFF"
-                android:text="Titulo"
-                android:paddingHorizontal="8dp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-
-            <TextView
-                android:id="@+id/tv_desc_slide"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:background="#80FFFFFF"
-                android:maxLines="4"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:text="Buscamos incrementar la capacidad intelectual y moral de las personas de acuerdo con la cultura y las normas de convivencia de la sociedad" />
-
+        <TextView
+            android:id="@+id/tv_desc_slide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="#80FFFFFF"
+            android:maxLines="4"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Buscamos incrementar la capacidad intelectual y moral de las personas de acuerdo con la cultura y las normas de convivencia de la sociedad" />
 
 
     </androidx.cardview.widget.CardView>

@@ -3,8 +3,10 @@ package com.melvin.ongandroid.view
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.vo.BaseViewHolder
 import com.melvin.ongandroid.databinding.NewsRowBinding
 import com.melvin.ongandroid.model.New
@@ -13,7 +15,7 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
                   private val itemClickListener:OnNewClickListener):
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
-    val limit = 4
+    val limit = 5
 
     interface OnNewClickListener{
         fun onNewClick(new:New)
@@ -28,8 +30,14 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         when(holder){
-            is MainViewHolder->holder.bind(newsList[position])
+            is MainViewHolder->{
+                holder.bind(newsList[position])
+                when(position){
+                limit-1-> holder.showArrow()
+                }
+            }
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -44,7 +52,14 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
             Glide.with(context).load(item.photo).centerCrop().into(itemBinding.ivPortada)
             itemBinding.tvTitulo.text=item.title
             itemBinding.tvDesc.text=item.descript
-           //itemBinding.buttonArrow.setOnClickListener {itemClickListener.onNewClick(item)}
+
+        }
+
+        fun showArrow(){
+            itemBinding.cvItem.setContentPadding(40,40,40,40)
+            itemBinding.tvDesc.isVisible = false
+            itemBinding.tvTitulo.isVisible=false
+            itemBinding.ivPortada.setImageResource(R.drawable.ic_baseline_arrow_right_24)
         }
     }
 }
