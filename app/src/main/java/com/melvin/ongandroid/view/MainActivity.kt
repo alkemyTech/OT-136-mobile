@@ -55,8 +55,9 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 Log.i("mensajee","pasa por true"+ sharedPrefences)
             }else ->{
 
-                binding.toolbar.visibility= View.GONE
-                binding.navView.visibility=View.GONE
+
+                //binding.toolbar.visibility= View.GONE
+                //binding.navView.visibility=View.GONE
                 navController.navigateUp()
                 navController.navigate(R.id.flowLogSign)
 
@@ -127,7 +128,7 @@ class MainActivity : AppCompatActivity(), OnRegister {
     }
 
     override fun onClickRegister() {
-        binding.toolbar.visibility= View.VISIBLE
+        binding.toolbar.visibility=View.VISIBLE
         binding.navView.visibility=View.VISIBLE
     }
 

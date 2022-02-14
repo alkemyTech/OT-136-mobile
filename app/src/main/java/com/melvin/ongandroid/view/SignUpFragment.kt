@@ -60,8 +60,8 @@ class SignUpFragment : Fragment() {
             }
 
             user = User(name, email, password)
-            binding.prBar.visibility = View.VISIBLE
-            responseRegistrer()
+            binding!!.prBar.visibility = View.VISIBLE
+            responseRegistrer(user)
         }
 
         viewModel.liveState.observe(viewLifecycleOwner) {
@@ -77,7 +77,7 @@ class SignUpFragment : Fragment() {
             )
         }
 
-        binding.tvEmail.doAfterTextChanged {
+        _binding!!.tvEmail.doAfterTextChanged {
             viewModel.checkState(
                 binding.tvName.text.toString(),
                 it.toString(),
@@ -86,7 +86,7 @@ class SignUpFragment : Fragment() {
             )
         }
 
-        binding.tvPassword.doAfterTextChanged {
+        _binding!!.tvPassword.doAfterTextChanged {
             viewModel.checkState(
                 binding.tvName.text.toString(),
                 binding.tvEmail.text.toString(),
@@ -107,7 +107,7 @@ class SignUpFragment : Fragment() {
         return binding.root
     }
 
-    suspend fun callRetro() {
+    suspend fun callRetro(user: User) {
         viewModel.postUser(user, context, object : OnAPIResponse {
             override fun onSuccess(response: Response<DefaultResponse>) {
                 _binding!!.prBar.visibility = View.GONE
@@ -119,15 +119,15 @@ class SignUpFragment : Fragment() {
             }
 
             override fun onLoading(response: Response<DefaultResponse>) {
-                binding.prBar.visibility = View.VISIBLE
+            _binding!!.prBar.visibility = View.VISIBLE
             }
 
         })
     }
 
-    private fun responseRegistrer() {
+    private fun responseRegistrer(user:User) {
         CoroutineScope(Dispatchers.IO).launch {
-            callRetro()
+            callRetro(user)
         }
     }
 

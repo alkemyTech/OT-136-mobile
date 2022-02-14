@@ -26,7 +26,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:layout_marginTop="65dp"
         android:scaleType="center"
         android:src="@drawable/logo_login" />
@@ -102,7 +102,9 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:paddingVertical="8dp"
                 android:text="Bienvenidos"
+                android:textSize="24sp"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -111,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                tools:listitem="@layout/news_row"/>
+                tools:listitem="@layout/item_slide_home"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -119,6 +121,8 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/title_ult_novedades"
+                android:paddingVertical="8dp"
+                android:textSize="24sp"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -137,8 +141,11 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:paddingVertical="8dp"
                 android:text="@string/layout_fragment_home_tv_testimonios"
+                android:textSize="24sp"
                 android:textAlignment="textStart"
+                tools:listitem="@layout/item_testimonial_home"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <androidx.recyclerview.widget.RecyclerView

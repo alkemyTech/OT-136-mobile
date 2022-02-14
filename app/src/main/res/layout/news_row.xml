@@ -7,8 +7,8 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="187dp"
-        android:layout_height="321dp"
+        android:layout_width="198dp"
+        android:layout_height="229dp"
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/LightBlue"
         app:cardCornerRadius="25dp"
@@ -30,35 +30,35 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="136dp"
-            android:layout_gravity="bottom"
-            android:orientation="vertical">
+
 
             <TextView
                 android:id="@+id/tvTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal|center_vertical"
+                android:layout_gravity="top|center_horizontal"
                 android:background="#80FFFFFF"
                 android:text="Titulo"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+                android:paddingHorizontal="8dp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <TextView
                 android:id="@+id/tvDesc"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom|center_horizontal|center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
                 android:background="#80FFFFFF"
+                android:maxLines="4"
                 android:textAlignment="center"
-
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Buscamos incrementar la capacidad intelectual y moral de las personas de acuerdo con la cultura y las normas de convivencia de la sociedad" />
 
-        </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

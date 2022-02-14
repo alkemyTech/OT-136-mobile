@@ -129,7 +129,7 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
         binding.rvSlides.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvSlides.adapter = slidesAdapter
         hideSectionSlides(false)
-        //binding.rvSlides.smoothScrollToPosition(slidesAdapter.itemCount)
+
     }
 
     private fun hideSectionSlides(hide: Boolean) {
