@@ -66,45 +66,51 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
     }
 
     private fun setObservers() {
-        viewModel.testimonials.observe(viewLifecycleOwner,{
-            if (it != null){
-                if (it.data.isEmpty()){
+        viewModel.testimonials.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.data.isEmpty()) {
                     hideSectionTestimonials(true)
-                }else setupTestimonialsRecyclerView(viewModel.testimonials.value!!)
-            }else hideSectionTestimonials(true)
-        })
-        viewModel.fetchNewsList.observe(viewLifecycleOwner, { result ->
-            when(result){
-                is Resource.Loading->{
-                    binding.prBar.visibility=View.VISIBLE
-                    binding.prError.visibility=View.GONE
+                } else setupTestimonialsRecyclerView(viewModel.testimonials.value!!)
+            } else hideSectionTestimonials(true)
+        }
+        viewModel.fetchNewsList.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Resource.Loading -> {
+                    binding.prBar.visibility = View.VISIBLE
+                    binding.prError.visibility = View.GONE
                 }
-                is Resource.Success->{
-                    binding.prBar.visibility=View.GONE
-                    binding.prError.visibility=View.GONE
-                    binding.rvNews.adapter=NewsAdapter(requireContext(), result.data, this)
+                is Resource.Success -> {
+                    binding.prBar.visibility = View.GONE
+                    binding.prError.visibility = View.GONE
+                    binding.rvNews.adapter = NewsAdapter(requireContext(), result.data, this)
                 }
-                is Resource.Failure->{
-                    binding.prBar.visibility=View.GONE
-                    binding.prError.visibility=View.VISIBLE
-                    Toast.makeText(requireContext(),R.string.login_dg_without_internet,Toast.LENGTH_LONG).show()
+                is Resource.Failure -> {
+                    binding.prBar.visibility = View.GONE
+                    binding.prError.visibility = View.VISIBLE
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.login_dg_without_internet,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-        })
+        }
 
-        viewModel.slides.observe(viewLifecycleOwner,{
+        viewModel.slides.observe(viewLifecycleOwner){
             if (it != null){
                 if (it.data.isEmpty()){
                     hideSectionSlides(true)
                 }else setupSlidesRecyclerView(viewModel.slides.value!!)
             }else hideSectionSlides(true)
-        })
+        }
     }    
 
     private fun setUpNewsRecyclerView() {
+
         val appContext = requireContext().applicationContext
         val recyclerView = binding.rvNews
         recyclerView.layoutManager = LinearLayoutManager(appContext, LinearLayoutManager.HORIZONTAL, false)
+
     }
 
     override fun onNewClick(new: New) {
@@ -123,6 +129,7 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
         binding.rvSlides.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvSlides.adapter = slidesAdapter
         hideSectionSlides(false)
+        //binding.rvSlides.smoothScrollToPosition(slidesAdapter.itemCount)
     }
 
     private fun hideSectionSlides(hide: Boolean) {
