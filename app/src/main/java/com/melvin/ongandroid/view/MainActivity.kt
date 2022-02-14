@@ -77,7 +77,9 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 R.id.nav_signout -> {
                     Toast.makeText(this, getString(R.string.title_sign_out), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
-                    navController.navigate(R.id.signUpFragment)
+                    PrefHelper(this).clear()
+                    navController.navigate(R.id.loginFragment)
+
                     true
                 }
                 R.id.nav_testimonios -> {
