@@ -22,7 +22,9 @@ class TestimonialsAdapter(private var testimonials: Testimonials)  : RecyclerVie
             binding.cvItem.setContentPadding(40,40,40,40)
             binding.tvDesc.isVisible = false
             binding.tvTitulo.isVisible=false
-            binding.ivTestimonial.setImageResource(R.drawable.ic_baseline_arrow_right_24)
+            binding.cvItem.setCardBackgroundColor(null)
+            binding.cvItem.cardElevation=0f
+            binding.ivTestimonial.setImageResource(R.drawable.ic_arrow_next)
         }
     }
 

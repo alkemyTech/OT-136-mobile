@@ -59,7 +59,9 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
             itemBinding.cvItem.setContentPadding(40,40,40,40)
             itemBinding.tvDesc.isVisible = false
             itemBinding.tvTitulo.isVisible=false
-            itemBinding.ivPortada.setImageResource(R.drawable.ic_baseline_arrow_right_24)
+            itemBinding.cvItem.setCardBackgroundColor(null)
+            itemBinding.cvItem.cardElevation=0f
+            itemBinding.ivPortada.setImageResource(R.drawable.ic_arrow_next)
         }
     }
 }
