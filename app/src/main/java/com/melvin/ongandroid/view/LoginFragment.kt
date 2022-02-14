@@ -21,7 +21,6 @@ import com.melvin.ongandroid.businesslogic.domain.OnRegister
 
 import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
-
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
@@ -49,17 +48,13 @@ class LoginFragment : Fragment() {
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-
         _binding!!.btnLogin.setOnClickListener {
             _binding!!.prBar.visibility = View.VISIBLE
-
 
             userViewModel.postToken(
                 _binding!!.tvEmail.text.toString(),
                 _binding!!.tvPassword.text.toString()
             )
-
-
         }
         _binding!!.btnLogin.isEnabled = false
 
@@ -186,7 +181,6 @@ class LoginFragment : Fragment() {
             showDialog(getString(R.string.login_dg_without_internet))
         }
 
-
     private fun showDialog(message: String) {
         MaterialAlertDialogBuilder(requireContext()).setMessage(message).setPositiveButton(getString(R.string.ok)){
                 dialog, which -> {}
@@ -205,5 +199,3 @@ class LoginFragment : Fragment() {
 
 
 }
-
-

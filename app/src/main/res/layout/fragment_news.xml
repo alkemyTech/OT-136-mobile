@@ -9,32 +9,11 @@
     tools:context=".view.NewsFragment">
 
 
-    <ImageView
-        android:layout_width="145dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="65dp"
-        android:src="@drawable/logo_login" />
-
-
-    <RelativeLayout
-        android:id="@+id/prBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
-
-
-    </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/prError"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         >
 
         <com.airbnb.lottie.LottieAnimationView
@@ -46,14 +25,4 @@
 
 
     </RelativeLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvNews"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        >
-
-    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
