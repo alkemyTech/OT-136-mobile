@@ -20,7 +20,7 @@
     <string name="title_actividades">Actividades</string>
     <string name="title_contacto">Contacto</string>
     <string name="title_novedades">Novedades</string>
-    <string name="title_sign_out">Salir</string>
+    <string name="title_sign_out">Cerrar sesión</string>
     <string name="title_ult_novedades">Ultimas Novedades</string>
     <string name="retry">Reintentar</string>
     <string name="login_et_error_user_and_password">Usuario y/o contraseña incorrectos</string>
