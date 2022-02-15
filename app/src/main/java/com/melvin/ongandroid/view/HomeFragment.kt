@@ -51,8 +51,6 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setUpNewsRecyclerView()
-
-
         hideSectionTestimonials(true)
         hideSectionSlides(true)
         viewModel.getSlides()

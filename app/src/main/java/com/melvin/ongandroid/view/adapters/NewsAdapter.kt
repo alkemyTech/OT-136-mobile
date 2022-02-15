@@ -3,6 +3,7 @@ package com.melvin.ongandroid.view.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -63,6 +64,9 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
             itemBinding.cvItem.setCardBackgroundColor(null)
             itemBinding.cvItem.cardElevation=0f
             itemBinding.ivPortada.setImageResource(R.drawable.ic_arrow_next)
+            itemBinding.cvItem.setOnClickListener {
+                Toast.makeText(context, "Proximamente navegacion a NOVEDADES", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

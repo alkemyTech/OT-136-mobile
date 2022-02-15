@@ -19,8 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
-
-
     </RelativeLayout>
 
     <ImageView
@@ -30,9 +28,6 @@
         android:layout_marginTop="65dp"
         android:scaleType="center"
         android:src="@drawable/logo_login" />
-
-
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/prError"
@@ -83,8 +78,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.70141345" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -125,8 +118,6 @@
                 android:textAlignment="textStart"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvNews"
                 android:layout_width="match_parent"
@@ -151,11 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" />
-
-
-
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
 
