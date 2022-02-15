@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -45,24 +47,19 @@ class MainActivity : AppCompatActivity(), OnRegister {
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
 
-        when(sharedPrefences){
+        when(sharedPrefences) {
             "true" -> {
                 binding.toolbar.visibility= View.VISIBLE
                 binding.navView.visibility=View.VISIBLE
+                binding.drawerLayout.setDrawerLockMode(LOCK_MODE_UNLOCKED)
                 navController.navigateUp()
                 navController.navigate(R.id.homeFragment)
-
-                Log.i("mensajee","pasa por true"+ sharedPrefences)
-            }else ->{
-
-
-                //binding.toolbar.visibility= View.GONE
-                //binding.navView.visibility=View.GONE
-                navController.navigateUp()
-                navController.navigate(R.id.flowLogSign)
-
-
-            Log.i("mensajee", "pasa por else"+sharedPrefences)
+            }else -> {
+            binding.toolbar.visibility= View.GONE
+            binding.navView.visibility=View.GONE
+            binding.drawerLayout.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
+            navController.navigateUp()
+            navController.navigate(R.id.flowLogSign)
             }
         }
 
@@ -72,15 +69,15 @@ class MainActivity : AppCompatActivity(), OnRegister {
                     Toast.makeText(this, getString(R.string.title_intro), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     navController.navigate(R.id.homeFragment)
-
                     true
                 }
                 R.id.nav_signout -> {
                     Toast.makeText(this, getString(R.string.title_sign_out), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     PrefHelper(this).clear()
-                    navController.navigate(R.id.loginFragment)
-
+                    binding.drawerLayout.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
+                    navController.navigate(R.id.flowLogSign)
+                    binding.toolbar.visibility= View.GONE
                     true
                 }
                 R.id.nav_testimonios -> {
@@ -132,8 +129,7 @@ class MainActivity : AppCompatActivity(), OnRegister {
     override fun onClickRegister() {
         binding.toolbar.visibility=View.VISIBLE
         binding.navView.visibility=View.VISIBLE
+        binding.drawerLayout.setDrawerLockMode(LOCK_MODE_UNLOCKED)
     }
-
-
 }
 
