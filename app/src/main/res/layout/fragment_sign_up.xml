@@ -107,7 +107,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/confirm_password"
-        android:inputType="textPassword"
         android:textColorHint="@color/LightBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -118,6 +117,7 @@
             android:id="@+id/tvConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:textColorHint="@color/LightBlue" />
 
     </com.google.android.material.textfield.TextInputLayout>
