@@ -49,6 +49,7 @@
             android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:textColorHint="@color/LightBlue" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -71,6 +72,7 @@
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:textColorHint="@color/LightBlue" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,6 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@color/LightBlue"
+            android:singleLine="true"
             android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -118,6 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:singleLine="true"
             android:textColorHint="@color/LightBlue" />
 
     </com.google.android.material.textfield.TextInputLayout>
