@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class SignUpFragment : Fragment() {
-    private var _binding: FragmentSignUpBinding? = null
+    /*private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
     private lateinit var user: User
     private val viewModel by viewModels<SignUpViewModel>() { VMFactory(RepoImpl(DataSource())) }
@@ -140,5 +140,5 @@ class SignUpFragment : Fragment() {
             findNavController().navigate(R.id.loginFragment)
         }
         builder.show()
-    }
+    }*/
 }

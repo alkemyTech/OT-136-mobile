@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -25,16 +26,14 @@ class MainActivity : AppCompatActivity(), OnRegister {
 
     private lateinit var navController: NavController
 
-    lateinit var prefHelper: PrefHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
         val bundle = intent.extras
-        val token = bundle?.getString("token")
-        var sharedPrefences=token
-        prefHelper = PrefHelper(this)
+        //val token = bundle?.getString("token")
+        //var sharedPrefences=token
+        //prefHelper = PrefHelper(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -46,22 +45,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
         val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
-
-        when(sharedPrefences) {
-            "true" -> {
-                binding.toolbar.visibility= View.VISIBLE
-                binding.navView.visibility=View.VISIBLE
-                binding.drawerLayout.setDrawerLockMode(LOCK_MODE_UNLOCKED)
-                navController.navigateUp()
-                navController.navigate(R.id.homeFragment)
-            }else -> {
-            binding.toolbar.visibility= View.GONE
-            binding.navView.visibility=View.GONE
-            binding.drawerLayout.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
-            navController.navigateUp()
-            navController.navigate(R.id.flowLogSign)
-            }
-        }
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -75,9 +58,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                     Toast.makeText(this, getString(R.string.title_sign_out), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     PrefHelper(this).clear()
-                    binding.drawerLayout.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED)
-                    navController.navigate(R.id.flowLogSign)
-                    binding.toolbar.visibility= View.GONE
+                    startActivity(Intent(this, LoginActivity::class.java))
+
                     true
                 }
                 R.id.nav_testimonios -> {
@@ -112,11 +94,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
         }
     }
 
-    public fun saveSession(username: String, password: String){
-        prefHelper.put( Constant.PREF_USERNAME, username )
-        prefHelper.put( Constant.PREF_PASSWORD, password )
-        prefHelper.put( Constant.PREF_IS_LOGIN, true)
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
@@ -127,9 +104,7 @@ class MainActivity : AppCompatActivity(), OnRegister {
     }
 
     override fun onClickRegister() {
-        binding.toolbar.visibility=View.VISIBLE
-        binding.navView.visibility=View.VISIBLE
-        binding.drawerLayout.setDrawerLockMode(LOCK_MODE_UNLOCKED)
+
     }
 }
 

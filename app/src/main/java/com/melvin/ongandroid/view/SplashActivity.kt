@@ -21,11 +21,11 @@ class SplashActivity  : AppCompatActivity() {
         super.onStart()
         if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN)) {
             val intent = Intent(this,MainActivity::class.java)
-            intent.putExtra("token",true.toString())
+            //intent.putExtra("token",true.toString())
             startActivity(intent)
         } else {
             val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra("token",false.toString())
+            //intent.putExtra("token",false.toString())
             startActivity(intent)
         }
     }

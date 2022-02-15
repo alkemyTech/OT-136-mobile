@@ -17,26 +17,6 @@
             android:id="@+id/action_homeFragment_to_testimonialsFragment"
             app:destination="@id/testimonialsFragment" />
     </fragment>
-    <navigation android:id="@+id/flowLogSign"
-        app:startDestination="@id/loginFragment">
-        <fragment
-            android:id="@+id/loginFragment"
-            android:name="com.melvin.ongandroid.view.LoginFragment"
-            android:label="@string/title_intro"
-            tools:layout="@layout/fragment_login">
-            <action
-                android:id="@+id/action_loginFragment_to_signUpFragment"
-                app:destination="@id/signUpFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/signUpFragment"
-            android:name="com.melvin.ongandroid.view.SignUpFragment"
-            android:label="@string/register"
-            tools:layout="@layout/activity_sign_up" />
-        <action
-            android:id="@+id/action_global_homeFragment"
-            app:destination="@id/homeFragment" />
-    </navigation>
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.melvin.ongandroid.view.NewsFragment"

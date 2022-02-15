@@ -29,7 +29,7 @@ import java.net.UnknownHostException
 
 class LoginFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    /*private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     var emailValid = false
     var passwordValid = false
@@ -102,9 +102,6 @@ class LoginFragment : Fragment() {
             }
         _binding!!.tvPassword.filters = arrayOf(filter)
 
-        _binding!!.btnSignUp.setOnClickListener {
-            findNavController().navigate(R.id.signUpFragment)
-        }
         _binding!!.tvPassword.filters = arrayOf(filter)
 
         setObservers()
@@ -187,5 +184,5 @@ class LoginFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
-    }
+    }*/
 }
