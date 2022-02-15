@@ -3,16 +3,12 @@ package com.melvin.ongandroid.view
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
-import com.melvin.ongandroid.databinding.ActivityMainBinding
 import com.melvin.ongandroid.databinding.ActivitySignUpBinding
 import com.melvin.ongandroid.model.DefaultResponse
 import com.melvin.ongandroid.model.User
@@ -28,14 +24,14 @@ import retrofit2.Response
 class SignUpActivity: AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var user: User
-    private val viewModel by viewModels<SignUpViewModel>() { VMFactory(RepoImpl(DataSource())) }
+    private val viewModel by viewModels<SignUpViewModel> { VMFactory(RepoImpl(DataSource())) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding!!.btnSignUp.setOnClickListener {
+        binding.btnSignUp.setOnClickListener {
 
             val email = binding.tvEmail.text.toString().trim()
             val password = binding.tvPassword.text.toString().trim()
@@ -61,7 +57,7 @@ class SignUpActivity: AppCompatActivity() {
 
             user = User(name, email, password)
             binding.prBar.visibility = View.VISIBLE
-            responseRegistrer(user)
+            responseRegister(user)
         }
 
         viewModel.liveState.observe(this) {
@@ -103,10 +99,9 @@ class SignUpActivity: AppCompatActivity() {
                 it.toString()
             )
         }
-
     }
 
-    suspend fun callRetro(user: User) {
+    private suspend fun callRetro(user: User) {
         viewModel.postUser(user, this, object : OnAPIResponse {
             override fun onSuccess(response: Response<DefaultResponse>) {
                 binding.prBar.visibility = View.GONE
@@ -120,11 +115,10 @@ class SignUpActivity: AppCompatActivity() {
             override fun onLoading(response: Response<DefaultResponse>) {
                 binding.prBar.visibility = View.VISIBLE
             }
-
         })
     }
 
-    private fun responseRegistrer(user:User) {
+    private fun responseRegister(user:User) {
         CoroutineScope(Dispatchers.IO).launch {
             callRetro(user)
         }
@@ -137,8 +131,14 @@ class SignUpActivity: AppCompatActivity() {
         builder.setMessage(R.string.alert_message)
         builder.setPositiveButton(R.string.ok) { dialog, which ->
             startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
         builder.show()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
 }

@@ -2,10 +2,10 @@ package com.melvin.ongandroid.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
+import android.util.Patterns
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -35,10 +35,21 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnSignUp.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
-        }
+        binding.btnLogin.isEnabled = false
 
+        setListeners()
+        emailValidation()
+        passwordValidation()
+        setObservers()
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
+        finish()
+    }
+
+    private fun setListeners() {
+        binding.btnSignUp.setOnClickListener { viewSignUpActivity() }
         binding.btnLogin.setOnClickListener {
             binding.prBar.visibility = View.VISIBLE
 
@@ -47,29 +58,9 @@ class LoginActivity : AppCompatActivity() {
                 binding.tvPassword.text.toString()
             )
         }
-        binding.btnLogin.isEnabled = false
+    }
 
-        binding.tvEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                hideMessageUserNotExist()
-                if (android.util.Patterns.EMAIL_ADDRESS.matcher(binding.tvEmail.text.toString())
-                        .matches()
-                ) {
-                    emailValid = true
-                } else {
-                    emailValid = false
-                    binding.tvEmail.error = getString(R.string.login_tv_error_invalid_mail)
-                }
-                validFields()
-            }
-        })
-
+    private fun passwordValidation() {
         binding.tvPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -87,24 +78,44 @@ class LoginActivity : AppCompatActivity() {
             InputFilter { source, start, end, dest, dstart, dend ->
                 for (i in start until end) {
                     if (!Character.toString(source[i]).matches("[a-zA-Z0-9]+".toRegex())) {
-                        binding.tvPassword.error = getString(R.string.login_tv_error_only_letters_and_digits)
+                        binding.tvPassword.error =
+                            getString(R.string.login_tv_error_only_letters_and_digits)
                         return@InputFilter ""
                     }
                 }
                 null
             }
         binding.tvPassword.filters = arrayOf(filter)
+    }
 
-        binding.tvPassword.filters = arrayOf(filter)
+    private fun emailValidation() {
+        binding.tvEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
-        setObservers()
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
 
-        this?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                finish()
+            override fun afterTextChanged(p0: Editable?) {
+                hideMessageUserNotExist()
+                if (Patterns.EMAIL_ADDRESS.matcher(binding.tvEmail.text.toString())
+                        .matches()
+                ) {
+                    emailValid = true
+                } else {
+                    emailValid = false
+                    binding.tvEmail.error = getString(R.string.login_tv_error_invalid_mail)
+                }
+                validFields()
             }
         })
     }
+
+    private fun viewSignUpActivity() {
+        startActivity(Intent(this, SignUpActivity::class.java))
+        finish()
+    }
+
     private fun hideMessageUserNotExist() {
         binding.tvEmail.error = null
         binding.tvPassword.error = null
@@ -123,9 +134,9 @@ class LoginActivity : AppCompatActivity() {
                         binding.tvEmail.text.toString()
                     )
                     startActivity(Intent(this, MainActivity::class.java))
+                    finish()
 
                 } else {
-
                     binding.tvEmail.error = getString(R.string.login_et_error_user_and_password)
                 }
             }
@@ -134,7 +145,6 @@ class LoginActivity : AppCompatActivity() {
             if (it != null) {
                 if (it.success == true) {
                     binding.prBar.visibility = View.GONE
-
                 } else {
                     binding.prBar.visibility = View.GONE
                     binding.tvEmail.error =
@@ -167,7 +177,7 @@ class LoginActivity : AppCompatActivity() {
         }.show()
     }
 
-    public fun saveSession(username: String, password: String){
+    private fun saveSession(username: String, password: String){
         prefHelper.put( Constant.PREF_USERNAME, username )
         prefHelper.put( Constant.PREF_PASSWORD, password )
         prefHelper.put( Constant.PREF_IS_LOGIN, true)
