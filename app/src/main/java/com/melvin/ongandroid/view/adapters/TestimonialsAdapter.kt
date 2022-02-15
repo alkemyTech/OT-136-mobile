@@ -1,4 +1,4 @@
-package com.melvin.ongandroid.view
+package com.melvin.ongandroid.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -36,7 +36,7 @@ class TestimonialsAdapter(private var testimonials: Testimonials)  : RecyclerVie
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position <= testimonials.data.lastIndex){
             holder.bind(testimonials.data[position])
         }else { holder.showArrow() }

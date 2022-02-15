@@ -1,4 +1,4 @@
-package com.melvin.ongandroid.view
+package com.melvin.ongandroid.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,7 +12,8 @@ import com.melvin.ongandroid.databinding.NewsRowBinding
 import com.melvin.ongandroid.model.New
 
 class NewsAdapter(private val context: Context, private val newsList:List<New>,
-                  private val itemClickListener:OnNewClickListener):
+                  private val itemClickListener: OnNewClickListener
+):
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     val limit = 5
@@ -30,7 +31,7 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         when(holder){
-            is MainViewHolder->{
+            is MainViewHolder ->{
                 holder.bind(newsList[position])
                 when(position){
                 limit-1-> holder.showArrow()

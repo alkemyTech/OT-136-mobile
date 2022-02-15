@@ -20,16 +20,19 @@ import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import com.melvin.ongandroid.model.Testimonials
+import com.melvin.ongandroid.view.adapters.NewsAdapter
+import com.melvin.ongandroid.view.adapters.SlidesAdapter
+import com.melvin.ongandroid.view.adapters.TestimonialsAdapter
 
 
-class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
+class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
 
     private lateinit var testimonialsAdapter: TestimonialsAdapter
 
-    private lateinit var slidesAdapter:SlidesAdapter
+    private lateinit var slidesAdapter: SlidesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
