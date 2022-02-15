@@ -24,7 +24,7 @@ class SplashActivity  : AppCompatActivity() {
             intent.putExtra("token",true.toString())
             startActivity(intent)
         } else {
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             intent.putExtra("token",false.toString())
             startActivity(intent)
         }

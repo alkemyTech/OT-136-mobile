@@ -32,7 +32,7 @@
             android:id="@+id/signUpFragment"
             android:name="com.melvin.ongandroid.view.SignUpFragment"
             android:label="@string/register"
-            tools:layout="@layout/fragment_sign_up" />
+            tools:layout="@layout/activity_sign_up" />
         <action
             android:id="@+id/action_global_homeFragment"
             app:destination="@id/homeFragment" />
