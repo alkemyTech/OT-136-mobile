@@ -17,7 +17,7 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
 ):
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
-    val limit = 5
+    private val limit = 5
 
     interface OnNewClickListener{
         fun onNewClick(new:New)
@@ -43,9 +43,9 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
     }
 
     override fun getItemCount(): Int {
-        if(newsList.size>=limit){
-            return limit
-        }else return newsList.size
+        return if(newsList.size>=limit){
+            limit
+        }else newsList.size
     }
 
     inner class MainViewHolder(private val itemBinding: NewsRowBinding):
@@ -65,7 +65,7 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
             itemBinding.cvItem.cardElevation=0f
             itemBinding.ivPortada.setImageResource(R.drawable.ic_arrow_next)
             itemBinding.cvItem.setOnClickListener {
-                Toast.makeText(context, "Proximamente navegacion a NOVEDADES", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.coming_soon_news), Toast.LENGTH_SHORT).show()
             }
         }
     }

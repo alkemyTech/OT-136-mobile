@@ -28,7 +28,7 @@ class TestimonialsAdapter(private var testimonials: Testimonials)  : RecyclerVie
             binding.cvItem.cardElevation=0f
             binding.ivTestimonial.setImageResource(R.drawable.ic_arrow_next)
             binding.ivTestimonial.setOnClickListener {
-                Toast.makeText(MainApplication.applicationContext(), "Proximamente navegacion a TESTIMONIOS", Toast.LENGTH_SHORT).show()
+                Toast.makeText(MainApplication.applicationContext(), MainApplication.applicationContext().getString(R.string.coming_soon_testimonials), Toast.LENGTH_SHORT).show()
             }
         }
     }
