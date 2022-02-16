@@ -1,5 +1,7 @@
 package com.melvin.ongandroid.view
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
@@ -57,6 +60,8 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         viewModel.getTestimonials()
         setObservers()
 
+        viewModel.getSlides()
+
         return binding.root
     }
 
@@ -66,6 +71,7 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
     }
 
     private fun setObservers() {
+
         viewModel.testimonials.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.data.isEmpty()) {
@@ -84,16 +90,19 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
                     binding.prError.visibility = View.GONE
                     binding.rvNews.adapter = NewsAdapter(requireContext(), result.data, this)
                 }
+
                 is Resource.Failure->{
                     binding.prBar.visibility=View.GONE
                     binding.prError.visibility=View.VISIBLE
-                    Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
+                    //Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
+                    alerDialogMasiveError()
                     binding.retryButton.setOnClickListener {
                         (activity as MainActivity).refreshFr()
                     }
                 }
             }
         }
+
 
         viewModel.slides.observe(viewLifecycleOwner){
             if (it != null){
@@ -132,5 +141,18 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
     }
+    private fun alerDialogMasiveError(){
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle("Falla Del Sistema")
+        alertDialog.setMessage("Error General")
+        alertDialog.setPositiveButton("Reintentar"){_,_->
+            findNavController().navigate(R.id.homeFragment)
+        }
+        alertDialog.setNegativeButton("Cancelar"){_,_->
+
+        }
+        alertDialog.show()
+    }
+
 }
 

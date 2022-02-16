@@ -1,5 +1,7 @@
 package com.melvin.ongandroid.viewmodel
 
+import android.app.AlertDialog
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,4 +27,11 @@ class TestimonialsViewModel: ViewModel() {
             }
         }
     }
+
+
+    val liveDataDialog = MutableLiveData<Testimonials>()
+
+
+
+
 }
