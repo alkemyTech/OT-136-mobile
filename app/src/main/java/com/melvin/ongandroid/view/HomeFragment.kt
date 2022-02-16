@@ -146,8 +146,7 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         alertDialog.setTitle("Falla Del Sistema")
         alertDialog.setMessage("Error General")
         alertDialog.setPositiveButton("Reintentar"){_,_->
-            viewModel.getSlides()
-            setObservers()
+            findNavController().navigate(R.id.homeFragment)
         }
         alertDialog.setNegativeButton("Cancelar"){_,_->
 
