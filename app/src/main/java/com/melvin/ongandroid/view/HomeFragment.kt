@@ -1,5 +1,7 @@
 package com.melvin.ongandroid.view
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -57,6 +59,8 @@ class HomeFragment : Fragment(), OnNewClickListener {
         viewModel.getTestimonials()
         setObservers()
 
+        viewModel.getSlides()
+
         return binding.root
     }
 
@@ -87,7 +91,8 @@ class HomeFragment : Fragment(), OnNewClickListener {
                 is Resource.Failure->{
                     binding.prBar.visibility=View.GONE
                     binding.prError.visibility=View.VISIBLE
-                    Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
+                    //Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
+                    alerDialogMasiveError()
                     binding.retryButton.setOnClickListener {
                         (activity as MainActivity).refreshFr()
                     }
@@ -132,5 +137,19 @@ class HomeFragment : Fragment(), OnNewClickListener {
     override fun onClickedNewsArrow() {
         findNavController().navigate(R.id.newsFragment)
     }
+
+    private fun alerDialogMasiveError(){
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle("Falla Del Sistema")
+        alertDialog.setMessage("Error General")
+        alertDialog.setPositiveButton("Reintentar"){_,_->
+            findNavController().navigate(R.id.homeFragment)
+        }
+        alertDialog.setNegativeButton("Cancelar"){_,_->
+
+        }
+        alertDialog.show()
+    }
+
 }
 

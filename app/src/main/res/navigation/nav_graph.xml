@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_testimonialsFragment"
             app:destination="@id/testimonialsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_weFragment"
+            app:destination="@id/weFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -27,4 +30,8 @@
         android:name="com.melvin.ongandroid.view.TestimonialsFragment"
         android:label="@string/nav_graph_label_testimonios"
         tools:layout="@layout/fragment_testimonials" />
+    <fragment
+        android:id="@+id/weFragment"
+        android:name="com.melvin.ongandroid.view.WeFragment"
+        android:label="@string/title_nosotros" />
 </navigation>

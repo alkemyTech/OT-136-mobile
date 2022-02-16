@@ -29,18 +29,11 @@ class MainActivity : AppCompatActivity(), OnRegister {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val bundle = intent.extras
-        //val token = bundle?.getString("token")
-        //var sharedPrefences=token
-        //prefHelper = PrefHelper(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         setSupportActionBar(binding.toolbar)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
@@ -59,7 +52,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
                     navController.navigateUp()
                     PrefHelper(this).clear()
                     startActivity(Intent(this, LoginActivity::class.java))
-
                     true
                 }
                 R.id.nav_testimonios -> {
@@ -78,6 +70,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 }
                 R.id.nav_nosotros -> {
                     Toast.makeText(this, getString(R.string.title_nosotros), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.weFragment)
                     true
                 }
                 R.id.nav_nov -> {
@@ -87,27 +81,21 @@ class MainActivity : AppCompatActivity(), OnRegister {
                     true
                 }
                 else -> {
-
                     false
                 }
             }
         }
     }
 
-
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
     }
-
-    public override fun onBackPressed() {
+    override fun onBackPressed() {
         finish()
-    }
-
-    override fun onClickRegister() {
-
     }
     fun refreshFr(){
         navController.navigate(R.id.homeFragment)
     }
+    override fun onClickRegister() { }
 }
 

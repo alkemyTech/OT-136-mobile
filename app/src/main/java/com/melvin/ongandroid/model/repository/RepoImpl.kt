@@ -3,6 +3,8 @@ package com.melvin.ongandroid.model.repository
 import android.content.Context
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
+import com.melvin.ongandroid.model.*
+import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.Slides
 import com.melvin.ongandroid.model.User
@@ -32,5 +34,9 @@ class RepoImpl(private val dataSource:DataSource): Repo {
 
     override suspend fun getSlides(): Response<Slides> {
         return dataSource.getSlides()
+    }
+
+    override suspend fun getWeList(weName: String): Resource<List<We>> {
+        return dataSource.getWeList()
     }
 }
