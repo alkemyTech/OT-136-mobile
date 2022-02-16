@@ -87,7 +87,10 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
                 is Resource.Failure->{
                     binding.prBar.visibility=View.GONE
                     binding.prError.visibility=View.VISIBLE
-                    Toast.makeText(requireContext(),R.string.login_dg_without_internet,Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
+                    binding.retryButton.setOnClickListener {
+                        (activity as MainActivity).refreshFr()
+                    }
                 }
             }
         })
