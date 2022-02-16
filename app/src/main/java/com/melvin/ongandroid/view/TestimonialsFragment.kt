@@ -1,5 +1,7 @@
 package com.melvin.ongandroid.view
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,8 +33,8 @@ class TestimonialsFragment : Fragment() {
     }
 
     private fun setObservers() {
-        vm.testimonials.observe(viewLifecycleOwner,{
-            if (it != null){
+        vm.testimonials.observe(viewLifecycleOwner, {
+            if (it != null) {
                 initRecyclerView(vm.testimonials.value!!)
             }
         })
@@ -43,5 +45,4 @@ class TestimonialsFragment : Fragment() {
         binding.rvTestimonials.layoutManager = LinearLayoutManager(context)
         binding.rvTestimonials.adapter = adapter
     }
-
 }
