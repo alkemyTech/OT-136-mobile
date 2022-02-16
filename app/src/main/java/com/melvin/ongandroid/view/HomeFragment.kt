@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
@@ -93,9 +94,10 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
                 is Resource.Failure->{
                     binding.prBar.visibility=View.GONE
                     binding.prError.visibility=View.VISIBLE
-                    Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
+                    //Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
+                    alerDialogMasiveError()
                     binding.retryButton.setOnClickListener {
-                        (activity as MainActivity)
+                        (activity as MainActivity).refreshFr()
                     }
                 }
             }
@@ -139,11 +141,19 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
     }
-    fun alerDialogTestimonials(){
+    private fun alerDialogMasiveError(){
         val alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle("Falla Del Sistema")
         alertDialog.setMessage("Error General")
+        alertDialog.setPositiveButton("Reintentar"){_,_->
+            viewModel.getSlides()
+            setObservers()
+        }
+        alertDialog.setNegativeButton("Cancelar"){_,_->
+
+        }
         alertDialog.show()
     }
+
 }
 
