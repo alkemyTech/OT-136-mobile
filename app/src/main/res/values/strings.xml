@@ -38,12 +38,11 @@
     <string name="dataSource_dialogBuilder_title_error">Error</string>
     <string name="login_coming_soon">Proximamente sección intro</string>
     <string name="nav_drawer_item_testimonios">Testimonios</string>
-
     <string name="news_coming">Próximamente sección detalles</string>
     <string name="user_not_register">El usuario no pudo ser registrado</string>
     <string name="nav_graph_label_testimonios">Testimonios</string>
     <string name="layout_fragment_home_tv_testimonios">Testimonios</string>
     <string name="coming_soon_news">Proximamente navegacion a NOVEDADES</string>
     <string name="coming_soon_testimonials">Proximamente navegacion a TESTIMONIOS</string>
-
+    <string name="An_error_occurred_while_obtaining_the_information">Ha ocurrido un error obteniendo la información</string>
 </resources>

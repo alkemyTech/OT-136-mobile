@@ -84,14 +84,13 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
                     binding.prError.visibility = View.GONE
                     binding.rvNews.adapter = NewsAdapter(requireContext(), result.data, this)
                 }
-                is Resource.Failure -> {
-                    binding.prBar.visibility = View.GONE
-                    binding.prError.visibility = View.VISIBLE
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.login_dg_without_internet,
-                        Toast.LENGTH_LONG
-                    ).show()
+                is Resource.Failure->{
+                    binding.prBar.visibility=View.GONE
+                    binding.prError.visibility=View.VISIBLE
+                    Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
+                    binding.retryButton.setOnClickListener {
+                        (activity as MainActivity).refreshFr()
+                    }
                 }
             }
         }
@@ -106,11 +105,9 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
     }    
 
     private fun setUpNewsRecyclerView() {
-
         val appContext = requireContext().applicationContext
         val recyclerView = binding.rvNews
         recyclerView.layoutManager = LinearLayoutManager(appContext, LinearLayoutManager.HORIZONTAL, false)
-
     }
 
     override fun onNewClick(new: New) {
@@ -129,13 +126,11 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         binding.rvSlides.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvSlides.adapter = slidesAdapter
         hideSectionSlides(false)
-
     }
 
     private fun hideSectionSlides(hide: Boolean) {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
     }
-
 }
 
