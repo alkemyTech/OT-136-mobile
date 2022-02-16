@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
@@ -132,5 +133,6 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
     }
+
 }
 

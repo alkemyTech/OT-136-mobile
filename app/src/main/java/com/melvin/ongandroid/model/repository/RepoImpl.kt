@@ -3,10 +3,7 @@ package com.melvin.ongandroid.model.repository
 import android.content.Context
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
-import com.melvin.ongandroid.model.New
-import com.melvin.ongandroid.model.Slides
-import com.melvin.ongandroid.model.User
-import com.melvin.ongandroid.model.Testimonials
+import com.melvin.ongandroid.model.*
 import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Response
@@ -32,5 +29,9 @@ class RepoImpl(private val dataSource:DataSource): Repo {
 
     override suspend fun getSlides(): Response<Slides> {
         return dataSource.getSlides()
+    }
+
+    override suspend fun getWeList(weName: String): Resource<List<We>> {
+        return dataSource.getWeList()
     }
 }
