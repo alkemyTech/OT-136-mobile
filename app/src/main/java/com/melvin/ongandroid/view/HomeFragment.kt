@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
@@ -21,17 +22,16 @@ import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.view.adapters.NewsAdapter
+import com.melvin.ongandroid.view.adapters.OnNewClickListener
 import com.melvin.ongandroid.view.adapters.SlidesAdapter
 import com.melvin.ongandroid.view.adapters.TestimonialsAdapter
 
 
-class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
+class HomeFragment : Fragment(), OnNewClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
-
     private lateinit var testimonialsAdapter: TestimonialsAdapter
-
     private lateinit var slidesAdapter: SlidesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,10 +110,6 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         recyclerView.layoutManager = LinearLayoutManager(appContext, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    override fun onNewClick(new: New) {
-        Toast.makeText(requireContext(),R.string.news_coming,Toast.LENGTH_LONG).show()
-    }
-
     private fun setupTestimonialsRecyclerView(value: Testimonials) {
         testimonialsAdapter = TestimonialsAdapter(value)
         binding.rvTestimonials.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -131,6 +127,10 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
     private fun hideSectionSlides(hide: Boolean) {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
+    }
+
+    override fun onClickedNewsArrow() {
+        findNavController().navigate(R.id.newsFragment)
     }
 }
 
