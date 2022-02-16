@@ -51,15 +51,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_logo">
 
-<<<<<<< HEAD
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tvPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/LightBlue"
-            android:singleLine="true"
-            android:inputType="textPassword"/>
-=======
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/tvEmail"
                     android:layout_width="match_parent"
@@ -67,7 +58,6 @@
                     android:inputType="textEmailAddress"
                     android:singleLine="true"
                     android:textColorHint="@color/LightBlue" />
->>>>>>> b31e97146853915a52a77c3a8c9c83e99421666d
 
             </com.google.android.material.textfield.TextInputLayout>
 
