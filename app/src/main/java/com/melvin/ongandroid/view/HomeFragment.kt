@@ -141,6 +141,7 @@ class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
     }
+
     private fun alerDialogMasiveError(){
         val alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle("Falla Del Sistema")

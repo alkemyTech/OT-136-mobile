@@ -78,6 +78,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 }
                 R.id.nav_nosotros -> {
                     Toast.makeText(this, getString(R.string.title_nosotros), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.weFragment)
                     true
                 }
                 R.id.nav_nov -> {
