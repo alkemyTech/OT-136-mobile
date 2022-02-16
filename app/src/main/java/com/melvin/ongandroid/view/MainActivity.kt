@@ -106,5 +106,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
     override fun onClickRegister() {
 
     }
+    fun refreshFr(){
+        navController.navigate(R.id.homeFragment)
+    }
 }
 
