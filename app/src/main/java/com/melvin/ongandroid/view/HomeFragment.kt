@@ -15,6 +15,7 @@ import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
 import com.melvin.ongandroid.model.New
+import com.melvin.ongandroid.model.Slides
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
@@ -25,7 +26,10 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
+
     private lateinit var testimonialsAdapter: TestimonialsAdapter
+
+    private lateinit var slidesAdapter:SlidesAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +48,12 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-
         setUpNewsRecyclerView()
+
+
         hideSectionTestimonials(true)
+        hideSectionSlides(true)
+        viewModel.getSlides()
         viewModel.getTestimonials()
         setObservers()
 
@@ -84,6 +91,14 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
                 }
             }
         })
+
+        viewModel.slides.observe(viewLifecycleOwner,{
+            if (it != null){
+                if (it.data.isEmpty()){
+                    hideSectionSlides(true)
+                }else setupSlidesRecyclerView(viewModel.slides.value!!)
+            }else hideSectionSlides(true)
+        })
     }    
 
     private fun setUpNewsRecyclerView() {
@@ -101,6 +116,18 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
         binding.rvTestimonials.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvTestimonials.adapter = testimonialsAdapter
         hideSectionTestimonials(false)
+    }
+
+    private fun setupSlidesRecyclerView(value: Slides) {
+        slidesAdapter = SlidesAdapter(value)
+        binding.rvSlides.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvSlides.adapter = slidesAdapter
+        hideSectionSlides(false)
+    }
+
+    private fun hideSectionSlides(hide: Boolean) {
+        binding.rvSlides.isVisible = !hide
+        binding.rvSlides.isVisible = !hide
     }
 }
 

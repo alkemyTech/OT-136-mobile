@@ -4,6 +4,7 @@ import android.content.Context
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.New
+import com.melvin.ongandroid.model.Slides
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.model.response.VerifyUser
@@ -27,5 +28,9 @@ class RepoImpl(private val dataSource:DataSource): Repo {
 
     override suspend fun getFourTestimonials(): Response<Testimonials> {
         return dataSource.getFourTestimonials()
+    }
+
+    override suspend fun getSlides(): Response<Slides> {
+        return dataSource.getSlides()
     }
 }

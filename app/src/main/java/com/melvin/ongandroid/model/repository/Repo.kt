@@ -3,6 +3,7 @@ package com.melvin.ongandroid.model.repository
 import android.content.Context
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.New
+import com.melvin.ongandroid.model.Slides
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.model.response.VerifyUser
@@ -14,4 +15,5 @@ interface Repo {
     suspend fun postToken(user: String, pass: String): Response<VerifyUser>
     suspend fun getNewsList(newName:String): Resource<List<New>>
     suspend fun getFourTestimonials():Response<Testimonials>
+    suspend fun getSlides():Response<Slides>
 }
