@@ -40,7 +40,7 @@ RecyclerView.Adapter<BaseViewHolder<*>>() {
             Glide.with(context).load(item.photo).centerCrop().into(itemBinding.ivPortada)
             itemBinding.tvTitulo.text=item.title
             itemBinding.tvDesc.text=item.descript
-            //itemBinding.buttonArrow.setOnClickListener {itemClickListener.onNewClick(item)}
+            itemView.setOnClickListener {itemClickListener.onNewClick(item)}
         }
     }
 }

@@ -33,5 +33,13 @@
     <fragment
         android:id="@+id/weFragment"
         android:name="com.melvin.ongandroid.view.WeFragment"
-        android:label="@string/title_nosotros" />
+        android:label="@string/title_nosotros" >
+        <action
+            android:id="@+id/action_weFragment_to_detailsWeFragment"
+            app:destination="@id/detailsWeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsWeFragment"
+        android:name="com.melvin.ongandroid.view.DetailsWeFragment"
+        android:label="DetailsWeFragment" />
 </navigation>

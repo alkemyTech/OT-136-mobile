@@ -104,9 +104,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
     public override fun onBackPressed() {
         finish()
     }
-    fun refreshFr(){
-        navController.navigate(R.id.homeFragment)
-    }
 
     override fun onClickRegister() {
 
