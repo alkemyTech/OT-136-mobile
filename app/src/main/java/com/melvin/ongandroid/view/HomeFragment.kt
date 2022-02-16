@@ -20,17 +20,19 @@ import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import com.melvin.ongandroid.model.Testimonials
+import com.melvin.ongandroid.view.adapters.NewsAdapter
+import com.melvin.ongandroid.view.adapters.SlidesAdapter
+import com.melvin.ongandroid.view.adapters.TestimonialsAdapter
 
 
-class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
+class HomeFragment : Fragment(), NewsAdapter.OnNewClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
 
     private lateinit var testimonialsAdapter: TestimonialsAdapter
 
-    private lateinit var slidesAdapter:SlidesAdapter
-
+    private lateinit var slidesAdapter: SlidesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +51,6 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setUpNewsRecyclerView()
-
-
         hideSectionTestimonials(true)
         hideSectionSlides(true)
         viewModel.getSlides()
@@ -66,23 +66,23 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
     }
 
     private fun setObservers() {
-        viewModel.testimonials.observe(viewLifecycleOwner,{
-            if (it != null){
-                if (it.data.isEmpty()){
+        viewModel.testimonials.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.data.isEmpty()) {
                     hideSectionTestimonials(true)
-                }else setupTestimonialsRecyclerView(viewModel.testimonials.value!!)
-            }else hideSectionTestimonials(true)
-        })
-        viewModel.fetchNewsList.observe(viewLifecycleOwner, { result ->
-            when(result){
-                is Resource.Loading->{
-                    binding.prBar.visibility=View.VISIBLE
-                    binding.prError.visibility=View.GONE
+                } else setupTestimonialsRecyclerView(viewModel.testimonials.value!!)
+            } else hideSectionTestimonials(true)
+        }
+        viewModel.fetchNewsList.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Resource.Loading -> {
+                    binding.prBar.visibility = View.VISIBLE
+                    binding.prError.visibility = View.GONE
                 }
-                is Resource.Success->{
-                    binding.prBar.visibility=View.GONE
-                    binding.prError.visibility=View.GONE
-                    binding.rvNews.adapter=NewsAdapter(requireContext(), result.data, this)
+                is Resource.Success -> {
+                    binding.prBar.visibility = View.GONE
+                    binding.prError.visibility = View.GONE
+                    binding.rvNews.adapter = NewsAdapter(requireContext(), result.data, this)
                 }
                 is Resource.Failure->{
                     binding.prBar.visibility=View.GONE
@@ -93,15 +93,15 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
                     }
                 }
             }
-        })
+        }
 
-        viewModel.slides.observe(viewLifecycleOwner,{
+        viewModel.slides.observe(viewLifecycleOwner){
             if (it != null){
                 if (it.data.isEmpty()){
                     hideSectionSlides(true)
                 }else setupSlidesRecyclerView(viewModel.slides.value!!)
             }else hideSectionSlides(true)
-        })
+        }
     }    
 
     private fun setUpNewsRecyclerView() {

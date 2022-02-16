@@ -9,7 +9,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,8 +17,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.domain.OnRegister
-
-import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.databinding.FragmentLoginBinding
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
@@ -32,7 +29,7 @@ import java.net.UnknownHostException
 
 class LoginFragment : Fragment() {
 
-    private var _binding: FragmentLoginBinding? = null
+    /*private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     var emailValid = false
     var passwordValid = false
@@ -47,6 +44,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+
 
         _binding!!.btnLogin.setOnClickListener {
             _binding!!.prBar.visibility = View.VISIBLE
@@ -104,21 +102,15 @@ class LoginFragment : Fragment() {
             }
         _binding!!.tvPassword.filters = arrayOf(filter)
 
-        _binding!!.btnSignUp.setOnClickListener {
-             findNavController().navigate(R.id.signUpFragment)
-        }
         _binding!!.tvPassword.filters = arrayOf(filter)
 
         setObservers()
-        return binding.root
-
-
-
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 activity!!.finish()
             }
         })
+        return binding.root
     }
 
     private fun hideMessageUserNotExist() {
@@ -126,13 +118,11 @@ class LoginFragment : Fragment() {
         _binding!!.tvPassword.error = null
     }
 
-
     fun validFields() {
         _binding!!.btnLogin.isEnabled = emailValid && passwordValid
     }
 
     private fun setObservers() {
-
         userViewModel.liveDataUser.observe(viewLifecycleOwner) {
             if (it != null) {
                 if (it.success!!) {
@@ -146,25 +136,24 @@ class LoginFragment : Fragment() {
 
                     _binding!!.prBar.visibility = View.GONE
                     _binding!!.tvEmail.error = getString(R.string.login_et_error_user_and_password)
-                    userViewModel.liveDataUser.observe(viewLifecycleOwner) {
-                        if (it != null) {
-                            if (it.success == true) {
-                                _binding!!.prBar.visibility = View.GONE
-
-                            } else {
-                                _binding!!.prBar.visibility = View.GONE
-                                _binding!!.tvEmail.error =
-                                    getString(R.string.login_et_error_user_and_password)
-                                _binding!!.tvPassword.error =
-                                    getString(R.string.login_et_error_user_and_password)
-                            }
-
-                        }
-                    }
-                    userViewModel.authException.observe(viewLifecycleOwner, this::handleException)
                 }
             }
         }
+        userViewModel.liveDataUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.success == true) {
+                    _binding!!.prBar.visibility = View.GONE
+
+                } else {
+                    _binding!!.prBar.visibility = View.GONE
+                    _binding!!.tvEmail.error =
+                        getString(R.string.login_et_error_user_and_password)
+                    _binding!!.tvPassword.error =
+                        getString(R.string.login_et_error_user_and_password)
+                }
+            }
+        }
+        userViewModel.authException.observe(viewLifecycleOwner, this::handleException)
     }
 
     private fun handleException(exception: Throwable?) {
@@ -179,7 +168,7 @@ class LoginFragment : Fragment() {
             showDialog(getString(R.string.login_dg_without_internet))
         if (exception is UnknownHostException)
             showDialog(getString(R.string.login_dg_without_internet))
-        }
+    }
 
     private fun showDialog(message: String) {
         MaterialAlertDialogBuilder(requireContext()).setMessage(message).setPositiveButton(getString(R.string.ok)){
@@ -195,7 +184,5 @@ class LoginFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
-    }
-
-
+    }*/
 }
