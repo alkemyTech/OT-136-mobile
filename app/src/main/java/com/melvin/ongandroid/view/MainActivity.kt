@@ -125,7 +125,9 @@ class MainActivity : AppCompatActivity(), OnRegister {
         binding.toolbar.visibility= View.VISIBLE
         binding.navView.visibility=View.VISIBLE
     }
-
+    fun refreshFr(){
+        navController.navigate(R.id.homeFragment)
+    }
 
 }
 
