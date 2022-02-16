@@ -1,10 +1,13 @@
 package com.melvin.ongandroid.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,16 +26,14 @@ class MainActivity : AppCompatActivity(), OnRegister {
 
     private lateinit var navController: NavController
 
-    lateinit var prefHelper: PrefHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
         val bundle = intent.extras
-        val token = bundle?.getString("token")
-        var sharedPrefences=token
-        prefHelper = PrefHelper(this)
+        //val token = bundle?.getString("token")
+        //var sharedPrefences=token
+        //prefHelper = PrefHelper(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -45,39 +46,20 @@ class MainActivity : AppCompatActivity(), OnRegister {
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
 
-        when(sharedPrefences){
-            "true" -> {
-                binding.toolbar.visibility= View.VISIBLE
-                binding.navView.visibility=View.VISIBLE
-                navController.navigateUp()
-                navController.navigate(R.id.homeFragment)
-
-                Log.i("mensajee","pasa por true"+ sharedPrefences)
-            }else ->{
-
-                binding.toolbar.visibility= View.GONE
-                binding.navView.visibility=View.GONE
-                navController.navigateUp()
-                navController.navigate(R.id.flowLogSign)
-
-
-            Log.i("mensajee", "pasa por else"+sharedPrefences)
-            }
-        }
-
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     Toast.makeText(this, getString(R.string.title_intro), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     navController.navigate(R.id.homeFragment)
-
                     true
                 }
                 R.id.nav_signout -> {
                     Toast.makeText(this, getString(R.string.title_sign_out), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
-                    navController.navigate(R.id.signUpFragment)
+                    PrefHelper(this).clear()
+                    startActivity(Intent(this, LoginActivity::class.java))
+
                     true
                 }
                 R.id.nav_testimonios -> {
@@ -112,11 +94,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
         }
     }
 
-    public fun saveSession(username: String, password: String){
-        prefHelper.put( Constant.PREF_USERNAME, username )
-        prefHelper.put( Constant.PREF_PASSWORD, password )
-        prefHelper.put( Constant.PREF_IS_LOGIN, true)
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
@@ -127,10 +104,7 @@ class MainActivity : AppCompatActivity(), OnRegister {
     }
 
     override fun onClickRegister() {
-        binding.toolbar.visibility= View.VISIBLE
-        binding.navView.visibility=View.VISIBLE
+
     }
-
-
 }
 

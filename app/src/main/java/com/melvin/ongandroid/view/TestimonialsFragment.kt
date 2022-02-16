@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.databinding.FragmentTestimonialsBinding
 import com.melvin.ongandroid.model.Testimonials
+import com.melvin.ongandroid.view.adapters.TestimonialsAdapter
 import com.melvin.ongandroid.viewmodel.TestimonialsViewModel
 
 class TestimonialsFragment : Fragment() {

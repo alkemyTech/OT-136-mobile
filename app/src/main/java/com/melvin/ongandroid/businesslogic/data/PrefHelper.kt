@@ -31,4 +31,9 @@ class PrefHelper(context: Context) {
         return sharedPref.getString(key, null)
     }
 
+    fun clear(){
+        editor.clear()
+            .apply()
+    }
+
 }
