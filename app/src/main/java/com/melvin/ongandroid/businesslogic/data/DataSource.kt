@@ -102,4 +102,8 @@ class DataSource {
     fun getWeList(): Resource<List<We>> {
         return Resource.Success(generateWeList)
     }
+
+    suspend fun getMembersByName (memberName:String):Resource<List<We>>{
+        return Resource.Success(RetrofitClient.retrofitService.GetMembersByName(memberName).weList)
+    }
 }

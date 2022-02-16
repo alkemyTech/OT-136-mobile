@@ -28,4 +28,7 @@ interface ApiService {
 
     @GET("slides")
     suspend fun getSlides():Response<Slides>
+
+    @GET("members")
+    suspend fun GetMembersByName(@Query("name")memberName:String):WeList
 }
