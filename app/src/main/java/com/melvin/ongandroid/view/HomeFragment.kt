@@ -1,5 +1,7 @@
 package com.melvin.ongandroid.view
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -57,6 +59,8 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
         viewModel.getTestimonials()
         setObservers()
 
+        viewModel.getSlides()
+
         return binding.root
     }
 
@@ -66,39 +70,43 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
     }
 
     private fun setObservers() {
-        viewModel.testimonials.observe(viewLifecycleOwner,{
+        viewModel.testimonials.observe(viewLifecycleOwner){
             if (it != null){
                 if (it.data.isEmpty()){
                     hideSectionTestimonials(true)
                 }else setupTestimonialsRecyclerView(viewModel.testimonials.value!!)
             }else hideSectionTestimonials(true)
-        })
-        viewModel.fetchNewsList.observe(viewLifecycleOwner, { result ->
-            when(result){
-                is Resource.Loading->{
-                    binding.prBar.visibility=View.VISIBLE
-                    binding.prError.visibility=View.GONE
+        }
+        viewModel.fetchNewsList.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Resource.Loading -> {
+                    binding.prBar.visibility = View.VISIBLE
+                    binding.prError.visibility = View.GONE
                 }
-                is Resource.Success->{
-                    binding.prBar.visibility=View.GONE
-                    binding.prError.visibility=View.GONE
-                    binding.rvNews.adapter=NewsAdapter(requireContext(), result.data, this)
+                is Resource.Success -> {
+                    binding.prBar.visibility = View.GONE
+                    binding.prError.visibility = View.GONE
+                    binding.rvNews.adapter = NewsAdapter(requireContext(), result.data, this)
                 }
-                is Resource.Failure->{
-                    binding.prBar.visibility=View.GONE
-                    binding.prError.visibility=View.VISIBLE
-                    Toast.makeText(requireContext(),R.string.login_dg_without_internet,Toast.LENGTH_LONG).show()
+                is Resource.Failure -> {
+                    binding.prBar.visibility = View.GONE
+                    binding.prError.visibility = View.VISIBLE
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.login_dg_without_internet,
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
-        })
+        }
 
-        viewModel.slides.observe(viewLifecycleOwner,{
-            if (it != null){
-                if (it.data.isEmpty()){
+        viewModel.slides.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it.data.isEmpty()) {
                     hideSectionSlides(true)
-                }else setupSlidesRecyclerView(viewModel.slides.value!!)
-            }else hideSectionSlides(true)
-        })
+                } else setupSlidesRecyclerView(viewModel.slides.value!!)
+            } else hideSectionSlides(true)
+        }
     }    
 
     private fun setUpNewsRecyclerView() {
@@ -128,6 +136,12 @@ class HomeFragment : Fragment(),NewsAdapter.OnNewClickListener {
     private fun hideSectionSlides(hide: Boolean) {
         binding.rvSlides.isVisible = !hide
         binding.rvSlides.isVisible = !hide
+    }
+    fun alerDialogTestimonials(){
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle("Falla Del Sistema")
+        alertDialog.setMessage("Error General")
+        alertDialog.show()
     }
 }
 

@@ -118,7 +118,8 @@
             android:id="@+id/tvConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/LightBlue" />
+            android:textColorHint="@color/LightBlue"
+            android:inputType="textPassword"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
