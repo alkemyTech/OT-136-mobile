@@ -19,41 +19,50 @@ import com.melvin.ongandroid.databinding.FragmentHomeBinding
 import com.melvin.ongandroid.databinding.FragmentNewsBinding
 import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.repository.RepoImpl
+import com.melvin.ongandroid.view.adapters.NewsAdapter
 import com.melvin.ongandroid.view.adapters.NewsFragmentAdapter
 import com.melvin.ongandroid.view.adapters.SlidesAdapter
 import com.melvin.ongandroid.view.adapters.TestimonialsAdapter
 import com.melvin.ongandroid.viewmodel.HomeViewModel
+import com.melvin.ongandroid.viewmodel.NewsViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 
 
 class NewsFragment : Fragment() {
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<NewsViewModel>()
     private lateinit var adapter: NewsFragmentAdapter
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
-        val items = mutableListOf<New>()
-        //adding user
-        items.add(New("Lorem Ipsum","Donec id sapien vel magna viverra vulputate at quis mauris.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet. Etiam condimentum.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet, consectetur adipiscing elit.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-        items.add(New("Lorem Ipsum","Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum.","https://i0.wp.com/developersdome.com/wp-content/uploads/2021/08/Classic-Black-and-Gold-LinkedIn-Post-Header-15.png?resize=2048%2C1152&ssl=1"))
-
-
-        initRecyclerView(items)
-
+        setObservers()
         return binding.root
+    }
+
+    private fun setObservers() {
+        viewModel.fetchNewsList.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Resource.Loading -> {
+                    binding.prBar.visibility = View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding.prBar.visibility = View.GONE
+                    initRecyclerView(result.data)
+                }
+                is Resource.Failure -> {
+                    binding.prBar.visibility = View.GONE
+                    Toast.makeText(
+                        requireContext(),
+                        R.string.An_error_occurred_while_obtaining_the_information,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
     }
 
     private fun initRecyclerView(items: List<New>) {
