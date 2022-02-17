@@ -6,15 +6,15 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class We(
-    @SerializedName("title")
-    val title:String,
-    @SerializedName("descript")
+    @SerializedName("name")
+    val name:String,
+    @SerializedName("description")
     val descript:String,
-    @SerializedName("photo")
+    @SerializedName("image")
     val photo: String
 ): Parcelable
 
 data class WeList(
-    @SerializedName("results")
+    @SerializedName("data")
     val weList: List<We>
 )

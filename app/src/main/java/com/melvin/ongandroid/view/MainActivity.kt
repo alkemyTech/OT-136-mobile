@@ -62,6 +62,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 }
                 R.id.nav_act -> {
                     Toast.makeText(this, getString(R.string.title_actividades), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.activitiesFragment)
                     true
                 }
                 R.id.nav_contacts -> {
@@ -93,9 +95,12 @@ class MainActivity : AppCompatActivity(), OnRegister {
     override fun onBackPressed() {
         finish()
     }
+
+    override fun onClickRegister() {
+
+    }
     fun refreshFr(){
         navController.navigate(R.id.homeFragment)
     }
-    override fun onClickRegister() { }
 }
 
