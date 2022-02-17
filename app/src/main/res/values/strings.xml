@@ -45,4 +45,5 @@
     <string name="coming_soon_news">Proximamente navegacion a NOVEDADES</string>
     <string name="coming_soon_testimonials">Proximamente navegacion a TESTIMONIOS</string>
     <string name="An_error_occurred_while_obtaining_the_information">Ha ocurrido un error obteniendo la información</string>
+    <string name="activities_tv_activities">Actividades</string>
 </resources>
