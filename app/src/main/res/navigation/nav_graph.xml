@@ -45,8 +45,8 @@
     <fragment
         android:id="@+id/detailsWeFragment"
         android:name="com.melvin.ongandroid.view.DetailsWeFragment"
-        android:label="DetailsWeFragment"
-        tools:layout="@layout/fragment_details_we"/>
+        android:label="@string/title_nosotros"
+        tools:layout="@layout/fragment_details_we" />
     <fragment
         android:id="@+id/activitiesFragment"
         android:name="com.melvin.ongandroid.view.ActivitiesFragment"
