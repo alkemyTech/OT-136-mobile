@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_weFragment"
             app:destination="@id/weFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_activitiesFragment"
+            app:destination="@id/activitiesFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -42,4 +45,11 @@
         android:id="@+id/detailsWeFragment"
         android:name="com.melvin.ongandroid.view.DetailsWeFragment"
         android:label="DetailsWeFragment" />
+
+    <fragment
+        android:id="@+id/activitiesFragment"
+        android:name="com.melvin.ongandroid.ActivitiesFragment"
+        android:label="fragment_activities"
+        tools:layout="@layout/fragment_activities" />
+
 </navigation>
