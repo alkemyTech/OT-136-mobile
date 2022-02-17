@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
@@ -65,13 +66,13 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
     }
 
     private fun setUpRecyclerView() {
-        val appContext = requireContext().applicationContext
-        val recyclerView = binding.rvWe
         binding.rvWe.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onNewClick(we: We) {
-        Toast.makeText(requireContext(), R.string.news_coming, Toast.LENGTH_LONG).show()
+        val bundle = Bundle()
+        bundle.putParcelable("we", we)
+        findNavController().navigate(R.id.detailsWeFragment, bundle)
     }
 }
