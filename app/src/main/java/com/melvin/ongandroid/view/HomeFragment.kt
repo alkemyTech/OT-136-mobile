@@ -104,6 +104,11 @@ class HomeFragment : Fragment(), OnNewClickListener {
             if (it != null){
                 if (it.data.isEmpty()){
                     hideSectionSlides(true)
+                    binding.prBar.visibility=View.GONE
+                    binding.prError.visibility=View.VISIBLE
+                    binding.retryButton.setOnClickListener {
+                        (activity as MainActivity).refreshFr()
+                    }
                 }else setupSlidesRecyclerView(viewModel.slides.value!!)
             }else hideSectionSlides(true)
         }
