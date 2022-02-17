@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
                     true
                 }
                 else -> {
-
                     false
                 }
             }
@@ -100,19 +99,13 @@ class MainActivity : AppCompatActivity(), OnRegister {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
     }
-
-    public override fun onBackPressed() {
+    override fun onBackPressed() {
         finish()
     }
     fun refreshFr(){
         navController.navigate(R.id.homeFragment)
     }
-
     override fun onClickRegister() {
-
-    }
-    fun refreshFr(){
-        navController.navigate(R.id.homeFragment)
     }
 }
 
