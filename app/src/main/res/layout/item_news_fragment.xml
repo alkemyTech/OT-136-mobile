@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_new"
-            tools:text="Title" />
+            tools:text="@string/placeholder_two_lorem_ipsum" />
 
         <TextView
             android:id="@+id/tv_description"
@@ -47,12 +47,11 @@
             android:paddingTop="4dp"
             android:paddingEnd="6dp"
             android:paddingBottom="4dp"
-            android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum." />
+            tools:text="@string/placeholder_twenty_lorem_ipsum" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
