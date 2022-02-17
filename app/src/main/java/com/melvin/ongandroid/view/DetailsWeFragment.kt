@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.melvin.ongandroid.R
 import com.melvin.ongandroid.databinding.FragmentDetailsWeBinding
 import com.melvin.ongandroid.model.We
 
@@ -37,9 +35,7 @@ class DetailsWeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        _binding!!.tvWe.text=we.title
-
-
+        _binding!!.tvWe.text=we.name
 
     }
 

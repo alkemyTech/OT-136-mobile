@@ -37,6 +37,6 @@ class RepoImpl(private val dataSource:DataSource): Repo {
     }
 
     override suspend fun getWeList(weName: String): Resource<List<We>> {
-        return dataSource.getWeList()
+        return dataSource.getMembersByName(weName)
     }
 }
