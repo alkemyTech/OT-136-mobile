@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="alert_title">Registro completado</string>
     <string name="alert_message">El usuario fue registrado</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="register">Registrarse</string>
     <string name="name_required">El nombre es necesario</string>
     <string name="password_required">La contraseña es necesaria</string>
@@ -21,7 +21,7 @@
     <string name="title_contacto">Contacto</string>
     <string name="title_novedades">Novedades</string>
     <string name="title_sign_out">Cerrar sesión</string>
-    <string name="title_ult_novedades">Ultimas Novedades</string>
+    <string name="title_ult_novedades">Novedades</string>
     <string name="retry">Reintentar</string>
     <string name="login_et_error_user_and_password">Usuario y/o contraseña incorrectos</string>
     <string name="login_dg_bad_request">Solicitud incorrecta</string>

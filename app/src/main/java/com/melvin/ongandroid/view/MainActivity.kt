@@ -29,18 +29,11 @@ class MainActivity : AppCompatActivity(), OnRegister {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val bundle = intent.extras
-        //val token = bundle?.getString("token")
-        //var sharedPrefences=token
-        //prefHelper = PrefHelper(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         setSupportActionBar(binding.toolbar)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
@@ -59,7 +52,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
                     navController.navigateUp()
                     PrefHelper(this).clear()
                     startActivity(Intent(this, LoginActivity::class.java))
-
                     true
                 }
                 R.id.nav_testimonios -> {
@@ -96,7 +88,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
             }
         }
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp()
