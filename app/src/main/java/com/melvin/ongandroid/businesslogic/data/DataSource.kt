@@ -78,10 +78,10 @@ class DataSource {
     )
 
     val generateWeList = listOf(
-        We("L Lawliet", "Detective Senior", "https://i.pinimg.com/736x/b6/44/80/b64480822c5ac3d9da4fa3f4670b1df3.jpg"),
-        We("Lionel Messi", "Director de goles y asistencias", "https://i.pinimg.com/originals/f1/f4/32/f1f4322da99e01cc604b7107fc5ebfce.jpg"),
-        We("Daft Punk", "Good Music Prevention", "https://i.pinimg.com/originals/84/e2/47/84e247796598c7c69425a0587517afdc.jpg"),
-        We("Luci", "Director General", "https://static.wikia.nocookie.net/disenchantment/images/6/64/Luci.png/revision/latest?cb=20210104013705&path-prefix=es")    )
+        We("L Lawliet", "Detective Senior", "https://i.pinimg.com/736x/b6/44/80/b64480822c5ac3d9da4fa3f4670b1df3.jpg","face","linkedin"),
+        We("Lionel Messi", "Director de goles y asistencias", "https://i.pinimg.com/originals/f1/f4/32/f1f4322da99e01cc604b7107fc5ebfce.jpg","face","linkedin"),
+        We("Daft Punk", "Good Music Prevention", "https://i.pinimg.com/originals/84/e2/47/84e247796598c7c69425a0587517afdc.jpg","face","linkedin"),
+        We("Luci", "Director General", "https://static.wikia.nocookie.net/disenchantment/images/6/64/Luci.png/revision/latest?cb=20210104013705&path-prefix=es","face","linkedin")    )
 
     fun getNewsList(): Resource<List<New>> {
             return Resource.Success(generateNewsList)
