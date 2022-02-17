@@ -36,7 +36,8 @@
     <fragment
         android:id="@+id/weFragment"
         android:name="com.melvin.ongandroid.view.WeFragment"
-        android:label="@string/title_nosotros" >
+        android:label="@string/title_nosotros"
+        tools:layout="@layout/fragment_we">
         <action
             android:id="@+id/action_weFragment_to_detailsWeFragment"
             app:destination="@id/detailsWeFragment" />
@@ -44,7 +45,8 @@
     <fragment
         android:id="@+id/detailsWeFragment"
         android:name="com.melvin.ongandroid.view.DetailsWeFragment"
-        android:label="DetailsWeFragment" />
+        android:label="DetailsWeFragment"
+        tools:layout="@layout/fragment_details_we"/>
     <fragment
         android:id="@+id/activitiesFragment"
         android:name="com.melvin.ongandroid.view.ActivitiesFragment"

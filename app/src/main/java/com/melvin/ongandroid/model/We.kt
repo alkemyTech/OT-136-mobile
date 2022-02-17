@@ -11,7 +11,11 @@ data class We(
     @SerializedName("description")
     val descript:String,
     @SerializedName("image")
-    val photo: String
+    val photo: String,
+    @SerializedName("facebookUrl")
+    val facebook: String,
+    @SerializedName("linkedinUrl")
+    val linkedin:String
 ): Parcelable
 
 data class WeList(
