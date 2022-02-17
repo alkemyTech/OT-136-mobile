@@ -17,7 +17,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.domain.OnRegister
-import com.melvin.ongandroid.databinding.FragmentLoginBinding
+
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
