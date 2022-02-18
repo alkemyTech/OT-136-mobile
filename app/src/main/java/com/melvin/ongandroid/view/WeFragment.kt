@@ -1,13 +1,17 @@
 package com.melvin.ongandroid.view
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
@@ -52,13 +56,13 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
                 is Resource.Failure -> {
                     binding.prBar.visibility = View.GONE
                     binding.prError.visibility = View.VISIBLE
-                    Toast.makeText(
+                    /*  Toast.makeText(
                         requireContext(),
                         R.string.login_dg_without_internet,
                         Toast.LENGTH_LONG
-                    ).show()
+                    ).show()*/
+                    errorMessage()
                 }
-
             }
         })
 
@@ -75,4 +79,16 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
         bundle.putParcelable("we", we)
         findNavController().navigate(R.id.detailsWeFragment, bundle)
     }
-}
+
+    private fun errorMessage() {
+            val alertDialog = AlertDialog.Builder(context)
+            alertDialog.setMessage("Ha ocurrido un error obteniendo la información")
+            alertDialog.setPositiveButton("Reintentar"){_,_->
+                (activity as MainActivity).refreshWeFragment()
+            }
+            alertDialog.setNegativeButton("Cancelar"){_,_->
+            }
+            alertDialog.show()
+        }
+    }
+
