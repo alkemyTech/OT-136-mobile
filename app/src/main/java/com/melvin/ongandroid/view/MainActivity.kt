@@ -95,6 +95,11 @@ class MainActivity : AppCompatActivity(), OnRegister {
     override fun onBackPressed() {
         finish()
     }
+     fun refreshWeFragment() {
+         navController.navigateUp()
+         navController.navigate(R.id.weFragment)
+
+     }
 
     override fun onClickRegister() {
 

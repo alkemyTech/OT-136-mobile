@@ -13,6 +13,9 @@ import com.melvin.ongandroid.databinding.FragmentTestimonialsBinding
 import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.view.adapters.TestimonialsAdapter
 import com.melvin.ongandroid.viewmodel.TestimonialsViewModel
+import retrofit2.HttpException
+import java.io.IOException
+import java.net.UnknownHostException
 
 class TestimonialsFragment : Fragment() {
     private var _binding: FragmentTestimonialsBinding? = null
@@ -38,6 +41,8 @@ class TestimonialsFragment : Fragment() {
                 initRecyclerView(vm.testimonials.value!!)
             }
         })
+        vm.testimonialsException.observe(this, this::handleException)
+
     }
 
     private fun initRecyclerView(value: Testimonials) {
@@ -45,4 +50,20 @@ class TestimonialsFragment : Fragment() {
         binding.rvTestimonials.layoutManager = LinearLayoutManager(context)
         binding.rvTestimonials.adapter = adapter
     }
+
+    private fun handleException(exception: Throwable?) {
+        if (exception is HttpException || exception is IOException || exception is UnknownHostException) {
+             val alertDialog = AlertDialog.Builder(context)
+                alertDialog.setMessage("Ha ocurrido un error obteniendo la información")
+                alertDialog.setPositiveButton("Reintentar"){_,_->
+                    vm.getTestimonials()
+                }
+                alertDialog.setNegativeButton("Cancelar"){_,_->
+
+                }
+                alertDialog.show()
+        }
+    }
+
+
 }
