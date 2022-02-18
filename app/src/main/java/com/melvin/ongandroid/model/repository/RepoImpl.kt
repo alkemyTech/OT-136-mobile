@@ -9,6 +9,7 @@ import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.Slides
 import com.melvin.ongandroid.model.User
 import com.melvin.ongandroid.model.Testimonials
+import com.melvin.ongandroid.model.response.Activities
 import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Response
@@ -34,6 +35,10 @@ class RepoImpl(private val dataSource:DataSource): Repo {
 
     override suspend fun getSlides(): Response<Slides> {
         return dataSource.getSlides()
+    }
+
+    suspend fun getActivities():Response<Activities>{
+        return dataSource.getActivities()
     }
 
     override suspend fun getWeList(weName: String): Resource<List<We>> {

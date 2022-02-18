@@ -47,7 +47,7 @@
         android:label="DetailsWeFragment" />
     <fragment
         android:id="@+id/activitiesFragment"
-        android:name="com.melvin.ongandroid.ActivitiesFragment"
+        android:name="com.melvin.ongandroid.view.ActivitiesFragment"
         android:label="fragment_activities"
         tools:layout="@layout/fragment_activities" />
 </navigation>

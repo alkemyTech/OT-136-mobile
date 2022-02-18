@@ -8,6 +8,7 @@ import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.*
+import com.melvin.ongandroid.model.response.Activities
 import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Call
@@ -105,5 +106,9 @@ class DataSource {
 
     suspend fun getMembersByName (memberName:String):Resource<List<We>>{
         return Resource.Success(RetrofitClient.retrofitService.GetMembersByName(memberName).weList)
+    }
+
+    suspend fun getActivities():Resource<List<Activities>>{
+        return Resource.Success(RetrofitClient.retrofitService.getActivities())
     }
 }

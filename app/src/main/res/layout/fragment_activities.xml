@@ -67,4 +67,10 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.9" />
 
+    <include
+        android:id="@+id/prbar_loading"
+        layout="@layout/loading"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
