@@ -56,11 +56,6 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
                 is Resource.Failure -> {
                     binding.prBar.visibility = View.GONE
                     binding.prError.visibility = View.VISIBLE
-                    /*  Toast.makeText(
-                        requireContext(),
-                        R.string.login_dg_without_internet,
-                        Toast.LENGTH_LONG
-                    ).show()*/
                     errorMessage()
                 }
             }
