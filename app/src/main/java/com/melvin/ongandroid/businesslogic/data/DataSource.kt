@@ -108,7 +108,7 @@ class DataSource {
         return Resource.Success(RetrofitClient.retrofitService.GetMembersByName(memberName).weList)
     }
 
-    suspend fun getActivities():Resource<List<Activities>>{
-        return Resource.Success(RetrofitClient.retrofitService.getActivities())
+    suspend fun getActivities():Response<Activities>{
+        return RetrofitClient.retrofitService.getActivities()
     }
 }

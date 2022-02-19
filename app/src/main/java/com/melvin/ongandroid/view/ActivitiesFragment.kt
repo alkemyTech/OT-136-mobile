@@ -30,7 +30,7 @@ class ActivitiesFragment : Fragment() {
 
         viewModelActivities.liveDataActivities.observe(viewLifecycleOwner){ result ->
             when (result) {
-                is Resource.Loading -> {
+                is Resource.Loading<*> -> {
                     binding.prbarLoading.visibility = View.VISIBLE
                 }
             }
