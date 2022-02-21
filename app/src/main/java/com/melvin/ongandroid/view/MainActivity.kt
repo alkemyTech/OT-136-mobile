@@ -12,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.facebook.login.LoginManager
+import com.google.firebase.auth.FirebaseAuth
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.model.repository.Constant
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
@@ -51,6 +53,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                     Toast.makeText(this, getString(R.string.title_sign_out), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     PrefHelper(this).clear()
+                    LoginManager.getInstance().logOut()
+                    FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this, LoginActivity::class.java))
                     true
                 }
