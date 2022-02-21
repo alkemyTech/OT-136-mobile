@@ -68,6 +68,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 }
                 R.id.nav_contacts -> {
                     Toast.makeText(this, getString(R.string.title_contacto), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.contactFragment)
                     true
                 }
                 R.id.nav_nosotros -> {

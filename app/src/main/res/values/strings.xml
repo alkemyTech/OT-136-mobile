@@ -50,4 +50,9 @@
     <string name="fragment_we_know_more">Conoce más sobre este gran equipo</string>
     <string name="placeholder_twenty_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum.</string>
     <string name="placeholder_two_lorem_ipsum" translatable="false">Lorem ipsum</string>
+    <string name="send">Enviar</string>
+    <string name="phone">Nº de Celular</string>
+    <string name="consultation">Envíenos su consulta...</string>
+
+
 </resources>
