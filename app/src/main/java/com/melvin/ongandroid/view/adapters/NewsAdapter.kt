@@ -12,16 +12,12 @@ import com.melvin.ongandroid.businesslogic.vo.BaseViewHolder
 import com.melvin.ongandroid.databinding.NewsRowBinding
 import com.melvin.ongandroid.model.New
 
-class NewsAdapter(private val context: Context, private val newsList:List<New>,
-                  private val itemClickListener: OnNewClickListener
-):
-    RecyclerView.Adapter<BaseViewHolder<*>>() {
+class NewsAdapter(private val context: Context,
+                  private val newsList:List<New>,
+                  private val itemClickListener: OnNewClickListener)
+    : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     private val limit = 5
-
-    interface OnNewClickListener{
-        fun onNewClick(new:New)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         val itemBinding =
@@ -35,11 +31,10 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
             is MainViewHolder ->{
                 holder.bind(newsList[position])
                 when(position){
-                limit-1-> holder.showArrow()
+                    limit-1-> holder.showArrow()
                 }
             }
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -54,7 +49,6 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
             Glide.with(context).load(item.photo).centerCrop().into(itemBinding.ivPortada)
             itemBinding.tvTitulo.text=item.title
             itemBinding.tvDesc.text=item.descript
-
         }
 
         fun showArrow(){
@@ -65,8 +59,11 @@ class NewsAdapter(private val context: Context, private val newsList:List<New>,
             itemBinding.cvItem.cardElevation=0f
             itemBinding.ivPortada.setImageResource(R.drawable.ic_arrow_next)
             itemBinding.cvItem.setOnClickListener {
-                Toast.makeText(context, context.getString(R.string.coming_soon_news), Toast.LENGTH_SHORT).show()
+                itemClickListener.onClickedNewsArrow()
             }
         }
     }
+}
+interface OnNewClickListener{
+    fun onClickedNewsArrow()
 }

@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.view
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -7,20 +8,26 @@ import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.databinding.ActivityLoginBinding
 import com.melvin.ongandroid.model.repository.Constant
+import com.melvin.ongandroid.model.repository.Constant.Companion.RC_SIGN_IN
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.UserViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
+import java.security.Principal
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -28,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
     var passwordValid = false
     private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource())) }
     lateinit var prefHelper: PrefHelper
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogin.isEnabled = false
 
+        googleLogin()
         setListeners()
         emailValidation()
         passwordValidation()
@@ -172,14 +181,57 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showDialog(message: String) {
-        MaterialAlertDialogBuilder(this).setMessage(message).setPositiveButton(getString(R.string.ok)){
-                dialog, which -> {}
-        }.show()
+        MaterialAlertDialogBuilder(this).setMessage(message)
+            .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                {}
+            }.show()
     }
 
-    private fun saveSession(username: String, password: String){
-        prefHelper.put( Constant.PREF_USERNAME, username )
-        prefHelper.put( Constant.PREF_PASSWORD, password )
-        prefHelper.put( Constant.PREF_IS_LOGIN, true)
+    private fun saveSession(username: String, password: String) {
+        prefHelper.put(Constant.PREF_USERNAME, username)
+        prefHelper.put(Constant.PREF_PASSWORD, password)
+        prefHelper.put(Constant.PREF_IS_LOGIN, true)
     }
+
+    fun googleLogin() {
+
+        val providers = arrayListOf(
+            AuthUI.IdpConfig.GoogleBuilder().build()
+        )
+
+        binding.googleButton.setOnClickListener {
+            startActivityForResult(
+                AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setAvailableProviders(providers)
+                    .setIsSmartLockEnabled(false)
+                    .build(),
+                RC_SIGN_IN
+            )
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SIGN_IN) {
+            val response = IdpResponse.fromResultIntent(data)
+
+            if (resultCode == Activity.RESULT_OK) {
+                // Successfully signed in
+                val user = FirebaseAuth.getInstance().currentUser
+                Toast.makeText(this, "Bienvenid@ ${user!!.displayName}", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            } else {
+                // response.getError().getErrorCode() and handle the error.
+            }
+                Toast.makeText(
+                    this,
+                    "Ocurrio un error ${response!!.error!!.errorCode}",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
+        }
 }
