@@ -6,9 +6,7 @@ import com.melvin.ongandroid.model.repository.Repo
 import kotlinx.coroutines.Dispatchers
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.Slides
-import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.model.Testimonials
 import kotlinx.coroutines.launch
 

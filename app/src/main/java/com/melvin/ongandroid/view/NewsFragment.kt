@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
 import com.melvin.ongandroid.databinding.FragmentNewsBinding

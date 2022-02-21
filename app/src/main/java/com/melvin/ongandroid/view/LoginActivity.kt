@@ -16,7 +16,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.databinding.ActivityLoginBinding
 import com.melvin.ongandroid.model.repository.Constant

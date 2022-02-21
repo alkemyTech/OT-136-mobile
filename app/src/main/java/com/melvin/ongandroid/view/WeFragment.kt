@@ -15,7 +15,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentWeBinding
 import com.melvin.ongandroid.model.We
