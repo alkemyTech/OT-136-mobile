@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentActivitiesBinding
+import com.melvin.ongandroid.model.repository.ResourceBase
 import com.melvin.ongandroid.model.response.DataActivities
 import com.melvin.ongandroid.view.adapters.ActivitiesAdapter
 import com.melvin.ongandroid.viewmodel.ActivitiesViewModel
-
-
 
 class ActivitiesFragment : Fragment() {
 
@@ -28,10 +27,19 @@ class ActivitiesFragment : Fragment() {
 
         viewModelActivities.getActivities()
 
-        viewModelActivities.liveDataActivities.observe(viewLifecycleOwner){ result ->
-            when (result) {
-                is Resource.Loading<*> -> {
-                    binding.prbarLoading.visibility = View.VISIBLE
+        viewModelActivities.liveDataActivities.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceBase.Status.SUCCESS -> {
+                    binding.prbarLoading.root.isVisible = false
+                    if (it.data != null) {
+                        initRecyclerView(it.data.dataActivities)
+                    }
+                }
+                ResourceBase.Status.LOADING -> {
+                    binding.prbarLoading.root.isVisible = true
+                }
+                ResourceBase.Status.ERROR -> {
+                    // aca va funcion de alertDialog para mensaje de error
                 }
             }
         }

@@ -1,30 +1,7 @@
 package com.melvin.ongandroid.view
 
 
-import android.content.Context
-import android.os.Bundle
-import android.text.Editable
-import android.text.InputFilter
-import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.DataSource
-import com.melvin.ongandroid.businesslogic.domain.OnRegister
-import com.melvin.ongandroid.databinding.FragmentLoginBinding
-import com.melvin.ongandroid.model.repository.RepoImpl
-import com.melvin.ongandroid.viewmodel.UserViewModel
-import com.melvin.ongandroid.viewmodel.VMFactory
-import retrofit2.HttpException
-import java.io.IOException
-import java.net.UnknownHostException
-
 
 
 class LoginFragment : Fragment() {

@@ -1,13 +1,12 @@
 package com.melvin.ongandroid.model.repository
 
 import android.content.Context
-import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.*
-import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.Slides
-import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.User
 import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.model.response.Activities
 import com.melvin.ongandroid.model.response.VerifyUser
@@ -15,7 +14,7 @@ import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Response
 
 
-class RepoImpl(private val dataSource:DataSource): Repo {
+class RepoImpl(private val dataSource: DataSource): Repo {
 
     override suspend fun postUser(user: User, context: Context?, onAPIResponse: OnAPIResponse) {
               dataSource.postRegister(user, context, onAPIResponse)
@@ -37,7 +36,7 @@ class RepoImpl(private val dataSource:DataSource): Repo {
         return dataSource.getSlides()
     }
 
-    suspend fun getActivities():Response<Activities>{
+    suspend fun getActivities(): ResourceBase<Activities> {
         return dataSource.getActivities()
     }
 

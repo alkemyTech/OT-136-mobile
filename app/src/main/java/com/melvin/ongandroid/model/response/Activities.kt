@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class Activities(
     @SerializedName("Success") val success: Boolean,
     @SerializedName("data") val dataActivities: Array<DataActivities>,
-    @SerializedName("Message") val message : String
+    @SerializedName("Message") val message: String
+
 )
 
 data class DataActivities(

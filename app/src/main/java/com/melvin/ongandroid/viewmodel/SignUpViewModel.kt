@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.*
 import androidx.lifecycle.ViewModel
 import com.melvin.ongandroid.model.repository.Repo
-import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.User
 import com.melvin.ongandroid.model.service.OnAPIResponse
 
 
