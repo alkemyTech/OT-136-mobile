@@ -1,11 +1,9 @@
 package com.melvin.ongandroid.viewmodel
 
-import android.app.AlertDialog
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.model.Testimonials
 import kotlinx.coroutines.launch

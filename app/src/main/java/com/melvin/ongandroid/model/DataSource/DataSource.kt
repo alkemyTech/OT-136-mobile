@@ -1,4 +1,4 @@
-package com.melvin.ongandroid.businesslogic.data
+package com.melvin.ongandroid.model.DataSource
 
 import android.app.AlertDialog
 import android.content.Context
@@ -7,7 +7,11 @@ import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
+import com.melvin.ongandroid.businesslogic.vo.RetrofitClient.retrofitService
 import com.melvin.ongandroid.model.*
+import com.melvin.ongandroid.model.repository.BaseDataSource
+import com.melvin.ongandroid.model.response.Activities
+import com.melvin.ongandroid.model.response.User
 import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Call
@@ -16,10 +20,11 @@ import retrofit2.Response
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
-class DataSource {
+import com.melvin.ongandroid.model.repository.*
+class DataSource :BaseDataSource(){
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
 
-        RetrofitClient.retrofitService.createUser(user)
+        retrofitService.createUser(user)
             .enqueue(object: Callback<DefaultResponse>, OnRequest{
                 override fun onResponse(
                     call: Call<DefaultResponse>,
@@ -67,7 +72,7 @@ class DataSource {
     }
 
     suspend fun authUser(user: String, pass: String): Response<VerifyUser> {
-        return RetrofitClient.retrofitService.postLogin(user, pass)
+        return retrofitService.postLogin(user, pass)
     }
 
     val generateNewsList = listOf(
@@ -88,15 +93,15 @@ class DataSource {
     }
 
     suspend fun getNewsByName (newName:String):Resource<List<New>>{
-        return Resource.Success(RetrofitClient.retrofitService.GetNewsByName(newName).newsList)
+        return Resource.Success(retrofitService.GetNewsByName(newName).newsList)
     }
 
     suspend fun getFourTestimonials(): Response<Testimonials> {
-        return RetrofitClient.retrofitService.getFourTestimonials()
+        return retrofitService.getFourTestimonials()
     }
 
     suspend fun getSlides():Response<Slides>{
-        return RetrofitClient.retrofitService.getSlides()
+        return retrofitService.getSlides()
     }
 
     fun getWeList(): Resource<List<We>> {
@@ -104,6 +109,10 @@ class DataSource {
     }
 
     suspend fun getMembersByName (memberName:String):Resource<List<We>>{
-        return Resource.Success(RetrofitClient.retrofitService.GetMembersByName(memberName).weList)
+        return Resource.Success(retrofitService.GetMembersByName(memberName).weList)
+    }
+
+    suspend fun getActivities():ResourceBase<Activities> {
+        return getResult { RetrofitClient.retrofitService.getActivities() }
     }
 }
