@@ -2,8 +2,8 @@ package com.melvin.ongandroid.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
+import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.model.repository.RepoImpl
 import kotlinx.coroutines.Dispatchers
 
