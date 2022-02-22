@@ -29,14 +29,14 @@ class NewsAdapter(private val context: Context,
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         when(holder){
             is MainViewHolder ->{
-                holder.bind(newsList[position])
                 when(position){
                     limit-1-> holder.showArrow()
+                    else-> holder.bind(newsList[position])
                 }
+
             }
         }
     }
-
     override fun getItemCount(): Int {
         return if(newsList.size>=limit){
             limit
