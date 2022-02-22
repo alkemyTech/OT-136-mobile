@@ -1,28 +1,23 @@
 package com.melvin.ongandroid.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.melvin.ongandroid.TestCoroutineRule
 import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
+import com.melvin.ongandroid.getOrAwaitValue
 import com.melvin.ongandroid.model.We
-import com.melvin.ongandroid.model.repository.Repo
 import com.melvin.ongandroid.model.repository.RepoImpl
-import org.junit.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
+import org.junit.Assert.*
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.Mockito.*
-import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import retrofit2.HttpException
-import org.mockito.Mockito.`when` as whenever
+
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -33,54 +28,42 @@ class WeViewModelTest {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
     private lateinit var viewModel: WeViewModel
-    @Mock
-    private lateinit var Repository: Repo
-    @Mock
-    private lateinit var weResponseObserver: Observer<Resource<List<We>>>
+    private val dataSourceMock: DataSource = mock()
+    private val repoImplMock = RepoImpl(dataSourceMock)
+    private lateinit var vmMock: WeViewModel
 
     @Before
     fun setUp() {
         viewModel = WeViewModel(RepoImpl(DataSource()))
+        vmMock = WeViewModel(repoImplMock)
     }
-
-    val emptyList = arrayListOf<We>()
-    val weName="jose"
 
     @Test
     fun `when fetching results ok then return a list successfully`() {
+        // GIVEN
         testCoroutineRule.runBlockingTest {
-            viewModel.fetchWeList.observeForever(weResponseObserver)
-            whenever(Repository.getWeList(weName)).thenAnswer {
-                Resource.Success(emptyList)
-            }
+        // WHEN
+            viewModel.fetchWeList()
+        // THEN
+            assertNotNull(viewModel.listWe.getOrAwaitValue())
         }
-        assertNotNull(viewModel.fetchWeList.value)
-        assertEquals(Resource.Success(emptyList), viewModel.fetchWeList.value)
     }
 
     @Test
     fun `when calling for results then return loading`() {
         testCoroutineRule.runBlockingTest {
-            viewModel.fetchWeList.observeForever(weResponseObserver)
-            verify(weResponseObserver).onChanged(Resource.Loading())
+            viewModel.fetchWeList()
         }
+        assertTrue(viewModel.loading.getOrAwaitValue())
     }
 
     @Test
     fun `when fetching results fails then return an error`() {
         val exception = mock(HttpException::class.java)
         testCoroutineRule.runBlockingTest {
-            viewModel.fetchWeList.observeForever(weResponseObserver)
-            whenever(Repository.getWeList(weName)).thenAnswer {
-                Resource.Failure<We>(exception)
-            }
+                whenever(repoImplMock.getWeList("hola")).thenThrow(exception)
+            vmMock.fetchWeList()
         }
-        assertNotNull(viewModel.fetchWeList.value)
-        assertEquals(Resource.Failure<We>(exception), viewModel.fetchWeList.value)
-    }
-
-    @After
-    fun tearDown() {
-        viewModel.fetchWeList.observeForever(weResponseObserver)
+        assertEquals(Resource.Failure<We>(exception),vmMock.listWe.value)
     }
 }
