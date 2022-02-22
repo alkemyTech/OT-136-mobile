@@ -55,4 +55,6 @@
     <string name="consultation">Envíenos su consulta...</string>
 
 
+    <string name="facebook_app_id">921952871835136</string>
+    <string name="fb_login_protocol_scheme">fb921952871835136</string>
 </resources>
