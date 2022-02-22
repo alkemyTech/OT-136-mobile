@@ -38,30 +38,30 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
         setUpRecyclerView()
         viewModel.fetchWeList()
 
-        viewModel.listWe.observe(viewLifecycleOwner, { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        binding.prBar.visibility = View.GONE
-                        binding.prError.visibility = View.GONE
-                        binding.rvWe.adapter = WeAdapter(requireContext(), result.data, this)
-                    }
-                    is Resource.Failure -> {
-                        binding.prBar.visibility = View.GONE
-                        binding.prError.visibility = View.VISIBLE
-                        errorMessage()
-                    }
+        viewModel.listWe.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Resource.Success -> {
+                    binding.prBar.visibility = View.GONE
+                    binding.prError.visibility = View.GONE
+                    binding.rvWe.adapter = WeAdapter(requireContext(), result.data, this)
                 }
-        })
-        viewModel.loading.observe(viewLifecycleOwner,{
-            if (it != null){
-                if (it == true){
+                is Resource.Failure -> {
+                    binding.prBar.visibility = View.GONE
+                    binding.prError.visibility = View.VISIBLE
+                    errorMessage()
+                }
+            }
+        }
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it == true) {
                     binding.prBar.visibility = View.VISIBLE
                     binding.prError.visibility = View.GONE
-                }else {
+                } else {
                     binding.prBar.visibility = View.GONE
                 }
             }
-        })
+        }
 
         return binding.root
     }
