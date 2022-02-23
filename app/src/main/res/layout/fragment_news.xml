@@ -18,17 +18,19 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"/>
         </RelativeLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_news"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="vertical"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_news_fragment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/Red"
-    android:layout_margin="15dp"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:layout_margin="15dp">
 
     <TextView
         android:id="@+id/tv_title"
@@ -14,7 +14,7 @@
         android:layout_margin="5dp"
         android:padding="10sp"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/Red"
         android:textSize="20sp" />
 
     <ImageView
@@ -27,5 +27,7 @@
         android:layout_marginBottom="10dp"
         android:background="@color/Yellow"
         android:scaleType="fitXY"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/Red" />
+
 </LinearLayout>

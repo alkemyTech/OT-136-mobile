@@ -53,6 +53,14 @@
     <string name="send">Enviar</string>
     <string name="phone">Nº de Celular</string>
     <string name="consultation">Envíenos su consulta...</string>
+    <string name="contact_error_phone">Ingrese un Nº de celular válido</string>
+    <string name="contact_error_name">Ingrese un Nombre de contactp válido</string>
+    <string name="contact_error_consultation">Ingrese su consulta</string>
+    <string name="contact_query_send">Su consulta ha sido enviada con éxito, pronto nos contactaremos con ud. ¡Muchas gracias!</string>
 
 
+
+
+    <string name="facebook_app_id">921952871835136</string>
+    <string name="fb_login_protocol_scheme">fb921952871835136</string>
 </resources>

@@ -11,9 +11,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.model.DataSource.DataSource
@@ -35,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
     var passwordValid = false
     private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource())) }
     lateinit var prefHelper: PrefHelper
+    private val callbackManager = CallbackManager.Factory.create()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.isEnabled = false
 
         googleLogin()
+        facebookLogin()
         setListeners()
         emailValidation()
         passwordValidation()
@@ -213,6 +221,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode,resultCode,data)
 
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
@@ -226,12 +235,49 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 // response.getError().getErrorCode() and handle the error.
             }
-                Toast.makeText(
-                    this,
-                    "Ocurrio un error ${response!!.error!!.errorCode}",
-                    Toast.LENGTH_SHORT
-                ).show()
+            Toast.makeText(
+                this,
+                "Ocurrio un error ${response!!.error!!.errorCode}",
+                Toast.LENGTH_SHORT
+            ).show()
 
-            }
         }
+    }
+    fun facebookLogin() {
+        binding.fbButton.setOnClickListener {
+            binding.prBar.visibility = View.VISIBLE
+            LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
+            LoginManager.getInstance().registerCallback(callbackManager,
+                object : FacebookCallback<LoginResult>{
+
+                    override fun onSuccess(result: LoginResult?) {
+                        if (result != null){
+                            //guardamos el login en firebase
+                            binding.prBar.visibility = View.VISIBLE
+                            val token=result.accessToken
+                            val credential = FacebookAuthProvider.getCredential(token.token)
+                            FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{
+                                if (it.isSuccessful){
+                                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                                    finish()
+                                } else {
+                                    // no se pudo autenticar con firebase
+                                }
+                            }
+                        }
+
+                    }
+
+                    override fun onCancel() {
+
+                    }
+
+                    override fun onError(error: FacebookException?) {
+                        binding.prBar.visibility = View.INVISIBLE
+                        showDialog("No se pudo iniciar sesión")
+                    }
+
+                })
+        }
+    }
 }

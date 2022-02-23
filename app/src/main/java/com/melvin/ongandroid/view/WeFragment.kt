@@ -2,16 +2,11 @@ package com.melvin.ongandroid.view
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
@@ -37,17 +32,14 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentWeBinding.inflate(inflater, container, false)
 
         setUpRecyclerView()
+        viewModel.fetchWeList()
 
-        viewModel.fetchWeList.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.listWe.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Resource.Loading -> {
-                    binding.prBar.visibility = View.VISIBLE
-                    binding.prError.visibility = View.GONE
-                }
                 is Resource.Success -> {
                     binding.prBar.visibility = View.GONE
                     binding.prError.visibility = View.GONE
@@ -56,15 +48,20 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
                 is Resource.Failure -> {
                     binding.prBar.visibility = View.GONE
                     binding.prError.visibility = View.VISIBLE
-                    /*  Toast.makeText(
-                        requireContext(),
-                        R.string.login_dg_without_internet,
-                        Toast.LENGTH_LONG
-                    ).show()*/
                     errorMessage()
                 }
             }
-        })
+        }
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it == true) {
+                    binding.prBar.visibility = View.VISIBLE
+                    binding.prError.visibility = View.GONE
+                } else {
+                    binding.prBar.visibility = View.GONE
+                }
+            }
+        }
 
         return binding.root
     }

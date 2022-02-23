@@ -21,6 +21,8 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
 import com.melvin.ongandroid.model.repository.*
+import com.melvin.ongandroid.model.response.Contacts
+
 class DataSource :BaseDataSource(){
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
 
@@ -115,4 +117,11 @@ class DataSource :BaseDataSource(){
     suspend fun getActivities():ResourceBase<Activities> {
         return getResult { RetrofitClient.retrofitService.getActivities() }
     }
+
+    suspend fun postContact(name: String, phone: String, email: String, message: String)
+            : Response<Contacts> {
+        return RetrofitClient.retrofitService.postContact(name, phone, email, message)
+
+    }
+
 }
