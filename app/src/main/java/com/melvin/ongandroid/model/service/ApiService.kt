@@ -2,6 +2,7 @@ package com.melvin.ongandroid.model.service
 
 import com.melvin.ongandroid.model.*
 import com.melvin.ongandroid.model.response.Activities
+import com.melvin.ongandroid.model.response.Contacts
 import com.melvin.ongandroid.model.response.User
 import com.melvin.ongandroid.model.response.VerifyUser
 import retrofit2.Call
@@ -35,4 +36,18 @@ interface ApiService {
 
     @GET("activities")
     suspend fun getActivities(): Response<Activities>
+
+    @POST ("contacts")
+
+    suspend fun postContact(
+
+        @Query("name") name: String,
+
+        @Query("phone")phone: String,
+
+        @Query("email")email: String,
+
+        @Query("message")message: String,
+
+        ): Response<Contacts>
 }

@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,8 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.databinding.FragmentContactBinding
+import com.melvin.ongandroid.model.DataSource.DataSource
+import com.melvin.ongandroid.model.repository.RepoImpl
+import com.melvin.ongandroid.viewmodel.ContactViewModel
+import com.melvin.ongandroid.viewmodel.VMFactory
 
 
 class ContactFragment : Fragment() {
@@ -18,6 +24,7 @@ class ContactFragment : Fragment() {
     var nameValid = false
     var numberValid = false
     var consultationValid = false
+    private val vm by viewModels<ContactViewModel> { VMFactory(RepoImpl(DataSource())) }
 
 
 
@@ -105,7 +112,7 @@ class ContactFragment : Fragment() {
                 validFields()
             }
         })
-
+        sendQuery()
         return binding.root
 
     }
@@ -114,5 +121,32 @@ class ContactFragment : Fragment() {
         _binding!!.btnSend.isEnabled = emailValid && consultationValid && nameValid && numberValid
     }
 
+    fun sendQuery() {
+        _binding!!.btnSend.setOnClickListener {
+            vm.postContact(
+                _binding!!.tvName.text.toString(),
+                _binding!!.tvPhone.text.toString(),
+                _binding!!.tvEmail.text.toString(),
+                _binding!!.tvConsultation.text.toString()
+            )
+            _binding!!.prBar.visibility = View.VISIBLE
+            showDialog()
+        }
+    }
 
+    fun showDialog() {
+        binding.prBar.visibility = View.GONE
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle(R.string.title_contacto)
+        alertDialog.setMessage(R.string.contact_query_send)
+        alertDialog.show()
+        clearFields()
+    }
+
+    fun clearFields(){
+        binding.tvName.setText("")
+        binding.tvPhone.setText("")
+        binding.tvEmail.setText("")
+        binding.tvConsultation.setText("")
+    }
 }
