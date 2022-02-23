@@ -13,6 +13,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.facebook.login.LoginManager
+import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.model.repository.Constant
@@ -54,7 +55,8 @@ class MainActivity : AppCompatActivity(), OnRegister {
                     navController.navigateUp()
                     PrefHelper(this).clear()
                     LoginManager.getInstance().logOut()
-                    FirebaseAuth.getInstance().signOut()
+                    //FirebaseAuth.getInstance().signOut()
+                    AuthUI.getInstance().signOut(this)
                     startActivity(Intent(this, LoginActivity::class.java))
                     true
                 }

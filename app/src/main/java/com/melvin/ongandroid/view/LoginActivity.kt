@@ -234,12 +234,13 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             } else {
                 // response.getError().getErrorCode() and handle the error.
+                Toast.makeText(
+                    this,
+                    "Ocurrio un error ${response!!.error!!.errorCode}",
+                    Toast.LENGTH_SHORT).show()
             }
-            Toast.makeText(
-                this,
-                "Ocurrio un error ${response!!.error!!.errorCode}",
-                Toast.LENGTH_SHORT
-            ).show()
+
+
 
         }
     }
