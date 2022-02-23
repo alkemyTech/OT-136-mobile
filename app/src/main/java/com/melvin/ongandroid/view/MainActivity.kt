@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 R.id.nav_home -> {
                     navController.navigateUp()
                     navController.navigate(R.id.homeFragment)
-
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_signout -> {
@@ -56,26 +57,31 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 R.id.nav_testimonios -> {
                     navController.navigateUp()
                     navController.navigate(R.id.testimonialsFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_act -> {
                     navController.navigateUp()
                     navController.navigate(R.id.activitiesFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_contacts -> {
                     navController.navigateUp()
                     navController.navigate(R.id.contactFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_nosotros -> {
                     navController.navigateUp()
                     navController.navigate(R.id.weFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_nov -> {
                     navController.navigateUp()
                     navController.navigate(R.id.newsFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 else -> {
