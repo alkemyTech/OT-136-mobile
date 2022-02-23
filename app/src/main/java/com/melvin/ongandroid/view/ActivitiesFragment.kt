@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.melvin.ongandroid.databinding.FragmentActivitiesBinding
 import com.melvin.ongandroid.model.repository.ResourceBase
@@ -49,7 +48,7 @@ class ActivitiesFragment : Fragment() {
     }
 
     fun initRecyclerView(activitiesList: Array<DataActivities>) {
-        val adapter = ActivitiesAdapter(activitiesList)
+        val adapter = ActivitiesAdapter(context,activitiesList)
         binding.rvActivities.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         binding.rvActivities.adapter = adapter
     }
