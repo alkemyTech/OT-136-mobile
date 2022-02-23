@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 R.id.nav_home -> {
                     navController.navigateUp()
                     navController.navigate(R.id.homeFragment)
+
                     true
                 }
                 R.id.nav_signout -> {

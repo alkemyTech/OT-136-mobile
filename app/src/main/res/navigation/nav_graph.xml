@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/activitiesFragment"
         android:name="com.melvin.ongandroid.view.ActivitiesFragment"
-        android:label="fragment_activities"
+        android:label="@string/title_actividades"
         tools:layout="@layout/fragment_activities" />
     <fragment
         android:id="@+id/contactFragment"
