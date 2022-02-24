@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.login.LoginBehavior
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.firebase.ui.auth.AuthUI
@@ -244,10 +245,11 @@ class LoginActivity : AppCompatActivity() {
 
         }
     }
-    fun facebookLogin() {
+    private fun facebookLogin() {
         binding.fbButton.setOnClickListener {
             binding.prBar.visibility = View.VISIBLE
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
+            LoginManager.getInstance().loginBehavior = LoginBehavior.KATANA_ONLY
             LoginManager.getInstance().registerCallback(callbackManager,
                 object : FacebookCallback<LoginResult>{
 
