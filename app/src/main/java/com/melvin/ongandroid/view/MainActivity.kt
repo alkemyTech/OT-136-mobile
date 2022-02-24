@@ -1,24 +1,24 @@
 package com.melvin.ongandroid.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.facebook.login.LoginManager
 import com.firebase.ui.auth.AuthUI
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
-import com.melvin.ongandroid.businesslogic.domain.OnRegister
 import com.melvin.ongandroid.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(), OnRegister {
+class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
@@ -89,10 +89,13 @@ class MainActivity : AppCompatActivity(), OnRegister {
                 }
             }
         }
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
+        val navController = findNavController(R.id.homeFragment)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
     override fun onBackPressed() {
         finish()
@@ -103,9 +106,6 @@ class MainActivity : AppCompatActivity(), OnRegister {
 
      }
 
-    override fun onClickRegister() {
-
-    }
     fun refreshFr(){
         navController.navigate(R.id.homeFragment)
     }

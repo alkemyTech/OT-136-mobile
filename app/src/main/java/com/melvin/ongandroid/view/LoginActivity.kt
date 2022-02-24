@@ -201,7 +201,7 @@ class LoginActivity : AppCompatActivity() {
         prefHelper.put(Constant.PREF_IS_LOGIN, true)
     }
 
-    fun googleLogin() {
+    private fun googleLogin() {
 
         val providers = arrayListOf(
             AuthUI.IdpConfig.GoogleBuilder().build()
@@ -236,7 +236,7 @@ class LoginActivity : AppCompatActivity() {
                 // response.getError().getErrorCode() and handle the error.
                 Toast.makeText(
                     this,
-                    "Ocurrio un error ${response!!.error!!.errorCode}",
+                    "Ocurrio un error ${response?.error?.errorCode}",
                     Toast.LENGTH_SHORT).show()
             }
 
