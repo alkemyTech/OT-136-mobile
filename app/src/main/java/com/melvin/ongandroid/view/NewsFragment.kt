@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
@@ -54,11 +55,7 @@ class NewsFragment : Fragment() {
                 }
                 is Resource.Failure -> {
                     binding.prBar.visibility = View.GONE
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.An_error_occurred_while_obtaining_the_information,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    showDialog(getString(R.string.An_error_occurred_while_obtaining_the_information))
                 }
             }
         }
@@ -68,5 +65,12 @@ class NewsFragment : Fragment() {
         adapter = NewsFragmentAdapter(items)
         binding.rvNews.layoutManager = StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
         binding.rvNews.adapter = adapter
+    }
+
+    private fun showDialog(message: String) {
+        MaterialAlertDialogBuilder(requireContext()).setMessage(message)
+            .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                {}
+            }.show()
     }
 }

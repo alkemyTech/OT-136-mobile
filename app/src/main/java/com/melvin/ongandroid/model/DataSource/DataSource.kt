@@ -33,8 +33,6 @@ class DataSource :BaseDataSource(){
                     response: Response<DefaultResponse>
                 ) {
 
-                    Toast.makeText(context,"User was succesfully register",
-                        Toast.LENGTH_LONG).show()
                     if(response.isSuccessful){
                         onResponse.onSuccess(response)
                     } else {
@@ -44,7 +42,6 @@ class DataSource :BaseDataSource(){
                 }
                 override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                     onResponse.onFailure("")
-                    Toast.makeText(context,R.string.user_not_register, Toast.LENGTH_LONG).show()
 
                     if (t is HttpException){
                         when (t.code()) {

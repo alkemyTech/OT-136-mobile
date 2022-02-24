@@ -96,7 +96,6 @@ class HomeFragment : Fragment(), OnNewClickListener {
                 is Resource.Failure->{
                     binding.prBar.visibility=View.GONE
                     binding.prError.visibility=View.VISIBLE
-                    //Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
                     alerDialogMasiveError()
                     binding.retryButton.setOnClickListener {
                         (activity as MainActivity).refreshFr()

@@ -230,15 +230,10 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
-                Toast.makeText(this, "Bienvenid@ ${user!!.displayName}", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                // response.getError().getErrorCode() and handle the error.
-                Toast.makeText(
-                    this,
-                    "Ocurrio un error ${response?.error?.errorCode}",
-                    Toast.LENGTH_SHORT).show()
+                showDialog("Ocurrio un error ${response?.error?.errorCode}")
             }
 
 
