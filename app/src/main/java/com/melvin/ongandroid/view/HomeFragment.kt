@@ -12,7 +12,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
 import com.melvin.ongandroid.R
+import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
@@ -22,6 +24,8 @@ import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import com.melvin.ongandroid.model.Testimonials
+import com.melvin.ongandroid.model.repository.Constant
+import com.melvin.ongandroid.model.response.User
 import com.melvin.ongandroid.view.adapters.NewsAdapter
 import com.melvin.ongandroid.view.adapters.OnNewClickListener
 import com.melvin.ongandroid.view.adapters.SlidesAdapter
@@ -34,6 +38,7 @@ class HomeFragment : Fragment(), OnNewClickListener {
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
     private lateinit var testimonialsAdapter: TestimonialsAdapter
     private lateinit var slidesAdapter: SlidesAdapter
+    var name:String?=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +56,7 @@ class HomeFragment : Fragment(), OnNewClickListener {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        setName()
         setUpNewsRecyclerView()
         hideSectionTestimonials(true)
         hideSectionSlides(true)
@@ -155,5 +161,14 @@ class HomeFragment : Fragment(), OnNewClickListener {
         alertDialog.show()
     }
 
+    private fun setName(){
+        FirebaseAuth.getInstance().currentUser?.let{
+            name =FirebaseAuth.getInstance().currentUser?.displayName
+            binding.tvWelcome.text="Bienvenid@ $name"
+        }
+    }
+
 }
+
+
 

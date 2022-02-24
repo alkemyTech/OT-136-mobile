@@ -150,7 +150,8 @@ class LoginActivity : AppCompatActivity() {
                         binding.tvPassword.text.toString(),
                         binding.tvEmail.text.toString()
                     )
-                    startActivity(Intent(this, MainActivity::class.java))
+                    val intent=Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                     finish()
 
                 } else {
