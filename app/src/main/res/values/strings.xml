@@ -29,6 +29,7 @@
     <string name="login_dg_server_error">Ocurrió un error en el servidor</string>
     <string name="login_dg_unknown_error">Error desconocido</string>
     <string name="login_dg_without_internet">Verifique su conexión a internet y vuelva a intentarlo</string>
+    <string name="login_dg_host_error">¡Ocurrio un error inesperado, vuelva a intentarlo!</string>
     <string name="login_tv_error_only_letters_and_digits">Sólo se permiten letras y números</string>
     <string name="login_tv_error_invalid_mail">Formato inválido</string>
     <string name="fragment_login_tvlEmail_hint_email">Correo electrónico</string>
@@ -64,4 +65,5 @@
     <string name="cancel_dialog">Cancelar</string>
     <string name="facebook_app_id">921952871835136</string>
     <string name="fb_login_protocol_scheme">fb921952871835136</string>
+
 </resources>

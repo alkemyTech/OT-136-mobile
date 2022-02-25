@@ -145,24 +145,15 @@ class LoginActivity : AppCompatActivity() {
     private fun setObservers() {
         userViewModel.liveDataUser.observe(this) {
             if (it != null) {
-                if (it.success!!) {
+                if (it.success == true) {
+                    binding.prBar.visibility = View.GONE
                     saveSession(
                         binding.tvPassword.text.toString(),
                         binding.tvEmail.text.toString()
                     )
-                    val intent=Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-
-                } else {
-                    binding.tvEmail.error = getString(R.string.login_et_error_user_and_password)
-                }
-            }
-        }
-        userViewModel.liveDataUser.observe(this) {
-            if (it != null) {
-                if (it.success == true) {
-                    binding.prBar.visibility = View.GONE
                 } else {
                     binding.prBar.visibility = View.GONE
                     binding.tvEmail.error =
@@ -185,14 +176,12 @@ class LoginActivity : AppCompatActivity() {
             }
         if (exception is IOException)
             showDialog(getString(R.string.login_dg_without_internet))
-        if (exception is UnknownHostException)
-            showDialog(getString(R.string.login_dg_without_internet))
     }
 
     private fun showDialog(message: String) {
         MaterialAlertDialogBuilder(this).setMessage(message)
             .setPositiveButton(getString(R.string.ok)) { dialog, which ->
-                {}
+                binding.prBar.visibility = View.GONE
             }.show()
     }
 
@@ -222,7 +211,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        callbackManager.onActivityResult(requestCode,resultCode,data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
@@ -237,30 +226,36 @@ class LoginActivity : AppCompatActivity() {
             }
 
 
-
         }
     }
+
     fun facebookLogin() {
         binding.fbButton.setOnClickListener {
             binding.prBar.visibility = View.VISIBLE
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
             LoginManager.getInstance().registerCallback(callbackManager,
-                object : FacebookCallback<LoginResult>{
+                object : FacebookCallback<LoginResult> {
 
                     override fun onSuccess(result: LoginResult?) {
-                        if (result != null){
+                        if (result != null) {
                             //guardamos el login en firebase
                             binding.prBar.visibility = View.VISIBLE
-                            val token=result.accessToken
+                            val token = result.accessToken
                             val credential = FacebookAuthProvider.getCredential(token.token)
-                            FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{
-                                if (it.isSuccessful){
-                                    startActivity(Intent(applicationContext, MainActivity::class.java))
-                                    finish()
-                                } else {
-                                    // no se pudo autenticar con firebase
+                            FirebaseAuth.getInstance().signInWithCredential(credential)
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        startActivity(
+                                            Intent(
+                                                applicationContext,
+                                                MainActivity::class.java
+                                            )
+                                        )
+                                        finish()
+                                    } else {
+                                        // no se pudo autenticar con firebase
+                                    }
                                 }
-                            }
                         }
 
                     }
