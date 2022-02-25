@@ -13,6 +13,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.model.DataSource.DataSource
@@ -38,7 +41,13 @@ class HomeFragment : Fragment(), OnNewClickListener {
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
     private lateinit var testimonialsAdapter: TestimonialsAdapter
     private lateinit var slidesAdapter: SlidesAdapter
-    var name:String?=""
+    //val user = Firebase.auth.currentUser
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuthListener = FirebaseAuth.AuthStateListener {
+        val user = Firebase.auth.currentUser
+        setName(user)
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +64,7 @@ class HomeFragment : Fragment(), OnNewClickListener {
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        setName()
+        firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
         setUpNewsRecyclerView()
         hideSectionTestimonials(true)
         hideSectionSlides(true)
@@ -160,13 +168,18 @@ class HomeFragment : Fragment(), OnNewClickListener {
         alertDialog.show()
     }
 
-    private fun setName(){
-        FirebaseAuth.getInstance().currentUser?.let{
-            name =FirebaseAuth.getInstance().currentUser?.displayName
+    private fun setName(user: FirebaseUser?){
+        user?.let{
+            val name = user.displayName
+            val email = user.email
+            val photoUrl = user.photoUrl
             binding.tvWelcome.text="Bienvenid@ $name"
         }
     }
-
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
+    }
 }
 
 
