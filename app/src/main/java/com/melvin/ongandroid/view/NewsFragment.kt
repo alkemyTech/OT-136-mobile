@@ -85,12 +85,12 @@ class NewsFragment : Fragment() {
 
     private fun alerDialogError() {
         val alertDialog = AlertDialog.Builder(context)
-        alertDialog.setTitle("Falla Del Sistema")
-        alertDialog.setMessage("Ha ocurrido un error obteniendo la información")
-        alertDialog.setPositiveButton("Reintentar") { _, _ ->
+        alertDialog.setTitle(R.string.error_system_dialog)
+        alertDialog.setMessage(R.string.message_dialog_error)
+        alertDialog.setPositiveButton(R.string.reintent_dialog) { _, _ ->
             findNavController().navigate(R.id.newsFragment)
         }
-        alertDialog.setNegativeButton("Cancelar") { _, _ ->
+        alertDialog.setNegativeButton(R.string.cancel_dialog) { _, _ ->
 
         }
         alertDialog.show()
@@ -98,12 +98,12 @@ class NewsFragment : Fragment() {
 
     private fun alerDialogEmpty() {
         val alertDialog = AlertDialog.Builder(context)
-        alertDialog.setTitle("No hay novedades")
-        alertDialog.setMessage("No hay novedades para mostrar, intente mas tarde.")
-        alertDialog.setPositiveButton("Reintentar") { _, _ ->
+        alertDialog.setTitle(R.string.error_system_dialog)
+        alertDialog.setMessage(R.string.message_dialog_empty)
+        alertDialog.setPositiveButton(R.string.reintent_dialog) { _, _ ->
             findNavController().navigate(R.id.newsFragment)
         }
-        alertDialog.setNegativeButton("Cancelar") { _, _ ->
+        alertDialog.setNegativeButton(R.string.cancel_dialog) { _, _ ->
 
         }
         alertDialog.show()
