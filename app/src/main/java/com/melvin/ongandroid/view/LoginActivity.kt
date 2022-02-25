@@ -76,13 +76,6 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
-    }
-
     private fun setListeners() {
         binding.btnSignUp.setOnClickListener { viewSignUpActivity() }
         binding.btnLogin.setOnClickListener {
@@ -283,14 +276,11 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    updateUI(user)
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    updateUI(null)
                 }
             }
     }
@@ -337,8 +327,5 @@ class LoginActivity : AppCompatActivity() {
 
                 })
         }
-    }
-    private fun updateUI(user: FirebaseUser?) {
-
     }
 }
