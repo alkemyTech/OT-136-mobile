@@ -1,10 +1,7 @@
 package com.melvin.ongandroid.model.service
 
 import com.melvin.ongandroid.model.*
-import com.melvin.ongandroid.model.response.Activities
-import com.melvin.ongandroid.model.response.Contacts
-import com.melvin.ongandroid.model.response.User
-import com.melvin.ongandroid.model.response.VerifyUser
+import com.melvin.ongandroid.model.response.*
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -50,4 +47,7 @@ interface ApiService {
         @Query("message")message: String,
 
         ): Response<Contacts>
+
+    @GET("users")
+    suspend fun getUserByName(@Query("email") userEmail:String?): UserName
 }

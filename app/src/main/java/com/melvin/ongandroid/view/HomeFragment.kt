@@ -28,6 +28,7 @@ import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.model.repository.Constant
+import com.melvin.ongandroid.model.repository.Constant.Companion.PREF_USERNAME
 import com.melvin.ongandroid.model.response.User
 import com.melvin.ongandroid.view.adapters.NewsAdapter
 import com.melvin.ongandroid.view.adapters.OnNewClickListener
@@ -41,12 +42,12 @@ class HomeFragment : Fragment(), OnNewClickListener {
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
     private lateinit var testimonialsAdapter: TestimonialsAdapter
     private lateinit var slidesAdapter: SlidesAdapter
-    //val user = Firebase.auth.currentUser
     private val firebaseAuth = FirebaseAuth.getInstance()
     private val firebaseAuthListener = FirebaseAuth.AuthStateListener {
         val user = Firebase.auth.currentUser
         setName(user)
         }
+    lateinit var prefHelper: PrefHelper
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,9 +63,12 @@ class HomeFragment : Fragment(), OnNewClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
+        /*prefHelper = PrefHelper(requireContext())
+        val userEmail = prefHelper.getString(Constant.PREF_USERNAME)
+        viewModel.fetchUser(userEmail)*/
+
         setUpNewsRecyclerView()
         hideSectionTestimonials(true)
         hideSectionSlides(true)
@@ -169,13 +173,23 @@ class HomeFragment : Fragment(), OnNewClickListener {
     }
 
     private fun setName(user: FirebaseUser?){
-        user?.let{
+        if(user!=null){
             val name = user.displayName
             val email = user.email
-            val photoUrl = user.photoUrl
             binding.tvWelcome.text="Bienvenid@ $name"
-        }
+        }/*else {
+            viewModel.userName.observe(viewLifecycleOwner) { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val name=result.data.name
+                        binding.tvWelcome.text = "Bienvenid@ $name"
+                    }
+                    is Resource.Failure->{binding.tvWelcome.text = "Bienvenid@"}
+                }
+            }
+        }*/
     }
+
     override fun onStart() {
         super.onStart()
         firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)

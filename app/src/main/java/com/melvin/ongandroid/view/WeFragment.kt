@@ -1,6 +1,7 @@
 package com.melvin.ongandroid.view
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
+import com.melvin.ongandroid.businesslogic.domain.OnNavigate
 import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentWeBinding
@@ -34,6 +36,7 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWeBinding.inflate(inflater, container, false)
+
 
         setUpRecyclerView()
         viewModel.fetchWeList()
@@ -87,5 +90,7 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
             }
             alertDialog.show()
         }
+
+
     }
 
