@@ -19,8 +19,24 @@
         android:id="@+id/toolbar"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_user"
+            android:visibility="gone"
+            app:shapeAppearanceOverlay="@style/CircularMask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            android:paddingVertical="4dp"
+            android:paddingRight="13dp"
+            android:src="@drawable/ic_launcher_foreground" />
+
+
+    </androidx.appcompat.widget.Toolbar>
     </LinearLayout>
 
     <androidx.fragment.app.FragmentContainerView

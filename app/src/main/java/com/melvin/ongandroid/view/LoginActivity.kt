@@ -159,8 +159,8 @@ class LoginActivity : AppCompatActivity() {
                 if (it.success == true) {
                     binding.prBar.visibility = View.GONE
                     saveSession(
+                        binding.tvEmail.text.toString(),
                         binding.tvPassword.text.toString(),
-                        binding.tvEmail.text.toString()
                     )
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)

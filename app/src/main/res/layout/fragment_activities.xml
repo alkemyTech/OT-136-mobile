@@ -8,8 +8,8 @@
     tools:context="view.ActivitiesFragment">
 
     <ImageView
-        android:layout_width="258dp"
-        android:layout_height="165dp"
+        android:layout_width="133dp"
+        android:layout_height="82dp"
         android:scaleType="centerCrop"
         android:src="@drawable/logo_login"
         app:layout_constraintBottom_toTopOf="@+id/gl_0.25"
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="506dp" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_activities"

@@ -6,11 +6,8 @@ import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.*
 import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.Slides
-import com.melvin.ongandroid.model.response.User
 import com.melvin.ongandroid.model.Testimonials
-import com.melvin.ongandroid.model.response.Activities
-import com.melvin.ongandroid.model.response.Contacts
-import com.melvin.ongandroid.model.response.VerifyUser
+import com.melvin.ongandroid.model.response.*
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Response
 
@@ -47,5 +44,8 @@ class RepoImpl(private val dataSource: DataSource): Repo {
     override suspend fun postContact(name: String, phone: String, email: String, message: String)
             : Response<Contacts> {
         return dataSource.postContact(name,phone,email,message)
+    }
+    override suspend fun getUser(email: String?):Resource<UserName>{
+        return dataSource.getUserByName(email)
     }
 }

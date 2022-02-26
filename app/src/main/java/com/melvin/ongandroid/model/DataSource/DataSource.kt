@@ -10,9 +10,6 @@ import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient.retrofitService
 import com.melvin.ongandroid.model.*
 import com.melvin.ongandroid.model.repository.BaseDataSource
-import com.melvin.ongandroid.model.response.Activities
-import com.melvin.ongandroid.model.response.User
-import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,7 +18,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
 import com.melvin.ongandroid.model.repository.*
-import com.melvin.ongandroid.model.response.Contacts
+import com.melvin.ongandroid.model.response.*
 
 class DataSource :BaseDataSource(){
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
@@ -119,6 +116,10 @@ class DataSource :BaseDataSource(){
             : Response<Contacts> {
         return RetrofitClient.retrofitService.postContact(name, phone, email, message)
 
+    }
+
+    suspend fun getUserByName(email: String?):Resource<UserName>{
+        return Resource.Success(retrofitService.getUserByName(email))
     }
 
 }
