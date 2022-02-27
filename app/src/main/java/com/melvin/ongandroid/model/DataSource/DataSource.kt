@@ -96,6 +96,10 @@ class DataSource :BaseDataSource(){
         return retrofitService.getFourTestimonials()
     }
 
+    suspend fun getAllTestimonials(): Response<Testimonials> {
+        return retrofitService.getAllTestimonials()
+    }
+
     suspend fun getSlides():Response<Slides>{
         return retrofitService.getSlides()
     }
