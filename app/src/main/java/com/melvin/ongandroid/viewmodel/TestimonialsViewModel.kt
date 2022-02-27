@@ -16,7 +16,7 @@ class TestimonialsViewModel: ViewModel() {
     fun getTestimonials(){
         viewModelScope.launch {
             try {
-                val call = repo.getFourTestimonials()
+                val call = repo.getAllTestimonials()
                 if (call.isSuccessful) {
                     testimonials.value= call.body()
                 }
@@ -25,11 +25,4 @@ class TestimonialsViewModel: ViewModel() {
             }
         }
     }
-
-
-    val liveDataDialog = MutableLiveData<Testimonials>()
-
-
-
-
 }
