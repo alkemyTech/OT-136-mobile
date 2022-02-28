@@ -23,8 +23,7 @@ class SplashActivity  : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val isLoggedInFB = AccessToken.getCurrentAccessToken() != null && !AccessToken.getCurrentAccessToken().isExpired
-        if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN ) || authGoogle.currentUser!=null || isLoggedInFB ) {
+        if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN ) || authGoogle.currentUser!=null ) {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         } else {
