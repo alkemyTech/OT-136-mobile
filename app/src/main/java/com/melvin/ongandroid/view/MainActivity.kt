@@ -108,12 +108,14 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.homeFragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
     override fun onBackPressed() {
         finish()
     }
      fun refreshWeFragment() {
          navController.navigateUp()
          navController.navigate(R.id.weFragment)
+
 
      }
 
