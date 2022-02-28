@@ -29,6 +29,9 @@ class RepoImpl(private val dataSource: DataSource): Repo {
     override suspend fun getFourTestimonials(): Response<Testimonials> {
         return dataSource.getFourTestimonials()
     }
+    override suspend fun getAllTestimonials(): Response<Testimonials> {
+        return dataSource.getAllTestimonials()
+    }
 
     override suspend fun getSlides(): Response<Slides> {
         return dataSource.getSlides()

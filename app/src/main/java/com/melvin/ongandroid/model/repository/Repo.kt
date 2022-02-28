@@ -15,6 +15,7 @@ interface Repo {
     suspend fun postToken(user: String, pass: String): Response<VerifyUser>
     suspend fun getNewsList(newName:String): Resource<List<New>>
     suspend fun getFourTestimonials():Response<Testimonials>
+    suspend fun getAllTestimonials():Response<Testimonials>
     suspend fun getSlides():Response<Slides>
     suspend fun getWeList(weName:String):Resource<List<We>>
     suspend fun postContact(name: String, phone: String, email: String, message: String): Response<Contacts>

@@ -25,6 +25,9 @@ interface ApiService {
     @GET("testimonials?limit=4")
     suspend fun getFourTestimonials(): Response<Testimonials>
 
+    @GET("testimonials")
+    suspend fun getAllTestimonials(): Response<Testimonials>
+
     @GET("slides")
     suspend fun getSlides(): Response<Slides>
 
