@@ -1,4 +1,4 @@
-package com.melvin.ongandroid.businesslogic.data
+package com.melvin.ongandroid.model.DataSource
 
 import android.app.AlertDialog
 import android.content.Context
@@ -7,8 +7,9 @@ import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.domain.OnRequest
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
+import com.melvin.ongandroid.businesslogic.vo.RetrofitClient.retrofitService
 import com.melvin.ongandroid.model.*
-import com.melvin.ongandroid.model.response.VerifyUser
+import com.melvin.ongandroid.model.repository.BaseDataSource
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,18 +17,19 @@ import retrofit2.Response
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
-class DataSource {
+import com.melvin.ongandroid.model.repository.*
+import com.melvin.ongandroid.model.response.*
+
+class DataSource :BaseDataSource(){
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
 
-        RetrofitClient.retrofitService.createUser(user)
+        retrofitService.createUser(user)
             .enqueue(object: Callback<DefaultResponse>, OnRequest{
                 override fun onResponse(
                     call: Call<DefaultResponse>,
                     response: Response<DefaultResponse>
                 ) {
 
-                    Toast.makeText(context,"User was succesfully register",
-                        Toast.LENGTH_LONG).show()
                     if(response.isSuccessful){
                         onResponse.onSuccess(response)
                     } else {
@@ -37,7 +39,6 @@ class DataSource {
                 }
                 override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                     onResponse.onFailure("")
-                    Toast.makeText(context,R.string.user_not_register, Toast.LENGTH_LONG).show()
 
                     if (t is HttpException){
                         when (t.code()) {
@@ -67,7 +68,7 @@ class DataSource {
     }
 
     suspend fun authUser(user: String, pass: String): Response<VerifyUser> {
-        return RetrofitClient.retrofitService.postLogin(user, pass)
+        return retrofitService.postLogin(user, pass)
     }
 
     val generateNewsList = listOf(
@@ -78,28 +79,51 @@ class DataSource {
     )
 
     val generateWeList = listOf(
-        We("L Lawliet", "Detective Senior", "https://i.pinimg.com/736x/b6/44/80/b64480822c5ac3d9da4fa3f4670b1df3.jpg"),
-        We("Lionel Messi", "Director de goles y asistencias", "https://i.pinimg.com/originals/f1/f4/32/f1f4322da99e01cc604b7107fc5ebfce.jpg"),
-        We("Daft Punk", "Good Music Prevention", "https://i.pinimg.com/originals/84/e2/47/84e247796598c7c69425a0587517afdc.jpg"),
-        We("Luci", "Director General", "https://static.wikia.nocookie.net/disenchantment/images/6/64/Luci.png/revision/latest?cb=20210104013705&path-prefix=es")    )
+        We("L Lawliet", "Detective Senior", "https://i.pinimg.com/736x/b6/44/80/b64480822c5ac3d9da4fa3f4670b1df3.jpg","face","linkedin"),
+        We("Lionel Messi", "Director de goles y asistencias", "https://i.pinimg.com/originals/f1/f4/32/f1f4322da99e01cc604b7107fc5ebfce.jpg","face","linkedin"),
+        We("Daft Punk", "Good Music Prevention", "https://i.pinimg.com/originals/84/e2/47/84e247796598c7c69425a0587517afdc.jpg","face","linkedin"),
+        We("Luci", "Director General", "https://static.wikia.nocookie.net/disenchantment/images/6/64/Luci.png/revision/latest?cb=20210104013705&path-prefix=es","face","linkedin")    )
 
     fun getNewsList(): Resource<List<New>> {
             return Resource.Success(generateNewsList)
     }
 
     suspend fun getNewsByName (newName:String):Resource<List<New>>{
-        return Resource.Success(RetrofitClient.retrofitService.GetNewsByName(newName).newsList)
+        return Resource.Success(retrofitService.GetNewsByName(newName).newsList)
     }
 
     suspend fun getFourTestimonials(): Response<Testimonials> {
-        return RetrofitClient.retrofitService.getFourTestimonials()
+        return retrofitService.getFourTestimonials()
+    }
+
+    suspend fun getAllTestimonials(): Response<Testimonials> {
+        return retrofitService.getAllTestimonials()
     }
 
     suspend fun getSlides():Response<Slides>{
-        return RetrofitClient.retrofitService.getSlides()
+        return retrofitService.getSlides()
     }
 
     fun getWeList(): Resource<List<We>> {
         return Resource.Success(generateWeList)
     }
+
+    suspend fun getMembersByName (memberName:String):Resource<List<We>>{
+        return Resource.Success(retrofitService.GetMembersByName(memberName).weList)
+    }
+
+    suspend fun getActivities():ResourceBase<Activities> {
+        return getResult { RetrofitClient.retrofitService.getActivities() }
+    }
+
+    suspend fun postContact(name: String, phone: String, email: String, message: String)
+            : Response<Contacts> {
+        return RetrofitClient.retrofitService.postContact(name, phone, email, message)
+
+    }
+
+    suspend fun getUserByName(email: String?):Resource<UserName>{
+        return Resource.Success(retrofitService.getUserByName(email))
+    }
+
 }

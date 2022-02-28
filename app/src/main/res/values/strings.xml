@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="alert_title">Registro completado</string>
     <string name="alert_message">El usuario fue registrado</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="register">Registrarse</string>
     <string name="name_required">El nombre es necesario</string>
     <string name="password_required">La contraseña es necesaria</string>
@@ -21,7 +21,7 @@
     <string name="title_contacto">Contacto</string>
     <string name="title_novedades">Novedades</string>
     <string name="title_sign_out">Cerrar sesión</string>
-    <string name="title_ult_novedades">Ultimas Novedades</string>
+    <string name="title_ult_novedades">Novedades</string>
     <string name="retry">Reintentar</string>
     <string name="login_et_error_user_and_password">Usuario y/o contraseña incorrectos</string>
     <string name="login_dg_bad_request">Solicitud incorrecta</string>
@@ -29,6 +29,7 @@
     <string name="login_dg_server_error">Ocurrió un error en el servidor</string>
     <string name="login_dg_unknown_error">Error desconocido</string>
     <string name="login_dg_without_internet">Verifique su conexión a internet y vuelva a intentarlo</string>
+    <string name="login_dg_host_error">¡Ocurrio un error inesperado, vuelva a intentarlo!</string>
     <string name="login_tv_error_only_letters_and_digits">Sólo se permiten letras y números</string>
     <string name="login_tv_error_invalid_mail">Formato inválido</string>
     <string name="fragment_login_tvlEmail_hint_email">Correo electrónico</string>
@@ -45,4 +46,24 @@
     <string name="coming_soon_news">Proximamente navegacion a NOVEDADES</string>
     <string name="coming_soon_testimonials">Proximamente navegacion a TESTIMONIOS</string>
     <string name="An_error_occurred_while_obtaining_the_information">Ha ocurrido un error obteniendo la información</string>
+    <string name="activities_tv_activities">Actividades</string>
+    <string name="fragment_we_about_us">Sobre Nosotros</string>
+    <string name="fragment_we_know_more">Conoce más sobre este gran equipo</string>
+    <string name="placeholder_twenty_lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id sapien vel magna viverra vulputate at quis mauris. Etiam condimentum.</string>
+    <string name="placeholder_two_lorem_ipsum" translatable="false">Lorem ipsum</string>
+    <string name="send">Enviar</string>
+    <string name="phone">Nº de Celular</string>
+    <string name="consultation">Envíenos su consulta...</string>
+    <string name="contact_error_phone">Ingrese un Nº de celular válido</string>
+    <string name="contact_error_name">Ingrese un Nombre de contactp válido</string>
+    <string name="contact_error_consultation">Ingrese su consulta</string>
+    <string name="contact_query_send">Su consulta ha sido enviada con éxito, pronto nos contactaremos con ud. ¡Muchas gracias!</string>
+    <string name="error_system_dialog">Falla en el sistema</string>
+    <string name="reintent_dialog">Reintentar</string>
+    <string name="message_dialog_error">Ha ocurrido un error al obtener la informacion</string>
+    <string name="message_dialog_empty">No hay novedades para mostrar, intente mas tarde</string>
+    <string name="cancel_dialog">Cancelar</string>
+    <string name="facebook_app_id">921952871835136</string>
+    <string name="fb_login_protocol_scheme">fb921952871835136</string>
+
 </resources>

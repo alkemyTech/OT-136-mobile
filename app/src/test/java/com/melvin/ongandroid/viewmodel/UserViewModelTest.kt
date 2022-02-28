@@ -2,7 +2,7 @@ package com.melvin.ongandroid.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.melvin.ongandroid.MainCoroutineRule
-import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.getOrAwaitValue
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.model.response.VerifyUser

@@ -4,12 +4,14 @@ package com.melvin.ongandroid.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.auth.FirebaseAuth
 import com.melvin.ongandroid.model.repository.Constant
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
 
 
 class SplashActivity  : AppCompatActivity() {
     lateinit var prefHelper: PrefHelper
+    private val authGoogle:FirebaseAuth by lazy {FirebaseAuth.getInstance()}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         prefHelper = PrefHelper(this)
@@ -19,13 +21,11 @@ class SplashActivity  : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN)) {
+        if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN ) || authGoogle.currentUser!=null) {
             val intent = Intent(this,MainActivity::class.java)
-            //intent.putExtra("token",true.toString())
             startActivity(intent)
         } else {
             val intent = Intent(this, LoginActivity::class.java)
-            //intent.putExtra("token",false.toString())
             startActivity(intent)
         }
     }

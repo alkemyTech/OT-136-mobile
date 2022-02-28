@@ -1,16 +1,16 @@
 package com.melvin.ongandroid.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentWeBinding
 import com.melvin.ongandroid.model.We
@@ -32,17 +32,15 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentWeBinding.inflate(inflater, container, false)
 
-        setUpRecyclerView()
 
-        viewModel.fetchWeList.observe(viewLifecycleOwner, Observer { result ->
+        setUpRecyclerView()
+        viewModel.fetchWeList()
+
+        viewModel.listWe.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Resource.Loading -> {
-                    binding.prBar.visibility = View.VISIBLE
-                    binding.prError.visibility = View.GONE
-                }
                 is Resource.Success -> {
                     binding.prBar.visibility = View.GONE
                     binding.prError.visibility = View.GONE
@@ -51,27 +49,46 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
                 is Resource.Failure -> {
                     binding.prBar.visibility = View.GONE
                     binding.prError.visibility = View.VISIBLE
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.login_dg_without_internet,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    errorMessage()
                 }
-
             }
-        })
+        }
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it != null) {
+                if (it == true) {
+                    binding.prBar.visibility = View.VISIBLE
+                    binding.prError.visibility = View.GONE
+                } else {
+                    binding.prBar.visibility = View.GONE
+                }
+            }
+        }
 
         return binding.root
     }
 
     private fun setUpRecyclerView() {
-        val appContext = requireContext().applicationContext
-        val recyclerView = binding.rvWe
         binding.rvWe.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onNewClick(we: We) {
-        Toast.makeText(requireContext(), R.string.news_coming, Toast.LENGTH_LONG).show()
+        val bundle = Bundle()
+        bundle.putParcelable("we", we)
+        findNavController().navigate(R.id.detailsWeFragment, bundle)
     }
-}
+
+    private fun errorMessage() {
+            val alertDialog = AlertDialog.Builder(context)
+            alertDialog.setMessage("Ha ocurrido un error obteniendo la información")
+            alertDialog.setPositiveButton("Reintentar"){_,_->
+                (activity as MainActivity).refreshWeFragment()
+            }
+            alertDialog.setNegativeButton("Cancelar"){_,_->
+            }
+            alertDialog.show()
+        }
+
+
+    }
+

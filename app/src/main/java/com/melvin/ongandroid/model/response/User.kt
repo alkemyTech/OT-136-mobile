@@ -1,4 +1,4 @@
-package com.melvin.ongandroid.model
+package com.melvin.ongandroid.model.response
 
 import retrofit2.http.Field
 

@@ -8,10 +8,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.businesslogic.data.DataSource
+import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.databinding.ActivitySignUpBinding
 import com.melvin.ongandroid.model.DefaultResponse
-import com.melvin.ongandroid.model.User
+import com.melvin.ongandroid.model.response.User
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import com.melvin.ongandroid.viewmodel.SignUpViewModel
@@ -118,7 +118,7 @@ class SignUpActivity: AppCompatActivity() {
         })
     }
 
-    private fun responseRegister(user:User) {
+    private fun responseRegister(user: User) {
         CoroutineScope(Dispatchers.IO).launch {
             callRetro(user)
         }

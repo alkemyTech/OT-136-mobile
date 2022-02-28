@@ -1,15 +1,11 @@
 package com.melvin.ongandroid.viewmodel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.model.repository.Repo
 import kotlinx.coroutines.Dispatchers
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.melvin.ongandroid.businesslogic.data.DataSource
 import com.melvin.ongandroid.model.Slides
-import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.model.Testimonials
+import com.melvin.ongandroid.model.response.UserName
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repo: Repo) : ViewModel() {
@@ -19,6 +15,8 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
 
     var slides = MutableLiveData<Slides>()
     var slidesExcep=MutableLiveData<Throwable>()
+
+    var userName= MutableLiveData<Resource<UserName>>()
 
     fun getSlides(){
         viewModelScope.launch {
@@ -52,6 +50,16 @@ class HomeViewModel(private val repo: Repo) : ViewModel() {
                 }
             } catch (e: Exception) {
                 testimonialsException.value = e
+            }
+        }
+    }
+
+    fun fetchUser(email:String?){
+        viewModelScope.launch {
+            try {
+                userName.value=repo.getUser(email)
+            } catch (e: Exception) {
+                userName.value= Resource.Failure(e)
             }
         }
     }

@@ -2,112 +2,131 @@ package com.melvin.ongandroid.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
-import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED
+import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
+import com.facebook.login.LoginManager
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.melvin.ongandroid.R
-import com.melvin.ongandroid.model.repository.Constant
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
-import com.melvin.ongandroid.businesslogic.domain.OnRegister
 import com.melvin.ongandroid.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(), OnRegister {
+class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var navController: NavController
 
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuthListener = FirebaseAuth.AuthStateListener {
+        val user = Firebase.auth.currentUser
+        setPhoto(user)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        val bundle = intent.extras
-        //val token = bundle?.getString("token")
-        //var sharedPrefences=token
-        //prefHelper = PrefHelper(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         setSupportActionBar(binding.toolbar)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
 
+        binding.navView.getMenu().getItem(0).setChecked(true)
+
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
-                    Toast.makeText(this, getString(R.string.title_intro), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     navController.navigate(R.id.homeFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_signout -> {
-                    Toast.makeText(this, getString(R.string.title_sign_out), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     PrefHelper(this).clear()
+                    LoginManager.getInstance().logOut()
+                    AuthUI.getInstance().signOut(this)
                     startActivity(Intent(this, LoginActivity::class.java))
-
                     true
                 }
                 R.id.nav_testimonios -> {
-                    Toast.makeText(this, getString(R.string.nav_drawer_item_testimonios), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     navController.navigate(R.id.testimonialsFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_act -> {
-                    Toast.makeText(this, getString(R.string.title_actividades), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.activitiesFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_contacts -> {
-                    Toast.makeText(this, getString(R.string.title_contacto), Toast.LENGTH_SHORT).show()
+                    navController.navigateUp()
+                    navController.navigate(R.id.contactFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_nosotros -> {
-                    Toast.makeText(this, getString(R.string.title_nosotros), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     navController.navigate(R.id.weFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_nov -> {
-                    Toast.makeText(this, getString(R.string.title_novedades), Toast.LENGTH_SHORT).show()
                     navController.navigateUp()
                     navController.navigate(R.id.newsFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 else -> {
-
                     false
                 }
             }
         }
-    }
 
+
+    }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
+        val navController = findNavController(R.id.homeFragment)
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    public override fun onBackPressed() {
+    override fun onBackPressed() {
         finish()
     }
+     fun refreshWeFragment() {
+         navController.navigateUp()
+         navController.navigate(R.id.weFragment)
 
-    override fun onClickRegister() {
 
+     }
+
+    private fun setPhoto(user: FirebaseUser?){
+        user?.let{
+        val photoUrl = user?.photoUrl
+        Glide.with(this).load(photoUrl).centerCrop().into(binding.ivUser)
+        binding.ivUser.visibility= View.VISIBLE
+        }
     }
+
     fun refreshFr(){
         navController.navigate(R.id.homeFragment)
     }
