@@ -4,6 +4,8 @@ package com.melvin.ongandroid.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.facebook.AccessToken
+import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 import com.melvin.ongandroid.model.repository.Constant
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
@@ -21,7 +23,7 @@ class SplashActivity  : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN ) || authGoogle.currentUser!=null) {
+        if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN ) || authGoogle.currentUser!=null ) {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
         } else {

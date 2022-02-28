@@ -1,6 +1,5 @@
 package com.melvin.ongandroid.view
 
-import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +9,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.CallbackManager
@@ -19,17 +17,13 @@ import com.facebook.FacebookException
 import com.facebook.internal.CallbackManagerImpl
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.melvin.ongandroid.R
@@ -43,15 +37,13 @@ import com.melvin.ongandroid.viewmodel.UserViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.HttpException
 import java.io.IOException
-import java.net.UnknownHostException
-import java.security.Principal
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     var emailValid = false
     var passwordValid = false
     private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource())) }
-    lateinit var prefHelper: PrefHelper
+    private lateinit var prefHelper: PrefHelper
     private lateinit var callbackManager: CallbackManager
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
@@ -165,6 +157,7 @@ class LoginActivity : AppCompatActivity() {
                     )
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finishAffinity()
                     finish()
                 } else {
                     binding.prBar.visibility = View.GONE
@@ -192,6 +185,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showDialog(message: String) {
         MaterialAlertDialogBuilder(this).setMessage(message)
+            .setCancelable(false)
             .setPositiveButton(getString(R.string.ok)) { dialog, which ->
                 binding.prBar.visibility = View.GONE
             }.show()
@@ -241,7 +235,7 @@ class LoginActivity : AppCompatActivity() {
             // Login Facebook
             if(requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
                 callbackManager.onActivityResult(requestCode, resultCode, data)
-            } else if (requestCode == RC_SIGN_IN) {
+            } else if (requestCode == RC_SIGN_IN) { // login with Google
                 val response = IdpResponse.fromResultIntent(data)
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
 
@@ -258,7 +252,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         } else {
-            showDialog("Ocurrio un error inesperado")
+            // usuario preciona back en el dialogo de inicio se sesion con redes sociales:
+            showDialog("No se pudo iniciar sesión")
         }
     }
 
@@ -278,10 +273,9 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    fun facebookLogin() {
+    private fun facebookLogin() {
         callbackManager = CallbackManager.Factory.create()
-
-        binding.fbButton.setOnClickListener {
+        binding.btFacebook.setOnClickListener {
             binding.prBar.visibility = View.VISIBLE
 
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
@@ -292,25 +286,12 @@ class LoginActivity : AppCompatActivity() {
                     override fun onSuccess(result: LoginResult?) {
                         if (result != null) {
                             //guardamos el login en firebase
-                            binding.prBar.visibility = View.GONE
                             val token = result.accessToken
                             val credential = FacebookAuthProvider.getCredential(token.token)
-                            FirebaseAuth.getInstance().signInWithCredential(credential)
-                                .addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        startActivity(
-                                            Intent(
-                                                applicationContext,
-                                                MainActivity::class.java
-                                            )
-                                        )
-                                        finish()
-                                    } else {
-                                        // no se pudo autenticar con firebase
-                                    }
-                                }
+                            firebaseSignInWithCredential(credential)
+                        }else{
+                            showDialog("Ocurrió un error inesperado")
                         }
-
                     }
 
                     override fun onCancel() {
@@ -322,8 +303,33 @@ class LoginActivity : AppCompatActivity() {
                         binding.prBar.visibility = View.GONE
                         showDialog("No se pudo iniciar sesión")
                     }
-
-                })
+                }
+            )
         }
     }
+
+    private fun firebaseSignInWithCredential(credential: AuthCredential) {
+        binding.prBar.visibility = View.VISIBLE
+        FirebaseAuth.getInstance().signInWithCredential(credential)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
+                    finish()
+                } else {
+                    MaterialAlertDialogBuilder(this).setMessage("no se pudo iniciar sesion correctamente")
+                        .setCancelable(false)
+                        .setPositiveButton("Reintentar") { dialog, which ->
+                            firebaseSignInWithCredential(credential)
+                        }
+                        .setNegativeButton("Cancelar"){dialog, which ->
+                            binding.prBar.visibility = View.GONE
+                            LoginManager.getInstance().logOut()
+                        }
+                        .show()
+                }
+            }
+    }
+
 }
