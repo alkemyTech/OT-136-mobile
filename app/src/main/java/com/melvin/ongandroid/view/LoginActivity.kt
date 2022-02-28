@@ -1,6 +1,5 @@
 package com.melvin.ongandroid.view
 
-import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +9,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.CallbackManager
@@ -19,7 +17,6 @@ import com.facebook.FacebookException
 import com.facebook.internal.CallbackManagerImpl
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -40,15 +37,13 @@ import com.melvin.ongandroid.viewmodel.UserViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import retrofit2.HttpException
 import java.io.IOException
-import java.net.UnknownHostException
-import java.security.Principal
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     var emailValid = false
     var passwordValid = false
     private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource())) }
-    lateinit var prefHelper: PrefHelper
+    private lateinit var prefHelper: PrefHelper
     private lateinit var callbackManager: CallbackManager
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
@@ -239,7 +234,7 @@ class LoginActivity : AppCompatActivity() {
             // Login Facebook
             if(requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
                 callbackManager.onActivityResult(requestCode, resultCode, data)
-            } else if (requestCode == RC_SIGN_IN) {
+            } else if (requestCode == RC_SIGN_IN) { // login with Google
                 val response = IdpResponse.fromResultIntent(data)
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
 
@@ -276,7 +271,7 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    fun facebookLogin() {
+    private fun facebookLogin() {
         callbackManager = CallbackManager.Factory.create()
 
         binding.fbButton.setOnClickListener {
