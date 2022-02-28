@@ -70,18 +70,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/logo_login" />
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/fbButton"
+            <Button
+                android:id="@+id/btFacebook"
                 android:layout_width="300dp"
                 android:layout_height="65dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="10dp"
-                app:buttonSize="wide"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/googleButton" />
+                app:layout_constraintTop_toBottomOf="@+id/googleButton"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/login_with_facebook"
+                />
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/googleButton"

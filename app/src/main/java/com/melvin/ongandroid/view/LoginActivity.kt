@@ -157,6 +157,7 @@ class LoginActivity : AppCompatActivity() {
                     )
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finishAffinity()
                     finish()
                 } else {
                     binding.prBar.visibility = View.GONE
@@ -251,7 +252,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         } else {
-            showDialog("Ocurrio un error inesperado")
+            // usuario preciona back en el dialogo de inicio se sesion con redes sociales:
+            showDialog("No se pudo iniciar sesión")
         }
     }
 
@@ -273,7 +275,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun facebookLogin() {
         callbackManager = CallbackManager.Factory.create()
-        binding.fbButton.setOnClickListener {
+        binding.btFacebook.setOnClickListener {
             binding.prBar.visibility = View.VISIBLE
 
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
@@ -311,7 +313,9 @@ class LoginActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finishAffinity()
                     finish()
                 } else {
                     MaterialAlertDialogBuilder(this).setMessage("no se pudo iniciar sesion correctamente")
