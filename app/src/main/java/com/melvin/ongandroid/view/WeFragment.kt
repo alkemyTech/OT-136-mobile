@@ -35,6 +35,7 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
     ): View {
         _binding = FragmentWeBinding.inflate(inflater, container, false)
 
+
         setUpRecyclerView()
         viewModel.fetchWeList()
 
@@ -87,5 +88,7 @@ class WeFragment : Fragment(), WeAdapter.OnNewClickListener {
             }
             alertDialog.show()
         }
+
+
     }
 

@@ -273,7 +273,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun facebookLogin() {
         callbackManager = CallbackManager.Factory.create()
-
         binding.fbButton.setOnClickListener {
             binding.prBar.visibility = View.VISIBLE
 

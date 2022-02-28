@@ -5,35 +5,42 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.ViewGroup import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.melvin.ongandroid.R
+import com.melvin.ongandroid.businesslogic.data.PrefHelper
 import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
-import com.melvin.ongandroid.model.New
 import com.melvin.ongandroid.model.Slides
 import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import com.melvin.ongandroid.model.Testimonials
-import com.melvin.ongandroid.view.adapters.NewsAdapter
-import com.melvin.ongandroid.view.adapters.OnNewClickListener
-import com.melvin.ongandroid.view.adapters.SlidesAdapter
-import com.melvin.ongandroid.view.adapters.TestimonialsAdapter
+import com.melvin.ongandroid.view.adapters.*
 
 
 class HomeFragment : Fragment(), OnNewClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
-    private lateinit var testimonialsAdapter: TestimonialsAdapter
+    private lateinit var testimonialsHomeAdapter: TestimonialsHomeAdapter
     private lateinit var slidesAdapter: SlidesAdapter
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val firebaseAuthListener = FirebaseAuth.AuthStateListener {
+        val user = Firebase.auth.currentUser
+        setName(user)
+        }
+    lateinit var prefHelper: PrefHelper
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +55,11 @@ class HomeFragment : Fragment(), OnNewClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
+        /*prefHelper = PrefHelper(requireContext())
+        val userEmail = prefHelper.getString(Constant.PREF_USERNAME)
+        viewModel.fetchUser(userEmail)*/
 
         setUpNewsRecyclerView()
         hideSectionTestimonials(true)
@@ -90,7 +100,6 @@ class HomeFragment : Fragment(), OnNewClickListener {
                 is Resource.Failure->{
                     binding.prBar.visibility=View.GONE
                     binding.prError.visibility=View.VISIBLE
-                    //Toast.makeText(requireContext(),R.string.An_error_occurred_while_obtaining_the_information,Toast.LENGTH_LONG).show()
                     alerDialogMasiveError()
                     binding.retryButton.setOnClickListener {
                         (activity as MainActivity).refreshFr()
@@ -120,9 +129,9 @@ class HomeFragment : Fragment(), OnNewClickListener {
     }
 
     private fun setupTestimonialsRecyclerView(value: Testimonials) {
-        testimonialsAdapter = TestimonialsAdapter(value)
+        testimonialsHomeAdapter = TestimonialsHomeAdapter(value)
         binding.rvTestimonials.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvTestimonials.adapter = testimonialsAdapter
+        binding.rvTestimonials.adapter = testimonialsHomeAdapter
         hideSectionTestimonials(false)
     }
 
@@ -155,5 +164,29 @@ class HomeFragment : Fragment(), OnNewClickListener {
         alertDialog.show()
     }
 
+    private fun setName(user: FirebaseUser?){
+        if(user!=null){
+            val name = user.displayName
+            val email = user.email
+            binding.tvWelcome.text="Bienvenid@ $name"
+        }/*else {
+            viewModel.userName.observe(viewLifecycleOwner) { result ->
+                when (result) {
+                    is Resource.Success -> {
+                        val name=result.data.name
+                        binding.tvWelcome.text = "Bienvenid@ $name"
+                    }
+                    is Resource.Failure->{binding.tvWelcome.text = "Bienvenid@"}
+                }
+            }
+        }*/
+    }
+
+    override fun onStart() {
+        super.onStart()
+        firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
+    }
 }
+
+
 

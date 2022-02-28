@@ -1,5 +1,6 @@
 package com.melvin.ongandroid.view
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.AttributeSet
 import androidx.fragment.app.Fragment
@@ -9,9 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
@@ -25,6 +29,7 @@ import com.melvin.ongandroid.view.adapters.TestimonialsAdapter
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.NewsViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
+import kotlin.coroutines.EmptyCoroutineContext
 
 
 class NewsFragment : Fragment() {
@@ -49,16 +54,17 @@ class NewsFragment : Fragment() {
                     binding.prBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    binding.prBar.visibility = View.GONE
-                    initRecyclerView(result.data)
+                    if (result.data.isEmpty()){
+                        binding.prBar.visibility = View.GONE
+                        alerDialogEmpty()
+                    }else{
+                        binding.prBar.visibility = View.GONE
+                        initRecyclerView(result.data)
+                    }
                 }
                 is Resource.Failure -> {
                     binding.prBar.visibility = View.GONE
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.An_error_occurred_while_obtaining_the_information,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    alerDialogError()
                 }
             }
         }
@@ -69,4 +75,38 @@ class NewsFragment : Fragment() {
         binding.rvNews.layoutManager = StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
         binding.rvNews.adapter = adapter
     }
+
+    private fun showDialog(message: String) {
+        MaterialAlertDialogBuilder(requireContext()).setMessage(message)
+            .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                {}
+            }.show()
+    }
+
+    private fun alerDialogError() {
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle(R.string.error_system_dialog)
+        alertDialog.setMessage(R.string.message_dialog_error)
+        alertDialog.setPositiveButton(R.string.reintent_dialog) { _, _ ->
+            findNavController().navigate(R.id.newsFragment)
+        }
+        alertDialog.setNegativeButton(R.string.cancel_dialog) { _, _ ->
+
+        }
+        alertDialog.show()
+    }
+
+    private fun alerDialogEmpty() {
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle(R.string.error_system_dialog)
+        alertDialog.setMessage(R.string.message_dialog_empty)
+        alertDialog.setPositiveButton(R.string.reintent_dialog) { _, _ ->
+            findNavController().navigate(R.id.newsFragment)
+        }
+        alertDialog.setNegativeButton(R.string.cancel_dialog) { _, _ ->
+
+        }
+        alertDialog.show()
+    }
+
 }

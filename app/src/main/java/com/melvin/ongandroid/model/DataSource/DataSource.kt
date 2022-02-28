@@ -10,9 +10,6 @@ import com.melvin.ongandroid.businesslogic.vo.RetrofitClient
 import com.melvin.ongandroid.businesslogic.vo.RetrofitClient.retrofitService
 import com.melvin.ongandroid.model.*
 import com.melvin.ongandroid.model.repository.BaseDataSource
-import com.melvin.ongandroid.model.response.Activities
-import com.melvin.ongandroid.model.response.User
-import com.melvin.ongandroid.model.response.VerifyUser
 import com.melvin.ongandroid.model.service.OnAPIResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,7 +18,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
 import com.melvin.ongandroid.model.repository.*
-import com.melvin.ongandroid.model.response.Contacts
+import com.melvin.ongandroid.model.response.*
 
 class DataSource :BaseDataSource(){
     suspend fun postRegister(user: User, context: Context?, onResponse: OnAPIResponse){
@@ -33,8 +30,6 @@ class DataSource :BaseDataSource(){
                     response: Response<DefaultResponse>
                 ) {
 
-                    Toast.makeText(context,"User was succesfully register",
-                        Toast.LENGTH_LONG).show()
                     if(response.isSuccessful){
                         onResponse.onSuccess(response)
                     } else {
@@ -44,7 +39,6 @@ class DataSource :BaseDataSource(){
                 }
                 override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                     onResponse.onFailure("")
-                    Toast.makeText(context,R.string.user_not_register, Toast.LENGTH_LONG).show()
 
                     if (t is HttpException){
                         when (t.code()) {
@@ -102,6 +96,10 @@ class DataSource :BaseDataSource(){
         return retrofitService.getFourTestimonials()
     }
 
+    suspend fun getAllTestimonials(): Response<Testimonials> {
+        return retrofitService.getAllTestimonials()
+    }
+
     suspend fun getSlides():Response<Slides>{
         return retrofitService.getSlides()
     }
@@ -122,6 +120,10 @@ class DataSource :BaseDataSource(){
             : Response<Contacts> {
         return RetrofitClient.retrofitService.postContact(name, phone, email, message)
 
+    }
+
+    suspend fun getUserByName(email: String?):Resource<UserName>{
+        return Resource.Success(retrofitService.getUserByName(email))
     }
 
 }
