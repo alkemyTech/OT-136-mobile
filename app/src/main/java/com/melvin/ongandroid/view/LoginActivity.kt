@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.internal.CallbackManagerImpl
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.firebase.ui.auth.AuthUI
@@ -51,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
     var passwordValid = false
     private val userViewModel by viewModels<UserViewModel> { VMFactory(RepoImpl(DataSource())) }
     lateinit var prefHelper: PrefHelper
-    private val callbackManager = CallbackManager.Factory.create()
+    private lateinit var callbackManager: CallbackManager
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
@@ -236,37 +237,29 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        if(resultCode == RESULT_OK) {
+            // Login Facebook
+            if(requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
+                callbackManager.onActivityResult(requestCode, resultCode, data)
+            } else if (requestCode == RC_SIGN_IN) {
+                val response = IdpResponse.fromResultIntent(data)
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
 
-            try {
-                // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                firebaseAuthWithGoogle(account.idToken!!)
+                try {
+                    // Google Sign In was successful, authenticate with Firebase
+                    val account = task.getResult(ApiException::class.java)!!
+                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
+                    firebaseAuthWithGoogle(account.idToken!!)
 
-            } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
-                showDialog("Ocurrio un error ${response?.error?.errorCode}")
-                Log.w(TAG, "Google sign in failed", e)
+                } catch (e: ApiException) {
+                    // Google Sign In failed, update UI appropriately
+                    showDialog("Ocurrio un error ${response?.error?.errorCode}")
+                    Log.w(TAG, "Google sign in failed", e)
+                }
             }
+        } else {
+            showDialog("Ocurrio un error inesperado")
         }
-    /*callbackManager.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
-
-            if (resultCode == Activity.RESULT_OK) {
-                // Successfully signed in
-
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            } else {
-                showDialog("Ocurrio un error ${response?.error?.errorCode}")
-            }
-
-
-        }*/
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
@@ -286,16 +279,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun facebookLogin() {
+        callbackManager = CallbackManager.Factory.create()
+
         binding.fbButton.setOnClickListener {
             binding.prBar.visibility = View.VISIBLE
+
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
+
             LoginManager.getInstance().registerCallback(callbackManager,
                 object : FacebookCallback<LoginResult> {
 
                     override fun onSuccess(result: LoginResult?) {
                         if (result != null) {
                             //guardamos el login en firebase
-                            binding.prBar.visibility = View.VISIBLE
+                            binding.prBar.visibility = View.GONE
                             val token = result.accessToken
                             val credential = FacebookAuthProvider.getCredential(token.token)
                             FirebaseAuth.getInstance().signInWithCredential(credential)
@@ -317,11 +314,12 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     override fun onCancel() {
-
+                        binding.prBar.visibility = View.GONE
+                        showDialog("Se canceló inicio de sesión")
                     }
 
                     override fun onError(error: FacebookException?) {
-                        binding.prBar.visibility = View.INVISIBLE
+                        binding.prBar.visibility = View.GONE
                         showDialog("No se pudo iniciar sesión")
                     }
 
