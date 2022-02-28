@@ -16,17 +16,49 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="300dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/fragment_login_bt_login"
+                android:textColor="#ffffff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvlPassword" />
+
+            <Button
+                android:id="@+id/btnSignUp"
+                android:layout_width="300dp"
+                android:layout_height="65dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/fragment_login_bt_sign_up"
+                android:textColor="#ffffff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
             <ImageView
                 android:id="@+id/iv_logo"
@@ -37,6 +69,31 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/logo_login" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/fbButton"
+                android:layout_width="300dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
+                app:buttonSize="wide"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/googleButton" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/googleButton"
+                android:layout_width="308dp"
+                android:layout_height="63dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
+                app:buttonSize="wide"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tvlEmail"
@@ -85,64 +142,6 @@
                     android:textColorHint="@color/LightBlue" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="300dp"
-                android:layout_height="65dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/fragment_login_bt_login"
-                android:textColor="#ffffff"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvlPassword" />
-
-            <Button
-                android:id="@+id/btnSignUp"
-                android:layout_width="300dp"
-                android:layout_height="65dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/fragment_login_bt_sign_up"
-                android:textColor="#ffffff"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/googleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:buttonSize="wide"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline15"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/fbButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:buttonSize="wide"
-                android:layout_marginTop="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/googleButton"
-                 />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="606dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
