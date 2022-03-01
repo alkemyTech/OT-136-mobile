@@ -26,9 +26,11 @@ class SplashActivity  : AppCompatActivity() {
         if (prefHelper.getBoolean(Constant.PREF_IS_LOGIN ) || authGoogle.currentUser!=null ) {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
+            finish()
         } else {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
