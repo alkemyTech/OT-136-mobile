@@ -48,13 +48,17 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setupWithNavController(navController)
 
         binding.navView.getMenu().getItem(0).setChecked(true)
+        var itemMenu=0
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_home -> {
+                    if(itemMenu==0){ binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
                     navController.navigateUp()
                     navController.navigate(R.id.homeFragment)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        itemMenu=0}
                     true
                 }
                 R.id.nav_signout -> {
@@ -66,33 +70,52 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_testimonios -> {
+                    if(itemMenu==3){ binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
                     navController.navigateUp()
                     navController.navigate(R.id.testimonialsFragment)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        itemMenu=3}
                     true
                 }
                 R.id.nav_act -> {
+                    if(itemMenu==1){ binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
                     navController.navigateUp()
                     navController.navigate(R.id.activitiesFragment)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        itemMenu=1}
                     true
                 }
                 R.id.nav_contacts -> {
+                    if(itemMenu==5){ binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
                     navController.navigateUp()
                     navController.navigate(R.id.contactFragment)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        itemMenu=5
+                    }
                     true
                 }
                 R.id.nav_nosotros -> {
-                    navController.navigateUp()
-                    navController.navigate(R.id.weFragment)
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    if(itemMenu==4){ binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    } else{
+                        navController.navigateUp()
+                        navController.navigate(R.id.weFragment)
+                        binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        itemMenu=4
+                    }
                     true
                 }
                 R.id.nav_nov -> {
+                    if(binding.navView.menu.getItem(2).isChecked()==true){
+                        binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    }else{
                     navController.navigateUp()
                     navController.navigate(R.id.newsFragment)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
+                        itemMenu=2
+                    }
                     true
                 }
                 else -> {
