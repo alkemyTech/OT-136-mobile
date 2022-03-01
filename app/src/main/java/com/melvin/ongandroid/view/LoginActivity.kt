@@ -213,20 +213,6 @@ class LoginActivity : AppCompatActivity() {
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-        /*val providers = arrayListOf(
-            AuthUI.IdpConfig.GoogleBuilder().build()
-        )
-
-        binding.googleButton.setOnClickListener {
-            startActivityForResult(
-                AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .setAvailableProviders(providers)
-                    .setIsSmartLockEnabled(false)
-                    .build(),
-                RC_SIGN_IN
-            )
-        }*/
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
