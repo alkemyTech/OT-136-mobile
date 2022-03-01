@@ -40,10 +40,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
+        firebaseAuth.addAuthStateListener(this.firebaseAuthListener)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        val appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.newsFragment,
+                R.id.homeFragment,
+                R.id.testimonialsFragment,
+                R.id.activitiesFragment,
+                R.id.contactFragment,
+                R.id.weFragment
+            ), binding.drawerLayout
+        )
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
 
@@ -133,8 +142,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        finish()
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
+
      fun refreshWeFragment() {
          navController.navigateUp()
          navController.navigate(R.id.weFragment)
