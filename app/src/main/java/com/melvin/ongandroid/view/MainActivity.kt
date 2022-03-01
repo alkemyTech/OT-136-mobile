@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
     private fun setPhoto(user: FirebaseUser?){
         user?.let{
         val photoUrl = user?.photoUrl
-        Glide.with(this).load(photoUrl).centerCrop().into(binding.ivUser)
+        Glide.with(applicationContext).load(photoUrl).centerCrop().into(binding.ivUser)
         binding.ivUser.visibility= View.VISIBLE
         }
     }
