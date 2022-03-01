@@ -12,9 +12,10 @@ import com.melvin.ongandroid.model.TestimonialData
 import com.melvin.ongandroid.model.Testimonials
 import com.squareup.picasso.Picasso
 
-class TestimonialsHomeAdapter(private var testimonials: Testimonials)  : RecyclerView.Adapter<TestimonialsHomeAdapter.ViewHolder>(){
+class TestimonialsHomeAdapter(private var testimonials: Testimonials,
+                              private val itemClickListener: OnTestClickListener)  : RecyclerView.Adapter<TestimonialsHomeAdapter.ViewHolder>(){
 
-    class ViewHolder (private val binding: ItemTestimonialHomeBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder (private val binding: ItemTestimonialHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(testimonial: TestimonialData){
             binding.tvDesc.text = testimonial.description
             binding.tvTitulo.text= testimonial.name
@@ -28,7 +29,7 @@ class TestimonialsHomeAdapter(private var testimonials: Testimonials)  : Recycle
             binding.cvItem.cardElevation=0f
             binding.ivTestimonial.setImageResource(R.drawable.ic_arrow_next)
             binding.ivTestimonial.setOnClickListener {
-                Toast.makeText(MainApplication.applicationContext(), MainApplication.applicationContext().getString(R.string.coming_soon_testimonials), Toast.LENGTH_SHORT).show()
+                itemClickListener.onClickedTestArrow()
             }
         }
     }
@@ -50,4 +51,8 @@ class TestimonialsHomeAdapter(private var testimonials: Testimonials)  : Recycle
     override fun getItemCount(): Int {
         return testimonials.data.size + 1
     }
+}
+
+interface OnTestClickListener{
+    fun onClickedTestArrow()
 }

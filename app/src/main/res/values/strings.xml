@@ -65,6 +65,8 @@
     <string name="cancel_dialog">Cancelar</string>
     <string name="facebook_app_id">921952871835136</string>
     <string name="fb_login_protocol_scheme">fb921952871835136</string>
-    <string name="login_with_facebook">Iniciar sesión con facebook</string>
+    <string name="login_with_facebook">Iniciar sesión con Facebook</string>
+    <string name="linkedin">Linkedin</string>
+    <string name="facebook">Facebook</string>
 
 </resources>

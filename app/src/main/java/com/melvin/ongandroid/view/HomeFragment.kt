@@ -28,7 +28,7 @@ import com.melvin.ongandroid.model.Testimonials
 import com.melvin.ongandroid.view.adapters.*
 
 
-class HomeFragment : Fragment(), OnNewClickListener {
+class HomeFragment : Fragment(), OnNewClickListener, OnTestClickListener {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>{ VMFactory(RepoImpl(DataSource())) }
@@ -40,6 +40,7 @@ class HomeFragment : Fragment(), OnNewClickListener {
         setName(user)
         }
     lateinit var prefHelper: PrefHelper
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +58,7 @@ class HomeFragment : Fragment(), OnNewClickListener {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
-        /*prefHelper = PrefHelper(requireContext())
-        val userEmail = prefHelper.getString(Constant.PREF_USERNAME)
-        viewModel.fetchUser(userEmail)*/
+
 
         setUpNewsRecyclerView()
         hideSectionTestimonials(true)
@@ -129,7 +128,7 @@ class HomeFragment : Fragment(), OnNewClickListener {
     }
 
     private fun setupTestimonialsRecyclerView(value: Testimonials) {
-        testimonialsHomeAdapter = TestimonialsHomeAdapter(value)
+        testimonialsHomeAdapter = TestimonialsHomeAdapter(value, this)
         binding.rvTestimonials.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvTestimonials.adapter = testimonialsHomeAdapter
         hideSectionTestimonials(false)
@@ -151,6 +150,10 @@ class HomeFragment : Fragment(), OnNewClickListener {
         findNavController().navigate(R.id.newsFragment)
     }
 
+    override fun onClickedTestArrow() {
+        findNavController().navigate(R.id.testimonialsFragment)
+    }
+
     private fun alerDialogMasiveError(){
         val alertDialog = AlertDialog.Builder(context)
         alertDialog.setTitle("Falla Del Sistema")
@@ -166,20 +169,9 @@ class HomeFragment : Fragment(), OnNewClickListener {
 
     private fun setName(user: FirebaseUser?){
         if(user!=null){
-            val name = user.displayName
-            val email = user.email
-            binding.tvWelcome.text="Bienvenid@ $name"
-        }/*else {
-            viewModel.userName.observe(viewLifecycleOwner) { result ->
-                when (result) {
-                    is Resource.Success -> {
-                        val name=result.data.name
-                        binding.tvWelcome.text = "Bienvenid@ $name"
-                    }
-                    is Resource.Failure->{binding.tvWelcome.text = "Bienvenid@"}
-                }
-            }
-        }*/
+            val name = user?.displayName
+            binding.tvWelcome.text = "Bienvenid@ $name"
+        }
     }
 
     override fun onStart() {
