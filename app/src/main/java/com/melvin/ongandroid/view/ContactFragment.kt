@@ -148,5 +148,13 @@ class ContactFragment : Fragment() {
         binding.tvPhone.setText("")
         binding.tvEmail.setText("")
         binding.tvConsultation.setText("")
+        hideErrors()
+    }
+
+    private fun hideErrors() {
+        binding.tvName.error=null
+        binding.tvPhone.error=null
+        binding.tvEmail.error=null
+        binding.tvConsultation.error=null
     }
 }
