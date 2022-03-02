@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup import android.widget.Toast
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -17,6 +17,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.melvin.ongandroid.R
 import com.melvin.ongandroid.businesslogic.data.PrefHelper
+import com.melvin.ongandroid.businesslogic.vo.MainApplication
 import com.melvin.ongandroid.model.DataSource.DataSource
 import com.melvin.ongandroid.businesslogic.vo.Resource
 import com.melvin.ongandroid.databinding.FragmentHomeBinding
@@ -25,6 +26,7 @@ import com.melvin.ongandroid.model.repository.RepoImpl
 import com.melvin.ongandroid.viewmodel.HomeViewModel
 import com.melvin.ongandroid.viewmodel.VMFactory
 import com.melvin.ongandroid.model.Testimonials
+import com.melvin.ongandroid.model.repository.Constant
 import com.melvin.ongandroid.view.adapters.*
 
 
@@ -39,7 +41,7 @@ class HomeFragment : Fragment(), OnNewClickListener, OnTestClickListener {
         val user = Firebase.auth.currentUser
         setName(user)
         }
-    lateinit var prefHelper: PrefHelper
+    private var prefHelper: PrefHelper = PrefHelper(MainApplication.applicationContext())
 
 
 
@@ -57,9 +59,10 @@ class HomeFragment : Fragment(), OnNewClickListener, OnTestClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
+        firebaseAuth.addAuthStateListener(this.firebaseAuthListener)
 
-
+        showName(prefHelper.getString(Constant.PREF_NAME))
+        binding.tvNews.visibility = View.GONE
         setUpNewsRecyclerView()
         hideSectionTestimonials(true)
         hideSectionSlides(true)
@@ -67,9 +70,13 @@ class HomeFragment : Fragment(), OnNewClickListener, OnTestClickListener {
         viewModel.getTestimonials()
         setObservers()
 
-        viewModel.getSlides()
-
         return binding.root
+    }
+
+    private fun showName(name:String?){
+        if (name != null) {
+            binding.tvWelcome.text = "Bienvenid@ $name"
+        }
     }
 
     private fun hideSectionTestimonials(hide: Boolean) {
@@ -90,13 +97,18 @@ class HomeFragment : Fragment(), OnNewClickListener, OnTestClickListener {
                 is Resource.Loading -> {
                     binding.prBar.visibility = View.VISIBLE
                     binding.prError.visibility = View.GONE
+                    binding.tvNews.visibility = View.GONE
                 }
                 is Resource.Success -> {
                     binding.prBar.visibility = View.GONE
                     binding.prError.visibility = View.GONE
-                    binding.rvNews.adapter = NewsAdapter(requireContext(), result.data, this)
+                    if (result.data.isNotEmpty()){
+                        binding.tvNews.visibility = View.VISIBLE
+                        binding.rvNews.adapter = NewsAdapter(requireContext(), result.data, this)
+                    }
                 }
                 is Resource.Failure->{
+                    binding.tvNews.visibility = View.GONE
                     binding.prBar.visibility=View.GONE
                     binding.prError.visibility=View.VISIBLE
                     alerDialogMasiveError()
@@ -143,7 +155,6 @@ class HomeFragment : Fragment(), OnNewClickListener, OnTestClickListener {
 
     private fun hideSectionSlides(hide: Boolean) {
         binding.rvSlides.isVisible = !hide
-        binding.rvSlides.isVisible = !hide
     }
 
     override fun onClickedNewsArrow() {
@@ -156,12 +167,12 @@ class HomeFragment : Fragment(), OnNewClickListener, OnTestClickListener {
 
     private fun alerDialogMasiveError(){
         val alertDialog = AlertDialog.Builder(context)
-        alertDialog.setTitle("Falla Del Sistema")
-        alertDialog.setMessage("Error General")
-        alertDialog.setPositiveButton("Reintentar"){_,_->
+        alertDialog.setTitle(getString(R.string.system_failure))
+        alertDialog.setMessage(getString(R.string.error_general))
+        alertDialog.setPositiveButton(getString(R.string.retry)){ _, _->
             findNavController().navigate(R.id.homeFragment)
         }
-        alertDialog.setNegativeButton("Cancelar"){_,_->
+        alertDialog.setNegativeButton(getString(R.string.cancel_dialog)){_,_->
 
         }
         alertDialog.show()
@@ -169,14 +180,14 @@ class HomeFragment : Fragment(), OnNewClickListener, OnTestClickListener {
 
     private fun setName(user: FirebaseUser?){
         if(user!=null){
-            val name = user?.displayName
-            binding.tvWelcome.text = "Bienvenid@ $name"
+            val name = user.displayName
+            showName(name)
         }
     }
 
     override fun onStart() {
         super.onStart()
-        firebaseAuth!!.addAuthStateListener(this.firebaseAuthListener!!)
+        firebaseAuth.addAuthStateListener(this.firebaseAuthListener)
     }
 }
 

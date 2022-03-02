@@ -8,6 +8,10 @@ data class VerifyUser(
     @SerializedName("message") val message: String?,
     @SerializedName("error") val messageError: String?
 )
+data class Data (
+    @SerializedName("user") val user: UserLogin?
+)
 
-class Data {
-}
+data class UserLogin (
+    @SerializedName("name") val name: String?
+)

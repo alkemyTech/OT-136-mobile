@@ -110,6 +110,7 @@
                 tools:listitem="@layout/item_slide_home"/>
 
             <TextView
+                android:id="@+id/tv_news"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_ult_novedades"

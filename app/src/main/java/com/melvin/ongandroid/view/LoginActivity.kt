@@ -155,6 +155,7 @@ class LoginActivity : AppCompatActivity() {
                     saveSession(
                         binding.tvEmail.text.toString(),
                         binding.tvPassword.text.toString(),
+                        it.data?.user?.name!!
                     )
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
@@ -192,9 +193,10 @@ class LoginActivity : AppCompatActivity() {
             }.show()
     }
 
-    private fun saveSession(username: String, password: String) {
+    private fun saveSession(username: String, password: String, name:String) {
         prefHelper.put(Constant.PREF_USERNAME, username)
         prefHelper.put(Constant.PREF_PASSWORD, password)
+        prefHelper.put(Constant.PREF_NAME, name)
         prefHelper.put(Constant.PREF_IS_LOGIN, true)
     }
 
