@@ -68,5 +68,7 @@
     <string name="login_with_facebook">Iniciar sesión con Facebook</string>
     <string name="linkedin">Linkedin</string>
     <string name="facebook">Facebook</string>
+    <string name="error_general">Error general</string>
+    <string name="system_failure">Falla del sistema</string>
 
 </resources>
